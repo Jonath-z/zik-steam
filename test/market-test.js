@@ -18,6 +18,7 @@ describe("Market", function () {
 
     await market.uploadSong(
       "https://meta.com.io",
+      "https://stream.ipfs.io.thebloog",
       auctionPrice,
       supportAuctionPrice,
       {

@@ -13,6 +13,7 @@ contract Market is ReentrancyGuard {
 
     struct Song {
         uint256 id;
+        string songStream;
         string metadata;
         uint256 price;
         uint256 supportPrice;
@@ -35,6 +36,7 @@ contract Market is ReentrancyGuard {
 
     function uploadSong(
         string memory _metadata,
+        string memory _songStream,
         uint256 _price,
         uint256 _supportPrice
     ) public payable {
@@ -46,6 +48,7 @@ contract Market is ReentrancyGuard {
 
         songs[newId] = Song(
             newId,
+            _songStream
             _metadata,
             _price,
             _supportPrice,
