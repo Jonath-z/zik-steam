@@ -1,5 +1,5 @@
 import React from 'react';
-import DiscoverPage from '../components/Discover';
+import DiscoverPage from '../components/_NoAuth/Discover';
 
 const Discover = () => {
   return (

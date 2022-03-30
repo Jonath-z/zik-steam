@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import LandingPage from '../components/Home'
+import React from 'react';
+import styles from '../styles/Home.module.css';
+import LandingPage from '../components/_NoAuth/Home';
 
-export default function Home() {
+const Home = () => {
   return (
     <div className={styles.container}>
       <LandingPage />
     </div>
-  )
-}
+  );
+};
+export default Home;
