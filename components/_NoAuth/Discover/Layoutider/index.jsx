@@ -20,7 +20,7 @@ const LayoutSider = ({ isSecured, setMenuContent }) => {
         style={{ margin: '40px 0' }}
       >
         <SubMenu key="sub1" title="Browse Music">
-          <Item key="1" style={{ paddingLeft: '48px' }} cccc>
+          <Item key="1" style={{ paddingLeft: '48px' }}>
             <span>Discover</span>
           </Item>
           <Item
