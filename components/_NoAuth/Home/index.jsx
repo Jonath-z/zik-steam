@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import streamImage from '../assets/images/stream-vector.png';
+import streamImage from '../../assets/images/stream-vector.png';
 import Header from './Header';
 import { Row, Col, Button } from 'antd';
 
