@@ -7,7 +7,7 @@ import UploadSong from '../../_Auth/UploadSong';
 
 const DiscoverPage = () => {
   const [isSecured, setIsSecured] = useState(true);
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState(<div />);
 
   const setMenuContent = (menu) => {
     switch (menu) {
