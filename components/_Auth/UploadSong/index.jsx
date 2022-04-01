@@ -7,7 +7,7 @@ import ReactAudioPlayer from 'react-audio-player';
 
 const UploadSong = () => {
   const {
-    onCoverfileChange,
+    onCoverFileChange,
     onSongTitleChange,
     onArtistLabelChange,
     onSongArtistChange,
@@ -34,7 +34,6 @@ const UploadSong = () => {
       !songDataPreview.audioSrc
     )
       return false;
-    console.log(new Audio(songDataPreview.audioSrc));
     return true;
   };
 
@@ -44,49 +43,76 @@ const UploadSong = () => {
       <Row>
         <Col>
           <Space direction="vertical">
+            <label htmlFor="song">Song </label>
             <Input
               type="file"
-              placeholder="Upload cover"
+              name="song"
+              placeholder="Upload Song"
               onChange={onTrackfileChange}
             />
+            <label htmlFor="cover">Cover </label>
+            <Input
+              type="file"
+              name="cover"
+              placeholder="Upload Song"
+              onChange={onCoverFileChange}
+            />
+            <label htmlFor="title">Song Title </label>
             <Input
               type="text"
+              name="title"
               placeholder="Title"
               onChange={onSongTitleChange}
             />
+            <label htmlFor="artist">Artist name</label>
             <Input
               type="text"
+              name="arist"
               placeholder="Arttis name"
               onChange={onSongArtistChange}
             />
+            <label htmlFor="genre">Genre</label>
             <Input
               type="text"
+              name="genre"
               placeholder="Genre (Optional)"
               onChange={onSongGenreChange}
             />
+            <label htmlFor="label">Artist Lalbel</label>
             <Input
               type="text"
+              name="label"
               placeholder="label (Optional)"
               onChange={onArtistLabelChange}
             />
 
             <Col>
               <Space>
-                <Input
-                  type="number"
-                  placeholder="Price"
-                  onChange={onSongPriceChange}
-                />
-                <Input
-                  type="number"
-                  placeholder="Price for support"
-                  onChange={onSongSupportPriceChange}
-                />
+                <Row>
+                  <Space direction="vertical">
+                    <label htmlFor="price">Steaming Price</label>
+                    <Input
+                      type="number"
+                      name="price"
+                      placeholder="Price"
+                      onChange={onSongPriceChange}
+                    />
+                  </Space>
+                </Row>
+                <Row>
+                  <Space direction="vertical">
+                    <label htmlFor="supportPrice">Support</label>
+                    <Input
+                      type="number"
+                      name="supportPrice"
+                      placeholder="Price for support"
+                      onChange={onSongSupportPriceChange}
+                    />
+                  </Space>
+                </Row>
               </Space>
             </Col>
-            {isReadyForUploading && (
-              <Button onClick={createSong}>Post the Song</Button>
-            )}
+            {<Button onClick={createSong}>Post the Song</Button>}
           </Space>
           {isSongPreviewReady() && (
             <AudioPlayer

@@ -37,7 +37,7 @@ contract Market is ReentrancyGuard {
         string memory _metadata,
         uint256 _price,
         uint256 _supportPrice
-    ) public payable {
+    ) public payable returns (uint) {
         require(_price > 0, "price may not be 0");
         require(msg.value == listingFee, "pay the required listing fee");
 
@@ -53,6 +53,8 @@ contract Market is ReentrancyGuard {
         );
 
         marketOwner.transfer(msg.value);
+    
+        return newId;
     }
 
     function streamSong(uint256 _songId) public payable {

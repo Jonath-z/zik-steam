@@ -87,7 +87,7 @@ const UploadSongProvider = ({ children }) => {
 
   const onCoverFileChange = useCallback(async (event) => {
     const file = event.target.files[0];
-    console.log(file);
+    console.log('cover', file);
     const added = await client.add(file, {
       progress: (prog) => console.log(prog),
     });
@@ -145,7 +145,23 @@ const UploadSongProvider = ({ children }) => {
     });
 
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    uploadSongOnBlockchain(url);
+    const songId = await uploadSongOnBlockchain(url);
+    ////////////// dummy name ////////////////////////
+    updateUserSongOnMongodb(songId, 'Joathan');
+  };
+
+  const updateUserSongOnMongodb = async (songId, user) => {
+    await fetch('/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        user,
+        songId,
+        likes: 0,
+        streamNumber: 0,
+        streamHours: 0,
+        isBestStreamed: false,
+      }),
+    });
   };
 
   const uploadSongOnBlockchain = async (url) => {
@@ -159,6 +175,7 @@ const UploadSongProvider = ({ children }) => {
       market_ABI,
       signer,
     );
+    console.log('contract', contract);
     const listingFee = await contract.getListingFee();
     const formatedListingFee = listingFee.toString();
 

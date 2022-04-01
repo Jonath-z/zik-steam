@@ -216,7 +216,13 @@ export const market_ABI = [
       },
     ],
     name: 'uploadSong',
-    outputs: [],
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
     stateMutability: 'payable',
     type: 'function',
   },
