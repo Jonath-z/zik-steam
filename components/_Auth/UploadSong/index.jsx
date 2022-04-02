@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Row, Col, Input, Button, Space } from 'antd';
 import { useUploadSong } from '../../contexts/UploadSongContext';
 import AudioPlayer from '../../modules/AudioPlayer';
-import ReactAudioPlayer from 'react-audio-player';
 
 const UploadSong = () => {
   const {
@@ -22,9 +21,6 @@ const UploadSong = () => {
     songDataPreview,
     onTrackfileChange,
   } = useUploadSong();
-
-  isSuccessfullyUploaded &&
-    setTimeout(2000, setIsSuccessFullyUploaded(false));
 
   const isSongPreviewReady = () => {
     if (
