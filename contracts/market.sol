@@ -19,6 +19,14 @@ contract Market is ReentrancyGuard {
         address payable owner;
     }
 
+    event songUploaded (
+        uint256 indexed id,
+        string metadata,
+        uint256 price,
+        uint256 supportPrice,
+        address indexed owner
+    );
+
     mapping(uint256 => Song) public songs;
 
     constructor() {
@@ -37,7 +45,7 @@ contract Market is ReentrancyGuard {
         string memory _metadata,
         uint256 _price,
         uint256 _supportPrice
-    ) public payable returns (uint) {
+    ) public payable {
         require(_price > 0, "price may not be 0");
         require(msg.value == listingFee, "pay the required listing fee");
 
@@ -53,8 +61,14 @@ contract Market is ReentrancyGuard {
         );
 
         marketOwner.transfer(msg.value);
-    
-        return newId;
+        console.log(newId);
+        emit songUploaded(
+             newId,
+            _metadata,
+            _price,
+            _supportPrice,
+            payable(msg.sender)
+        );
     }
 
     function streamSong(uint256 _songId) public payable {
