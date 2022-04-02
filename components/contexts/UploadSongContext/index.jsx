@@ -10,6 +10,7 @@ import Web3Modal from 'web3modal';
 import { marketAddress, market_ABI } from '../../../config';
 import PropTypes from 'prop-types';
 import previewImage from '../../assets/images/stream-vector.png';
+import axios from 'axios';
 
 const client = ipfsHttpClient({
   host: 'ipfs.infura.io',
@@ -151,17 +152,15 @@ const UploadSongProvider = ({ children }) => {
   };
 
   const updateUserSongOnMongodb = async (songId, user) => {
-    await fetch('/api/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        user,
-        songId,
-        likes: 0,
-        streamNumber: 0,
-        streamHours: 0,
-        isBestStreamed: false,
-      }),
-    });
+    const song = {
+      user: user,
+      songId: songId,
+      likes: 0,
+      streamNumber: 0,
+      streamHours: 0,
+      isBestStreamed: false,
+    };
+    await axios.post('/api/upload', { song });
   };
 
   const uploadSongOnBlockchain = async (url) => {
@@ -175,13 +174,29 @@ const UploadSongProvider = ({ children }) => {
       market_ABI,
       signer,
     );
-    console.log('contract', contract);
+
     const listingFee = await contract.getListingFee();
     const formatedListingFee = listingFee.toString();
+    const formatedSongPrice = ethers.utils.parseUnits(
+      songPrice.trim(),
+      'ether',
+    );
+    const formatedSupportPrice = ethers.utils.parseUnits(
+      songSupportPrice.trim(),
+      'ether',
+    );
 
-    await contract.uploadSong(url, songPrice, songSupportPrice, {
-      value: formatedListingFee,
-    });
+    const uploading = await contract.uploadSong(
+      url,
+      formatedSongPrice,
+      formatedSupportPrice,
+      {
+        value: formatedListingFee,
+      },
+    );
+    const transaction = await uploading.wait();
+    const event = transaction.events[0];
+    const songId = event.args[0].toNumber();
 
     setCoverUrl('');
     setArtistLabel('');
@@ -191,7 +206,9 @@ const UploadSongProvider = ({ children }) => {
     setSongSupportPrice('');
     setSongTitle('');
     setIsReadyForUploading(false);
-    isSuccessfullyUploaded(true);
+    setIsSuccessFullyUploaded(true);
+
+    return songId;
   };
 
   return (
