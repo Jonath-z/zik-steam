@@ -131,7 +131,6 @@ const UploadSongProvider = ({ children }) => {
       !songSupportPrice
     )
       return;
-    setIsReadyForUploading(true);
     const songMetadata = JSON.stringify({
       songTitle,
       songArtist,
