@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { Row, Col, Input, Button, Space } from 'antd';
 import { useUploadSong } from '../../contexts/UploadSongContext';
 import AudioPlayer from '../../modules/AudioPlayer';
@@ -14,7 +13,6 @@ const UploadSong = () => {
     onSongPriceChange,
     onSongSupportPriceChange,
     createSong,
-    isReadyForUploading,
     isSuccessfullyUploaded,
     coverUrl,
     setIsSuccessFullyUploaded,
