@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import LayoutSider from './Layoutider';
 import LayoutHeader from './LayoutHeader';
 import LayoutContent from './LayoutContent';
-import UploadSong from '../../_Auth/UploadSong';
+import UploadSong from '../../_secured/UploadSong';
+import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
-const DiscoverPage = () => {
-  const [isSecured, setIsSecured] = useState(true);
+const DiscoverPage = ({ isSecured }) => {
   const [content, setContent] = useState(<div />);
+  const route = useRouter();
+  const { id } = route.query;
+  console.log(id);
+
+  console.log(isSecured);
 
   const setMenuContent = (menu) => {
     switch (menu) {
@@ -31,6 +37,10 @@ const DiscoverPage = () => {
       </Layout>
     </Layout>
   );
+};
+
+DiscoverPage.propTypes = {
+  isSecured: PropTypes.bool.isRequired,
 };
 
 export default DiscoverPage;
