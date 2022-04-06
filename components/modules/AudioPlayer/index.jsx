@@ -103,19 +103,19 @@ const AudioPlayer = ({ tracks }) => {
 
   return (
     <>
-      <Row>
-        <Col>
+      <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-30 py-1">
+        <Col className="flex items-center">
           <Image
-            className="artwork"
+            className="artwork rounded-full"
             width={100}
             height={100}
             src={image}
             alt={`track artwork for ${title} by ${artist}`}
           />
-        </Col>
-        <Col>
-          <h2 className="title">{title}</h2>
-          <h3 className="artist">{artist}</h3>
+          <div className="px-2">
+            <h2 className="title">{title}</h2>
+            <h3 className="artist">{artist}</h3>
+          </div>
         </Col>
         <input
           type="range"
@@ -123,7 +123,7 @@ const AudioPlayer = ({ tracks }) => {
           step="1"
           min="0"
           max={duration ? duration : `${duration}`}
-          className="progress"
+          className="progress w-96"
           onChange={(e) => onScrub(e.target.value)}
           onMouseUp={onScrubEnd}
           onKeyUp={onScrubEnd}
@@ -135,7 +135,7 @@ const AudioPlayer = ({ tracks }) => {
           onNextClick={toNextTrack}
           onPlayPauseClick={setIsPlaying}
         />
-      </Row>
+      </div>
     </>
   );
 };
