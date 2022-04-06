@@ -11,6 +11,7 @@ import { marketAddress, market_ABI } from '../../../config';
 import PropTypes from 'prop-types';
 import previewImage from '../../assets/images/stream-vector.png';
 import axios from 'axios';
+import checkImageSize from '../../utils/helpers/checkImageSize';
 
 const client = ipfsHttpClient({
   host: 'ipfs.infura.io',
@@ -33,6 +34,7 @@ const defaultContext = {
   createSong: () => null,
   isReadyForUploading: false,
   isSuccessfullyUploaded: false,
+  isCorrectImageSize: false,
   setIsSuccessFullyUploaded: () => null,
   songDataPreview: {
     title: '',
@@ -55,6 +57,7 @@ const UploadSongProvider = ({ children }) => {
   const [ArtistLabel, setArtistLabel] = useState('');
   const [songPrice, setSongPrice] = useState(0);
   const [songSupportPrice, setSongSupportPrice] = useState(0);
+  const [isCorrectImageSize, setIsCorrectImageSize] = useState(true);
   const [isReadyForUploading, setIsReadyForUploading] =
     useState(false);
   const [isSuccessfullyUploaded, setIsSuccessFullyUploaded] =
@@ -73,9 +76,7 @@ const UploadSongProvider = ({ children }) => {
     const added = await client.add(file, {
       progress: (prog) => console.log(prog),
     });
-    console.log('added', added);
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    console.log(url);
     setTrackUrl(url);
     setSongDataPreview({
       title: file.name,
@@ -88,14 +89,11 @@ const UploadSongProvider = ({ children }) => {
 
   const onCoverFileChange = useCallback(async (event) => {
     const file = event.target.files[0];
-    console.log('cover', file);
     const added = await client.add(file, {
       progress: (prog) => console.log(prog),
     });
-    console.log('added', added);
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    console.log(url);
-    setCoverUrl(url);
+    checkImageSize(url, setIsCorrectImageSize);
   }, []);
 
   const onSongTitleChange = useCallback((event) => {
@@ -128,7 +126,8 @@ const UploadSongProvider = ({ children }) => {
       !songArtist ||
       !songTitle ||
       !songPrice ||
-      !songSupportPrice
+      !songSupportPrice ||
+      !isCorrectImageSize
     )
       return;
     const songMetadata = JSON.stringify({
@@ -147,12 +146,12 @@ const UploadSongProvider = ({ children }) => {
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
     const songId = await uploadSongOnBlockchain(url);
     ////////////// dummy name ////////////////////////
-    updateUserSongOnMongodb(songId, 'Joathan');
+    updateUserSongOnMongodb(songId, userId);
   };
 
-  const updateUserSongOnMongodb = async (songId, user) => {
+  const updateUserSongOnMongodb = async (songId, userId) => {
     const song = {
-      user: user,
+      id: userId,
       songId: songId,
       likes: 0,
       streamNumber: 0,
@@ -224,6 +223,7 @@ const UploadSongProvider = ({ children }) => {
         createSong,
         isReadyForUploading,
         isSuccessfullyUploaded,
+        isCorrectImageSize,
         coverUrl,
         songDataPreview,
         setIsSuccessFullyUploaded,
