@@ -2,7 +2,6 @@ import CryptoJS from 'crypto-js';
 import keys from '../config/keys';
 
 const encrypt = (value) => {
-  console.log(keys.CRYPTO_JS_KEY);
   const encryptedvalue = CryptoJS.AES.encrypt(
     value,
     keys.CRYPTO_JS_KEY,
