@@ -14,10 +14,8 @@ export default async function handler(req, res) {
         isBestStreamed: body.isBestStreamed,
       };
 
-      console.log('user name', body.user);
-
       await db.collection('users').updateOne(
-        { user: body.user },
+        { id: body.userId },
         {
           $push: { songs: song },
         },
