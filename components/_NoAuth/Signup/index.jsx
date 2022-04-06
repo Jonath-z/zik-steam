@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, Row, Col, Space, Button } from 'antd';
 import { useSignup } from '../../contexts/SingnupContext';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useRouter } from 'next/router';
 
 const SignupPage = () => {
   const {
@@ -13,6 +14,7 @@ const SignupPage = () => {
     isValidPassword,
     email,
   } = useSignup();
+  const routes = useRouter();
 
   return (
     <div
@@ -60,7 +62,12 @@ const SignupPage = () => {
                 <span>Create an account</span>
               )}
             </Button>
-            <p>Log in Now</p>
+            <p
+              className="cursor-pointer"
+              onClick={() => routes.push('/login')}
+            >
+              Log in Now
+            </p>
           </Space>
         </Col>
       </Row>
