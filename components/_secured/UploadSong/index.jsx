@@ -12,11 +12,14 @@ const UploadSong = () => {
     onSongGenreChange,
     onSongPriceChange,
     onSongSupportPriceChange,
+    songUploadProgress,
+    coverUploadProgress,
     createSong,
     isSuccessfullyUploaded,
     isCorrectImageSize,
     songDataPreview,
     onTrackfileChange,
+    coverUrl,
   } = useUploadSong();
 
   const isSongPreviewReady = () => {
@@ -30,6 +33,9 @@ const UploadSong = () => {
     return true;
   };
 
+  console.log('cover progress', coverUploadProgress);
+  console.log('song progress', songUploadProgress);
+
   return (
     <>
       {isSuccessfullyUploaded && <div>SuccessFully Uploaded </div>}
@@ -42,14 +48,22 @@ const UploadSong = () => {
               name="song"
               placeholder="Upload Song"
               onChange={onTrackfileChange}
+              className={`bg-[#00C3FF] bg-opacity-[${songUploadProgress}]`}
             />
+            <span
+              className={`bg-[#00C3FF] w-[${songUploadProgress}%]`}
+            ></span>
             <label htmlFor="cover">Cover </label>
             <Input
               type="file"
               name="cover"
               placeholder="Upload Song"
               onChange={onCoverFileChange}
+              className={`bg-[#00C3FF] bg-opacity-[${coverUploadProgress}]`}
             />
+            <span
+              className={`bg-[#030e12] w-[${songUploadProgress}%]`}
+            ></span>
             {!isCorrectImageSize && (
               <p>Song cover must have a square size</p>
             )}
