@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import AudioControls from './AudioControls';
@@ -105,7 +106,7 @@ const AudioPlayer = ({ tracks }) => {
     <>
       <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-30 py-1">
         <Col className="flex items-center">
-          <Image
+          <img
             className="artwork rounded-full"
             width={100}
             height={100}
