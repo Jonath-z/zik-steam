@@ -4,23 +4,15 @@ import React, {
   createContext,
   useCallback,
 } from 'react';
-import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
+import client from '../../utils/helpers/ipfs-client';
 import { marketAddress, market_ABI } from '../../../config';
 import PropTypes from 'prop-types';
 import previewImage from '../../assets/images/stream-vector.png';
 import axios from 'axios';
 import checkImageSize from '../../utils/helpers/checkImageSize';
-
-const client = ipfsHttpClient({
-  host: 'ipfs.infura.io',
-  port: 5001,
-  protocol: 'https',
-  headers: {
-    authorization: process.env.IPFS_AUTH,
-  },
-});
+import { useRouter } from 'next/router';
 
 const defaultContext = {
   onCoverfileChange: () => null,
@@ -32,6 +24,8 @@ const defaultContext = {
   onSongSupportPriceChange: () => null,
   onTrackfileChange: () => null,
   createSong: () => null,
+  songUploasProgress: 0,
+  coverUploadProgress: 0,
   isReadyForUploading: false,
   isSuccessfullyUploaded: false,
   isCorrectImageSize: false,
@@ -54,9 +48,11 @@ const UploadSongProvider = ({ children }) => {
   const [songTitle, setSongTitle] = useState('');
   const [songArtist, setSongArtist] = useState('');
   const [songGenre, setSongGenre] = useState('');
-  const [ArtistLabel, setArtistLabel] = useState('');
+  const [artistLabel, setArtistLabel] = useState('');
   const [songPrice, setSongPrice] = useState(0);
   const [songSupportPrice, setSongSupportPrice] = useState(0);
+  const [songUploadProgress, setSongUploadProgress] = useState(0);
+  const [coverUploadProgress, setCoverUploadProgress] = useState(0);
   const [isCorrectImageSize, setIsCorrectImageSize] = useState(true);
   const [isReadyForUploading, setIsReadyForUploading] =
     useState(false);
@@ -69,19 +65,27 @@ const UploadSongProvider = ({ children }) => {
     audioSrc: '',
     type: '',
   });
+  const route = useRouter();
+  const { id } = route.query;
+
+  const calulProgress = (fileSize, Currentprogress) => {
+    const progress = (Currentprogress * 100) / fileSize;
+    return progress;
+  };
 
   const onTrackfileChange = useCallback(async (event) => {
     const file = event.target.files[0];
     console.log(file);
     const added = await client.add(file, {
-      progress: (prog) => console.log(prog),
+      progress: (prog) =>
+        setSongUploadProgress(calulProgress(file.size, prog)),
     });
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
     setTrackUrl(url);
     setSongDataPreview({
       title: file.name,
       artist: 'unknown',
-      image: previewImage,
+      image: previewImage || coverUrl,
       audioSrc: url,
       type: file.type,
     });
@@ -90,10 +94,12 @@ const UploadSongProvider = ({ children }) => {
   const onCoverFileChange = useCallback(async (event) => {
     const file = event.target.files[0];
     const added = await client.add(file, {
-      progress: (prog) => console.log(prog),
+      progress: (prog) =>
+        setCoverUploadProgress(calulProgress(file.size, prog)),
     });
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
     checkImageSize(url, setIsCorrectImageSize);
+    isCorrectImageSize && setCoverUrl(url);
   }, []);
 
   const onSongTitleChange = useCallback((event) => {
@@ -121,20 +127,26 @@ const UploadSongProvider = ({ children }) => {
   }, []);
 
   const createSong = async () => {
+    console.log(
+      coverUrl,
+      songArtist,
+      songTitle,
+      songPrice,
+      songSupportPrice,
+    );
     if (
       !coverUrl ||
       !songArtist ||
       !songTitle ||
       !songPrice ||
-      !songSupportPrice ||
-      !isCorrectImageSize
+      !songSupportPrice
     )
       return;
     const songMetadata = JSON.stringify({
       songTitle,
       songArtist,
       songGenre,
-      ArtistLabel,
+      artistLabel,
       coverUrl,
       trackUrl,
     });
@@ -145,7 +157,8 @@ const UploadSongProvider = ({ children }) => {
 
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
     const songId = await uploadSongOnBlockchain(url);
-    ////////////// dummy name ////////////////////////
+
+    const userId = id;
     updateUserSongOnMongodb(songId, userId);
   };
 
@@ -220,6 +233,8 @@ const UploadSongProvider = ({ children }) => {
         onSongGenreChange,
         onSongPriceChange,
         onSongSupportPriceChange,
+        songUploadProgress,
+        coverUploadProgress,
         createSong,
         isReadyForUploading,
         isSuccessfullyUploaded,
