@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Layout, Menu } from 'antd';
 import styles from '../../../../styles/Discover.module.css';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const { Sider } = Layout;
 const { Item, SubMenu } = Menu;
 
-const LayoutSider = ({ isSecured, setMenuContent }) => {
+const LayoutSider = ({ setMenuContent }) => {
+  const [isSecured, setIsSecured] = useState(false);
+  const route = useRouter();
+  const { id } = route.query;
+
+  const getuser = useCallback(async () => {
+    if (id) {
+      const response = await axios.post('/api/query/getUser', {
+        id: id,
+      });
+      console.log(response);
+      if (response.data.status === 302) {
+        setIsSecured(true);
+      } else {
+        setIsSecured(false);
+      }
+    } else {
+      setIsSecured(false);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    getuser();
+  }, [getuser]);
+
   return (
     <Sider theme="light" className={styles.siteLayoutSider}>
       <div className="logo">
@@ -82,7 +108,6 @@ const LayoutSider = ({ isSecured, setMenuContent }) => {
 };
 
 LayoutSider.propTypes = {
-  isSecured: PropTypes.bool.isRequired,
   setMenuContent: PropTypes.func,
 };
 
