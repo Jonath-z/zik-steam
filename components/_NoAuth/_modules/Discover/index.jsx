@@ -1,44 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDiscover } from '../../../contexts/DiscoverContext';
 import AudioPlayer from '../../../modules/AudioPlayer';
+import SongCard from '../../../modules/SongCard';
+import {
+  AiOutlinePauseCircle as Pause,
+  AiOutlinePlayCircle as Play,
+} from 'react-icons/ai';
 
 const Discover = () => {
   const { artists, songByGenre, isLoading } = useDiscover();
-  console.log('artist', artists);
-  console.log('genre', songByGenre);
+  const [isPlaying, setIsPlaying] = useState({
+    index: 0,
+    isPlaying: false,
+    genre: '',
+  });
+  const [tracks, setTracks] = useState([]);
+
+  useEffect(() => {
+    setTracks([
+      {
+        title: songByGenre[0].songs[0].songTitle,
+        image: songByGenre[0].songs[0].coverUrl,
+        artist: songByGenre[0].songs[0].artistName,
+        audioSrc: songByGenre[0].songs[0].songUrl,
+      },
+    ]);
+  }, [songByGenre]);
+
+  const toggleSongPlay = (genre, index) => {
+    console.log('index is ', index, genre);
+    setIsPlaying({
+      index: index,
+      genre: genre,
+      isPlaying: true,
+    });
+  };
+
   return (
     <div>
-      <h1>Artists</h1>
-      <div>
-        {artists.map((artist, index) => {
-          return <p key={`artits-${index}`}>{artist}</p>;
-        })}
-      </div>
-      <div>
-        {songByGenre.map((song, index) => {
-          return (
-            <div key={index}>
-              <h1>{song.genre}</h1>
+      {songByGenre.map((song, index) => {
+        return (
+          <div key={index}>
+            <h1 className="text-3xl">{song.genre}</h1>
+            <div className="flex">
               {song.songs.map((song, index) => {
                 return (
-                  <div key={index}>
-                    <AudioPlayer
-                      tracks={[
-                        {
-                          title: song.songTitle,
-                          image: song.coverUrl,
-                          artist: song.artistName,
-                          audioSrc: song.songUrl,
-                        },
-                      ]}
-                    />
+                  <div key={index} className="my-4 mx-2">
+                    <SongCard
+                      key={index}
+                      isLoading={false}
+                      song={song}
+                      fallback={<div />}
+                    >
+                      <div
+                        style={{
+                          backgroundImage: `url(${song.coverUrl})`,
+                        }}
+                        className="w-56 h-56 bg-cover relative rounded-lg"
+                      >
+                        <div className="bg-[#00C3FF] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer">
+                          {isPlaying.index === index &&
+                          isPlaying.genre === song.genre ? (
+                            <Pause
+                              className="text-3xl"
+                              onClick={() => {
+                                toggleSongPlay(song.genre, index);
+                              }}
+                            />
+                          ) : (
+                            <Play
+                              className="text-3xl"
+                              onClick={() => {
+                                toggleSongPlay(song.genre, index);
+                                setTracks([
+                                  {
+                                    title: song.songTitle,
+                                    image: song.coverUrl,
+                                    artist: song.artistName,
+                                    audioSrc: song.songUrl,
+                                  },
+                                ]);
+                              }}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </SongCard>
+                    <div>
+                      <p className="flex flex-col">
+                        <span>{song.artistName}</span>
+                        <span className="text-gray-500 text-xs">
+                          {song.songTitle}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 );
               })}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
+      {tracks.length !== 0 && <AudioPlayer tracks={tracks} />}
     </div>
   );
 };
