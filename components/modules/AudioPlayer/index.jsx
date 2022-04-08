@@ -99,17 +99,17 @@ const AudioPlayer = ({ tracks }) => {
   const trackStyling = `
     -webkit-gradient(linear, 0% 0%, 100% 0%,
         color-stop(${currentPercentage}, #fff), 
-        color-stop(${currentPercentage}, #777))
+        color-stop(${currentPercentage}, #ffa503))
   `;
 
   return (
     <>
-      <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-30 py-1">
+      <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-50 py-1">
         <Col className="flex items-center">
           <img
             className="artwork rounded-full"
-            width={100}
-            height={100}
+            width={50}
+            height={50}
             src={image}
             alt={`track artwork for ${title} by ${artist}`}
           />
@@ -124,7 +124,7 @@ const AudioPlayer = ({ tracks }) => {
           step="1"
           min="0"
           max={duration ? duration : `${duration}`}
-          className="progress w-96"
+          className="progress bg-[#ffa503] w-96"
           onChange={(e) => onScrub(e.target.value)}
           onMouseUp={onScrubEnd}
           onKeyUp={onScrubEnd}
