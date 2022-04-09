@@ -42,7 +42,7 @@ const defaultContext = {
 const UploadSongContext = createContext(defaultContext);
 export const useUploadSong = () => useContext(UploadSongContext);
 
-const UploadSongProvider = ({ children }) => {
+const UploadSongProvider = ({ children, id }) => {
   const [coverUrl, setCoverUrl] = useState('');
   const [trackUrl, setTrackUrl] = useState('');
   const [songTitle, setSongTitle] = useState('');
@@ -65,8 +65,8 @@ const UploadSongProvider = ({ children }) => {
     audioSrc: '',
     type: '',
   });
-  const route = useRouter();
-  const { id } = route.query;
+  // const route = useRouter();
+  // const { id } = route.query;
 
   const calulProgress = (fileSize, Currentprogress) => {
     const progress = (Currentprogress * 100) / fileSize;
@@ -251,6 +251,7 @@ const UploadSongProvider = ({ children }) => {
 
 UploadSongProvider.propTypes = {
   children: PropTypes.node.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default UploadSongProvider;
