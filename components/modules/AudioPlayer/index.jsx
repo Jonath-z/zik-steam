@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import AudioControls from './AudioControls';
-import { Row, Col } from 'antd';
+import { Col } from 'antd';
 import PropTypes from 'prop-types';
+import { useAudioPlayer } from '../../contexts/AudioPlayerContext';
 
 const AudioPlayer = ({ tracks }) => {
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { isPlaying, setIsPlaying } = useAudioPlayer();
 
   const { title, artist, image, audioSrc } = tracks[trackIndex];
 
@@ -21,11 +21,8 @@ const AudioPlayer = ({ tracks }) => {
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
-      console.log('play');
-      //   startTimer();
     } else {
       audioRef.current.pause();
-      console.log('pause');
     }
   }, [isPlaying]);
 
@@ -73,8 +70,10 @@ const AudioPlayer = ({ tracks }) => {
   };
 
   const toNextTrack = () => {
+    setIsPlaying(false);
     if (trackIndex < tracks.length - 1) {
       setTrackIndex(trackIndex + 1);
+      setIsPlaying(true);
     } else {
       setTrackIndex(0);
     }
@@ -87,9 +86,7 @@ const AudioPlayer = ({ tracks }) => {
   };
 
   const onScrubEnd = () => {
-    if (!isPlaying) {
-      setIsPlaying(true);
-    }
+    if (!isPlaying) setIsPlaying(true);
     startTimer();
   };
 
@@ -104,7 +101,7 @@ const AudioPlayer = ({ tracks }) => {
 
   return (
     <>
-      <div className="absolute bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-50 py-1">
+      <div className="fixed bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-90 py-1">
         <Col className="flex items-center">
           <img
             className="artwork rounded-full"
