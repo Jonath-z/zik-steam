@@ -7,12 +7,12 @@ const { Header } = Layout;
 
 const LayoutHeader = () => {
   return (
-    <Header style={{ background: '#fff' }}>
+    <Header style={{ background: 'white' }}>
       <Row>
         <Col span={12}>
           <Input placeholder="search" type="search" />
         </Col>
-        <Col span={12} style={{ textAlign: 'right' }}>
+        <Col span={12} className="text-right">
           <Space>
             <SignupButton />
             <ThemeButton />
