@@ -13,6 +13,10 @@ const LayoutSider = ({ setMenuContent }) => {
   const route = useRouter();
   const { id } = route.query;
 
+  useEffect(() => {
+    setMenuContent('discover');
+  }, []);
+
   const getuser = useCallback(async () => {
     if (id) {
       const response = await axios.post('/api/query/getUser', {
