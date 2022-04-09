@@ -6,7 +6,9 @@ const { Content } = Layout;
 
 const LayoutContent = ({ children }) => {
   return (
-    <Content style={{ margin: '24px 16px 0' }}>{children}</Content>
+    <Content className="my-5 mx-5 absolute overflow-y-auto w-fit right-0 pl-60 top-20 bottom-0">
+      {children}
+    </Content>
   );
 };
 
