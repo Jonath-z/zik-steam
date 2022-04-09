@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useContext,
   createContext,
+  useCallback,
 } from 'react';
 import { ethers } from 'ethers';
 import { marketAddress, market_ABI } from '../../../config';
@@ -23,16 +24,13 @@ const DiscoverProvider = ({ children }) => {
   const [songByGenre, setSongByGenre] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    getAllSongs();
-  }, []);
-
-  const getAllSongs = async () => {
+  const getAllSongs = useCallback(async () => {
     const url =
       process.env.NODE_ENV === 'production'
         ? 'https://rinkeby.infura.io/v3/860ca51e15d0418f9e49cc4a75f393f0'
-        : ' http://127.0.0.1:8545/';
+        : 'http://127.0.0.1:8545/';
     const provider = new ethers.providers.JsonRpcProvider(url);
+    console.log('provider', provider);
 
     const contract = new ethers.Contract(
       marketAddress,
@@ -42,6 +40,7 @@ const DiscoverProvider = ({ children }) => {
 
     setIsLoading(true);
     const allSongs = await contract.getSongs();
+    console.log('all songs', allSongs);
 
     console.log('allSongs', allSongs);
     const songs = await Promise.all(
@@ -75,7 +74,7 @@ const DiscoverProvider = ({ children }) => {
     filterArtistsByName(songs);
     filterSongByGenre(songs);
     setIsLoading(false);
-  };
+  }, []);
 
   const filterArtistsByName = (songs) => {
     const allArtistNames = songs.map((song) => {
@@ -107,6 +106,10 @@ const DiscoverProvider = ({ children }) => {
     // console.log('sort', sortedSongByGenre);
     setSongByGenre(sortedSongByGenre);
   };
+
+  useEffect(() => {
+    getAllSongs();
+  }, []);
 
   return (
     <DiscoverContext.Provider
