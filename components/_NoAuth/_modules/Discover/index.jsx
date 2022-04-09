@@ -6,33 +6,36 @@ import {
   AiOutlinePauseCircle as Pause,
   AiOutlinePlayCircle as Play,
 } from 'react-icons/ai';
+import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
 
 const Discover = () => {
   const { artists, songByGenre, isLoading } = useDiscover();
-  const [isPlaying, setIsPlaying] = useState({
+  const { isPlaying, setIsPlaying } = useAudioPlayer();
+  const [songPlayed, setSongPlayed] = useState({
     index: 0,
-    isPlaying: false,
     genre: '',
   });
+
   const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
-    setTracks([
-      {
-        title: songByGenre[0].songs[0].songTitle,
-        image: songByGenre[0].songs[0].coverUrl,
-        artist: songByGenre[0].songs[0].artistName,
-        audioSrc: songByGenre[0].songs[0].songUrl,
-      },
-    ]);
+    if (songByGenre.length > 0)
+      setTracks([
+        {
+          title: songByGenre[0].songs[0].songTitle,
+          image: songByGenre[0].songs[0].coverUrl,
+          artist: songByGenre[0].songs[0].artistName,
+          audioSrc: songByGenre[0].songs[0].songUrl,
+        },
+      ]);
   }, [songByGenre]);
 
   const toggleSongPlay = (genre, index) => {
     console.log('index is ', index, genre);
-    setIsPlaying({
+    setIsPlaying(!isPlaying);
+    setSongPlayed({
       index: index,
       genre: genre,
-      isPlaying: true,
     });
   };
 
@@ -59,8 +62,9 @@ const Discover = () => {
                         className="w-56 h-56 bg-cover relative rounded-lg"
                       >
                         <div className="bg-[#00C3FF] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer">
-                          {isPlaying.index === index &&
-                          isPlaying.genre === song.genre ? (
+                          {isPlaying &&
+                          songPlayed.index === index &&
+                          songPlayed.genre === song.genre ? (
                             <Pause
                               className="text-3xl"
                               onClick={() => {
@@ -101,7 +105,12 @@ const Discover = () => {
           </div>
         );
       })}
-      {tracks.length !== 0 && <AudioPlayer tracks={tracks} />}
+      {tracks.length !== 0 && (
+        <AudioPlayer
+          tracks={tracks}
+          extarnalIsPlaying={isPlaying.isPlaying}
+        />
+      )}
     </div>
   );
 };
