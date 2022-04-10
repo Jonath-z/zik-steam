@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Input, Row, Col, Space } from 'antd';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import icons from '../../icons';
 import { useLogin } from '../../contexts/LoginContext';
 
 const LoginPage = () => {
+  const { Loading } = icons;
   const {
     onEmailChange,
     onPasswordChange,
@@ -42,7 +43,7 @@ const LoginPage = () => {
             >
               {isCreationProcess ? (
                 <span>
-                  <AiOutlineLoading3Quarters /> Processing
+                  <Loading /> Processing
                 </span>
               ) : (
                 <span>Log in</span>
