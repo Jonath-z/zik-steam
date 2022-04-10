@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 const Discover = () => {
   const route = useRouter();
   const { id } = route.query;
+  console.log('my user id', id);
+
   return (
     <UploadSongProvider id={id}>
       <DiscoverProvider>

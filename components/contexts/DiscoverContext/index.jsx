@@ -103,13 +103,12 @@ const DiscoverProvider = ({ children }) => {
         songs: songsCollections,
       };
     });
-    // console.log('sort', sortedSongByGenre);
     setSongByGenre(sortedSongByGenre);
   };
 
   useEffect(() => {
     getAllSongs();
-  }, []);
+  }, [getAllSongs]);
 
   return (
     <DiscoverContext.Provider

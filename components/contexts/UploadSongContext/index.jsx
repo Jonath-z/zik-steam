@@ -65,8 +65,11 @@ const UploadSongProvider = ({ children, id }) => {
     audioSrc: '',
     type: '',
   });
+
   // const route = useRouter();
   // const { id } = route.query;
+
+  // console.log('user id is ', id);
 
   const calulProgress = (fileSize, Currentprogress) => {
     const progress = (Currentprogress * 100) / fileSize;
@@ -251,7 +254,6 @@ const UploadSongProvider = ({ children, id }) => {
 
 UploadSongProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 };
-
 export default UploadSongProvider;
