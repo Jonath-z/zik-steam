@@ -6,8 +6,8 @@ const { Content } = Layout;
 
 const LayoutContent = ({ children }) => {
   return (
-    <Content className="my-5 mx-5 absolute overflow-y-auto w-fit right-0 pl-60 top-20 bottom-0">
-      {children}
+    <Content className="my-5 fixed overflow-y-auto w-[85%] top-20 left-60 bottom-0">
+      <div>{children}</div>
     </Content>
   );
 };
