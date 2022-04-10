@@ -40,7 +40,7 @@ const LayoutSider = ({ setMenuContent }) => {
   return (
     <Sider theme="light" className={styles.siteLayoutSider}>
       <div className="logo">
-        <h1 style={{ color: '#000' }}>Zik-Stream</h1>
+        <h1 className="text-black">Zik-Stream</h1>
       </div>
       <Menu
         theme="light"
@@ -52,8 +52,8 @@ const LayoutSider = ({ setMenuContent }) => {
         <SubMenu key="sub1" title="Browse Music">
           <Item
             key="1"
-            style={{ paddingLeft: '48px' }}
             onClick={() => setMenuContent('discover')}
+            className="pl-12 cursor-pointer"
           >
             <span>Discover</span>
           </Item>
