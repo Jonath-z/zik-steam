@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDiscover } from '../../../contexts/DiscoverContext';
 import AudioPlayer from '../../../modules/AudioPlayer';
-import SongCard from '../../../modules/SongCard';
-import {
-  AiOutlinePauseCircle as Pause,
-  AiOutlinePlayCircle as Play,
-} from 'react-icons/ai';
 import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
+import SongLayout from './SongLayout';
 
 const Discover = () => {
   const { artists, songByGenre, isLoading } = useDiscover();
@@ -49,55 +45,15 @@ const Discover = () => {
               {song.songs.map((song, index) => {
                 return (
                   <div key={index} className="my-4 mx-2">
-                    <SongCard
-                      key={index}
-                      isLoading={false}
+                    <SongLayout
+                      setTracks={setTracks}
+                      toggleSongPlay={toggleSongPlay}
                       song={song}
-                      fallback={<div />}
-                    >
-                      <div
-                        style={{
-                          backgroundImage: `url(${song.coverUrl})`,
-                        }}
-                        className="w-56 h-56 bg-cover relative rounded-lg"
-                      >
-                        <div className="bg-[#00C3FF] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer">
-                          {isPlaying &&
-                          songPlayed.index === index &&
-                          songPlayed.genre === song.genre ? (
-                            <Pause
-                              className="text-3xl"
-                              onClick={() => {
-                                toggleSongPlay(song.genre, index);
-                              }}
-                            />
-                          ) : (
-                            <Play
-                              className="text-3xl"
-                              onClick={() => {
-                                toggleSongPlay(song.genre, index);
-                                setTracks([
-                                  {
-                                    title: song.songTitle,
-                                    image: song.coverUrl,
-                                    artist: song.artistName,
-                                    audioSrc: song.songUrl,
-                                  },
-                                ]);
-                              }}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </SongCard>
-                    <div>
-                      <p className="flex flex-col">
-                        <span>{song.artistName}</span>
-                        <span className="text-gray-500 text-xs">
-                          {song.songTitle}
-                        </span>
-                      </p>
-                    </div>
+                      isPlaying={isPlaying}
+                      songIndex={index}
+                      songPlayed={songPlayed}
+                      isLoading={isLoading}
+                    />
                   </div>
                 );
               })}
