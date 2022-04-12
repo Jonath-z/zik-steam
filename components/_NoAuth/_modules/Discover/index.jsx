@@ -3,16 +3,35 @@ import { useDiscover } from '../../../contexts/DiscoverContext';
 import AudioPlayer from '../../../modules/AudioPlayer';
 import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
 import SongLayout from './SongLayout';
+import { useStream } from '../../../contexts/StreamContext';
+import { useRouter } from 'next/router';
 
 const Discover = () => {
   const { artists, songByGenre, isLoading } = useDiscover();
   const { isPlaying, setIsPlaying } = useAudioPlayer();
-  const [songPlayed, setSongPlayed] = useState({
-    index: 0,
-    genre: '',
-  });
-
+  const {
+    setUserId,
+    setSongId,
+    setSongPrice,
+    setSongTotalTime,
+    setSongCurrentTime,
+    setIsSongPaused,
+    getPayementError,
+    readyToBeStreamed,
+    payStream,
+    updateStreamingTime,
+  } = useStream();
+  const route = useRouter();
+  const { id } = route.query;
   const [tracks, setTracks] = useState([]);
+
+  useEffect(() => {
+    setUserId(id);
+  }, [id, setUserId]);
+
+  useEffect(() => {
+    console.log('is ready to be streamed', readyToBeStreamed);
+  }, [readyToBeStreamed]);
 
   useEffect(() => {
     if (songByGenre.length > 0)
@@ -26,13 +45,12 @@ const Discover = () => {
       ]);
   }, [songByGenre]);
 
-  const toggleSongPlay = (genre, index) => {
-    console.log('index is ', index, genre);
-    setIsPlaying(!isPlaying);
-    setSongPlayed({
-      index: index,
-      genre: genre,
-    });
+  const stream = (song) => {
+    setSongId(song.id);
+    setSongPrice(song.streamingPrice);
+    setIsSongPaused(!isPlaying);
+    payStream();
+    if (!isPlaying) updateStreamingTime();
   };
 
   return (
@@ -47,12 +65,13 @@ const Discover = () => {
                   <div key={index} className="my-4 mx-2">
                     <SongLayout
                       setTracks={setTracks}
-                      toggleSongPlay={toggleSongPlay}
                       song={song}
                       isPlaying={isPlaying}
+                      setIsPlaying={setIsPlaying}
                       songIndex={index}
-                      songPlayed={songPlayed}
                       isLoading={isLoading}
+                      isReadyToBeStreamed={readyToBeStreamed}
+                      stream={stream}
                     />
                   </div>
                 );
@@ -65,6 +84,8 @@ const Discover = () => {
         <AudioPlayer
           tracks={tracks}
           extarnalIsPlaying={isPlaying.isPlaying}
+          setSongCurrentTime={setSongCurrentTime}
+          setSongTotalTime={setSongTotalTime}
         />
       )}
     </div>

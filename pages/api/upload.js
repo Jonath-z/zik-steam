@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       };
 
       await db.collection('users').updateOne(
-        { id: body.userId },
+        { id: body.id },
         {
           $push: { songs: song },
         },

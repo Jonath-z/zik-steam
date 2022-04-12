@@ -5,7 +5,11 @@ import { Col } from 'antd';
 import PropTypes from 'prop-types';
 import { useAudioPlayer } from '../../contexts/AudioPlayerContext';
 
-const AudioPlayer = ({ tracks }) => {
+const AudioPlayer = ({
+  tracks,
+  setSongTotalTime,
+  setSongCurrentTime,
+}) => {
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const { isPlaying, setIsPlaying } = useAudioPlayer();
@@ -40,6 +44,8 @@ const AudioPlayer = ({ tracks }) => {
 
     audioRef.current = new Audio(audioSrc);
     setTrackProgress(audioRef.current.currentTime);
+    setSongTotalTime(audioRef.current.duration);
+    setSongCurrentTime(audioRef.current.currentTime);
 
     if (isReady.current) {
       audioRef.current.play();
@@ -59,6 +65,8 @@ const AudioPlayer = ({ tracks }) => {
         toNextTrack();
       } else {
         setTrackProgress(audioRef.current.currentTime);
+        setSongTotalTime(audioRef.current.duration);
+        setSongCurrentTime(audioRef.current.currentTime);
       }
     }, [1000]);
   };
@@ -140,6 +148,8 @@ const AudioPlayer = ({ tracks }) => {
 
 AudioPlayer.propTypes = {
   tracks: PropTypes.array,
+  setSongTotalTime: PropTypes.func,
+  setSongCurrentTime: PropTypes.func,
 };
 
 export default AudioPlayer;

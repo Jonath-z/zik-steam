@@ -4,6 +4,7 @@ import UploadSongProvider from '../../components/contexts/UploadSongContext';
 import DiscoverProvider from '../../components/contexts/DiscoverContext';
 import AudioPlayerProvider from '../../components/contexts/AudioPlayerContext';
 import { useRouter } from 'next/router';
+import StreamProvider from '../../components/contexts/StreamContext';
 
 const Discover = () => {
   const route = useRouter();
@@ -14,7 +15,9 @@ const Discover = () => {
     <UploadSongProvider id={id}>
       <DiscoverProvider>
         <AudioPlayerProvider>
-          <HomePage />
+          <StreamProvider>
+            <HomePage />
+          </StreamProvider>
         </AudioPlayerProvider>
       </DiscoverProvider>
     </UploadSongProvider>

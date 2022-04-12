@@ -5,18 +5,35 @@ import PropTypes from 'prop-types';
 
 const SongLayout = ({
   setTracks,
-  toggleSongPlay,
   song,
   isPlaying,
+  setIsPlaying,
   songIndex,
-  songPlayed,
   isLoading,
+  isReadyToBeStreamed,
+  stream,
 }) => {
   const { Pause, Play, OutLineLike, FullLike, Ethereum } = icons;
   const [isFavorite, setIsFavorite] = useState(false);
+  const [songPlayed, setSongPlayed] = useState({
+    index: 0,
+    genre: '',
+  });
+  const [songToStream, setSongTostream] = useState({
+    genre: '',
+    index: 0,
+  });
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
+  };
+
+  const toggleSongPlay = (song, index) => {
+    setIsPlaying(!isPlaying);
+    setSongPlayed({
+      index: index,
+      genre: song.genre,
+    });
   };
 
   return (
@@ -35,30 +52,48 @@ const SongLayout = ({
           className="w-56 h-56 bg-cover relative rounded-lg"
         >
           <div className="bg-[#00C3FF] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center">
-            {isPlaying &&
-            songPlayed.index === songIndex &&
-            songPlayed.genre === song.genre ? (
-              <Pause
-                className="text-3xl"
-                onClick={() => {
-                  toggleSongPlay(song.genre, songIndex);
-                }}
-              />
+            {isReadyToBeStreamed &&
+            songToStream.genre === song.genre &&
+            songToStream.index === songIndex ? (
+              <div>
+                {isPlaying &&
+                songPlayed.index === songIndex &&
+                songPlayed.genre === song.genre ? (
+                  <Pause
+                    className="text-3xl"
+                    onClick={() => {
+                      toggleSongPlay(song, songIndex);
+                    }}
+                  />
+                ) : (
+                  <Play
+                    className="text-3xl"
+                    onClick={() => {
+                      toggleSongPlay(song, songIndex);
+                      setTracks([
+                        {
+                          title: song.songTitle,
+                          image: song.coverUrl,
+                          artist: song.artistName,
+                          audioSrc: song.songUrl,
+                        },
+                      ]);
+                    }}
+                  />
+                )}
+              </div>
             ) : (
-              <Play
-                className="text-3xl"
+              <button
                 onClick={() => {
-                  toggleSongPlay(song.genre, songIndex);
-                  setTracks([
-                    {
-                      title: song.songTitle,
-                      image: song.coverUrl,
-                      artist: song.artistName,
-                      audioSrc: song.songUrl,
-                    },
-                  ]);
+                  stream(song);
+                  setSongTostream({
+                    genre: song.genre,
+                    index: songIndex,
+                  });
                 }}
-              />
+              >
+                Stream Now
+              </button>
             )}
             <p className="m-0 flex items-center">
               {song.streamingPrice}
@@ -92,12 +127,13 @@ const SongLayout = ({
 
 SongLayout.propTypes = {
   setTracks: PropTypes.func.isRequired,
-  toggleSongPlay: PropTypes.func.isRequired,
+  setIsPlaying: PropTypes.func.isRequired,
   song: PropTypes.object.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   songIndex: PropTypes.number.isRequired,
-  songPlayed: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isReadyToBeStreamed: PropTypes.bool.isRequired,
+  stream: PropTypes.func.isRequired,
 };
 
 export default SongLayout;

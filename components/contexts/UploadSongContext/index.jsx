@@ -66,11 +66,6 @@ const UploadSongProvider = ({ children, id }) => {
     type: '',
   });
 
-  // const route = useRouter();
-  // const { id } = route.query;
-
-  // console.log('user id is ', id);
-
   const calulProgress = (fileSize, Currentprogress) => {
     const progress = (Currentprogress * 100) / fileSize;
     return progress;
