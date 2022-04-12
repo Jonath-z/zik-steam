@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     case 'POST':
       const body = req.body.song;
       const song = {
-        streamId: body.songId,
+        songId: body.songId,
         likes: body.likes,
         streamNumber: body.streamNumber,
         streamHours: body.streamHours,
@@ -20,6 +20,8 @@ export default async function handler(req, res) {
           $push: { songs: song },
         },
       );
+
+      await db.collection('songs').insertOne(song);
       res.status(200).json({ successFullyUploaded: true });
 
       break;

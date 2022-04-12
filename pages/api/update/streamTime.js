@@ -1,23 +1,33 @@
 import { db } from '../database/mongodb';
 
 export default async function handler(req, res) {
-  console.log('update time body', req.body);
-
   if (req.method === 'PUT') {
     const body = req.body;
 
-    await db.collection('users').updateOne(
-      { id: body.userId, 'songs.id': body.songId },
-      {
-        $set: {
-          'songs.$.streamHours': { $sum: body.streamedTime },
-        },
-      },
-    );
+    const songs = await db
+      .collection('songs')
+      .find({ songId: body.songId })
+      .toArray();
 
-    res.json({
-      status: 200,
-      message: 'stream time updated',
-    });
+    if (songs) {
+      const updateStreamHours = songs.map((song) => {
+        return {
+          ...song,
+          streamHours: (song.streamHours += body.streamedTime),
+        };
+      });
+
+      await db.collection('songs').updateOne(
+        { songId: body.songId },
+        {
+          $set: updateStreamHours[0],
+        },
+      );
+
+      res.json({
+        status: 200,
+        message: 'stream time updated',
+      });
+    }
   }
 }

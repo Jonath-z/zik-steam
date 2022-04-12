@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SongCard from '../../../../modules/SongCard';
 import icons from '../../../../icons';
 import PropTypes from 'prop-types';
+import timeCoverter from '../../../../utils/helpers/streamsConverter';
 
 const SongLayout = ({
   setTracks,
@@ -27,6 +28,10 @@ const SongLayout = ({
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
   };
+
+  useEffect(() => {
+    console.log('is ready to be streamed', isReadyToBeStreamed);
+  }, [isReadyToBeStreamed]);
 
   const toggleSongPlay = (song, index) => {
     setIsPlaying(!isPlaying);
@@ -108,6 +113,7 @@ const SongLayout = ({
           <span className="text-gray-500 text-xs">
             {song.songTitle}
           </span>
+          <span className="text-[#00C3FF] text-xs">streams:</span>
         </p>
         {!isFavorite ? (
           <OutLineLike

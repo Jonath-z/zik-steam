@@ -13,9 +13,9 @@ const Discover = () => {
     setUserId,
     setSongId,
     setSongPrice,
-    setSongTotalTime,
+    setDuration,
     setSongCurrentTime,
-    setIsSongPaused,
+    setIsPlayed,
     getPayementError,
     readyToBeStreamed,
     payStream,
@@ -45,12 +45,14 @@ const Discover = () => {
       ]);
   }, [songByGenre]);
 
+  useEffect(() => {
+    setIsPlayed(isPlaying);
+  }, [isPlaying, setIsPlayed]);
+
   const stream = (song) => {
     setSongId(song.id);
     setSongPrice(song.streamingPrice);
-    setIsSongPaused(!isPlaying);
     payStream();
-    if (!isPlaying) updateStreamingTime();
   };
 
   return (
@@ -80,12 +82,12 @@ const Discover = () => {
           </div>
         );
       })}
-      {tracks.length !== 0 && (
+      {tracks.length !== 0 && readyToBeStreamed && (
         <AudioPlayer
           tracks={tracks}
           extarnalIsPlaying={isPlaying.isPlaying}
           setSongCurrentTime={setSongCurrentTime}
-          setSongTotalTime={setSongTotalTime}
+          setDuration={setDuration}
         />
       )}
     </div>

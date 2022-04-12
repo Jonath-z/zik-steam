@@ -136,6 +136,8 @@ const UploadSong = () => {
               audioSrc: songDataPreview.audioSrc,
             },
           ]}
+          setDuration={() => 0}
+          setSongCurrentTime={() => 0}
         />
       )}
     </>

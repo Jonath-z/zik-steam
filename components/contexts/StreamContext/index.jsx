@@ -15,11 +15,11 @@ const defaultContext = {
   setUserId: '',
   setSongId: 0,
   setSongPrice: 0,
-  setSongTotalTime: 0,
+  setDuration: 0,
   getPayementError: false,
   readyToBeStreamed: false,
   setSongCurrentTime: () => null,
-  setIsSongPaused: () => null,
+  setIsPlayed: () => null,
   payStream: async () => null,
   updateStreamingTime: async () => null,
 };
@@ -31,34 +31,49 @@ const StreamProvider = ({ children }) => {
   const [userId, setUserId] = useState('');
   const [songId, setSongId] = useState();
   const [songPrice, setSongPrice] = useState(0);
-  const [songTotalTime, setSongTotalTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [songCurrentTime, setSongCurrentTime] = useState(0);
   const [readyToBeStreamed, setReadyToBeStreamed] = useState(false);
   const [isOnStreaming, setIsOnStreaming] = useState(false);
-  const [isSongPaused, setIsSongPaused] = useState(false);
+  const [isPlayed, setIsPlayed] = useState(false);
   const [getPayementError, setGetPayementError] = useState(false);
 
-  const updateStreamingTime = async () => {
-    if (isSongPaused)
+  const updateStreamingTime = useCallback(async () => {
+    if (!isPlayed && songCurrentTime > 0)
       await axios.put('/api/update/streamTime', {
         userId: userId,
         songId: songId,
         streamedTime: songCurrentTime,
       });
-  };
+  }, [isPlayed, duration, songId, userId]);
 
-  const handleStreaming = () => {
+  const handleStreaming = useCallback(async () => {
     console.log('current time', songCurrentTime);
-    console.log('song total time', songTotalTime);
+    console.log('song total time', duration);
     if (readyToBeStreamed)
-      if (songCurrentTime < songTotalTime) {
+      if (songCurrentTime < duration) {
         setIsOnStreaming(true);
-      } else if (songCurrentTime === songTotalTime) {
+      } else if (songCurrentTime === duration) {
         updateStreamingTime();
         setIsOnStreaming(false);
         setReadyToBeStreamed(false);
       }
-  };
+  }, [
+    songCurrentTime,
+    duration,
+    readyToBeStreamed,
+    updateStreamingTime,
+  ]);
+
+  console.log('is song playing', isPlayed);
+
+  useEffect(() => {
+    handleStreaming();
+  }, [handleStreaming]);
+
+  useEffect(() => {
+    updateStreamingTime();
+  }, [updateStreamingTime]);
 
   const payStream = async () => {
     const web3modal = new Web3Modal();
@@ -72,8 +87,6 @@ const StreamProvider = ({ children }) => {
       signer,
     );
     setReadyToBeStreamed(false);
-
-    console.log('type of price', typeof songPrice);
 
     const formatedSongPrice = ethers.utils.parseUnits(
       songPrice.toString().trim(),
@@ -102,9 +115,9 @@ const StreamProvider = ({ children }) => {
         setUserId,
         setSongId,
         setSongPrice,
-        setSongTotalTime,
+        setDuration,
         setSongCurrentTime,
-        setIsSongPaused,
+        setIsPlayed,
         getPayementError,
         payStream,
         updateStreamingTime,

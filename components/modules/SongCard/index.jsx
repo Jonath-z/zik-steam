@@ -9,7 +9,7 @@ const SongCard = ({ fallback, isLoading, children }) => {
 SongCard.propTypes = {
   fallback: PropTypes.element.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  toggleSongPlay: PropTypes.func.isRequired,
+  toggleSongPlay: PropTypes.func,
   children: PropTypes.element.isRequired,
 };
 

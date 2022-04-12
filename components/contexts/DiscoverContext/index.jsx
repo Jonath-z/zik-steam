@@ -22,7 +22,17 @@ export const useDiscover = () => useContext(DiscoverContext);
 const DiscoverProvider = ({ children }) => {
   const [artists, setArtits] = useState([]);
   const [songByGenre, setSongByGenre] = useState([]);
+  const [songRefs, setSongRefs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const fetchSongRef = useCallback(async () => {
+    const songs = await axios.get('/api/song/getAllSongs');
+    setSongRefs(songs.data.data);
+  }, []);
+
+  useEffect(() => {
+    fetchSongRef();
+  }, [fetchSongRef]);
 
   const getAllSongs = useCallback(async () => {
     const url =
