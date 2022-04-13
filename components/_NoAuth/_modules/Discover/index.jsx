@@ -11,15 +11,10 @@ const Discover = () => {
   const { isPlaying, setIsPlaying } = useAudioPlayer();
   const {
     setUserId,
-    setSongId,
-    setSongPrice,
     setDuration,
     setSongCurrentTime,
     setIsPlayed,
-    getPayementError,
     readyToBeStreamed,
-    payStream,
-    updateStreamingTime,
   } = useStream();
   const route = useRouter();
   const { id } = route.query;
@@ -30,17 +25,14 @@ const Discover = () => {
   }, [id, setUserId]);
 
   useEffect(() => {
-    console.log('is ready to be streamed', readyToBeStreamed);
-  }, [readyToBeStreamed]);
-
-  useEffect(() => {
+    console.log('song by genre in discover ', songByGenre);
     if (songByGenre.length > 0)
       setTracks([
         {
-          title: songByGenre[0].songs[0].songTitle,
-          image: songByGenre[0].songs[0].coverUrl,
-          artist: songByGenre[0].songs[0].artistName,
-          audioSrc: songByGenre[0].songs[0].songUrl,
+          title: songByGenre[1].songs[0].songTitle,
+          image: songByGenre[1].songs[0].coverUrl,
+          artist: songByGenre[1].songs[0].artistName,
+          audioSrc: songByGenre[1].songs[0].songUrl,
         },
       ]);
   }, [songByGenre]);
@@ -49,18 +41,14 @@ const Discover = () => {
     setIsPlayed(isPlaying);
   }, [isPlaying, setIsPlayed]);
 
-  const stream = (song) => {
-    setSongId(song.id);
-    setSongPrice(song.streamingPrice);
-    payStream();
-  };
-
   return (
     <div>
       {songByGenre.map((song, index) => {
         return (
           <div key={index}>
-            <h1 className="text-3xl">{song.genre}</h1>
+            <h1 className="text-3xl">
+              {song.songs.length !== 0 && song.genre}
+            </h1>
             <div className="flex">
               {song.songs.map((song, index) => {
                 return (
@@ -68,12 +56,7 @@ const Discover = () => {
                     <SongLayout
                       setTracks={setTracks}
                       song={song}
-                      isPlaying={isPlaying}
-                      setIsPlaying={setIsPlaying}
-                      songIndex={index}
                       isLoading={isLoading}
-                      isReadyToBeStreamed={readyToBeStreamed}
-                      stream={stream}
                     />
                   </div>
                 );
