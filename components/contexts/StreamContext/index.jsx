@@ -19,6 +19,7 @@ const defaultContext = {
   getPayementError: false,
   readyToBeStreamed: false,
   setSongCurrentTime: () => null,
+  setReadyToBeStreamed: () => null,
   setIsPlayed: () => null,
   payStream: async () => null,
   updateStreamingTime: async () => null,
@@ -30,13 +31,12 @@ export const useStream = () => useContext(StreamContext);
 const StreamProvider = ({ children }) => {
   const [userId, setUserId] = useState('');
   const [songId, setSongId] = useState();
-  const [songPrice, setSongPrice] = useState(0);
   const [duration, setDuration] = useState(0);
   const [songCurrentTime, setSongCurrentTime] = useState(0);
   const [readyToBeStreamed, setReadyToBeStreamed] = useState(false);
-  const [isOnStreaming, setIsOnStreaming] = useState(false);
   const [isPlayed, setIsPlayed] = useState(false);
   const [getPayementError, setGetPayementError] = useState(false);
+  const [isOnStreaming, setIsOnStreaming] = useState(false);
 
   const updateStreamingTime = useCallback(async () => {
     if (!isPlayed && songCurrentTime > 0)
@@ -48,8 +48,6 @@ const StreamProvider = ({ children }) => {
   }, [isPlayed, duration, songId, userId]);
 
   const handleStreaming = useCallback(async () => {
-    console.log('current time', songCurrentTime);
-    console.log('song total time', duration);
     if (readyToBeStreamed)
       if (songCurrentTime < duration) {
         setIsOnStreaming(true);
@@ -65,8 +63,6 @@ const StreamProvider = ({ children }) => {
     updateStreamingTime,
   ]);
 
-  console.log('is song playing', isPlayed);
-
   useEffect(() => {
     handleStreaming();
   }, [handleStreaming]);
@@ -75,7 +71,8 @@ const StreamProvider = ({ children }) => {
     updateStreamingTime();
   }, [updateStreamingTime]);
 
-  const payStream = async () => {
+  const payStream = async (price) => {
+    console.log('streamin price', price);
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -86,26 +83,24 @@ const StreamProvider = ({ children }) => {
       market_ABI,
       signer,
     );
-    setReadyToBeStreamed(false);
 
     const formatedSongPrice = ethers.utils.parseUnits(
-      songPrice.toString().trim(),
+      price.toString().trim(),
       'ether',
     );
-    if (!isOnStreaming) {
-      try {
-        const streamPayement = await contract.streamSong(songId, {
-          value: formatedSongPrice,
-        });
 
-        await streamPayement.wait();
-        setReadyToBeStreamed(true);
-        handleStreaming();
-        setGetPayementError(false);
-      } catch {
-        setGetPayementError(true);
-        setReadyToBeStreamed(false);
-      }
+    try {
+      const transaction = await contract.streamSong(songId, {
+        value: formatedSongPrice,
+      });
+      await transaction.wait();
+      setReadyToBeStreamed(true);
+      handleStreaming();
+      setGetPayementError(false);
+    } catch (error) {
+      console.log('error', error);
+      setGetPayementError(true);
+      setReadyToBeStreamed(false);
     }
   };
 
@@ -114,9 +109,9 @@ const StreamProvider = ({ children }) => {
       value={{
         setUserId,
         setSongId,
-        setSongPrice,
         setDuration,
         setSongCurrentTime,
+        setReadyToBeStreamed,
         setIsPlayed,
         getPayementError,
         payStream,
