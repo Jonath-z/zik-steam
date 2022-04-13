@@ -22,17 +22,7 @@ export const useDiscover = () => useContext(DiscoverContext);
 const DiscoverProvider = ({ children }) => {
   const [artists, setArtits] = useState([]);
   const [songByGenre, setSongByGenre] = useState([]);
-  const [songRefs, setSongRefs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const fetchSongRef = useCallback(async () => {
-    const songs = await axios.get('/api/song/getAllSongs');
-    setSongRefs(songs.data.data);
-  }, []);
-
-  useEffect(() => {
-    fetchSongRef();
-  }, [fetchSongRef]);
 
   const getAllSongs = useCallback(async () => {
     const url =
@@ -50,9 +40,6 @@ const DiscoverProvider = ({ children }) => {
 
     setIsLoading(true);
     const allSongs = await contract.getSongs();
-    console.log('all songs', allSongs);
-
-    console.log('allSongs', allSongs);
     const songs = await Promise.all(
       allSongs.map(async (song) => {
         const meta = (await axios.get(song.metadata)).data;
@@ -90,30 +77,49 @@ const DiscoverProvider = ({ children }) => {
     const allArtistNames = songs.map((song) => {
       return song.artistName;
     });
-
     const artistNames = [...new Set(allArtistNames)];
     console.log('artistNames', artistNames);
     setArtits(artistNames);
   };
 
-  const filterSongByGenre = (songs) => {
+  const filterSongByGenre = async (songs) => {
+    const songRefs = await axios.get('/api/song/getAllSongs');
+
     const allSongsGenre = songs.map((song) => {
       return song.genre;
     });
     const songsGenre = [...new Set(allSongsGenre)];
-    const sortedSongByGenre = songsGenre.map((songGenre) => {
-      let songsCollections = [];
-      songs.map((song) => {
-        if (song.genre === songGenre) {
-          return songsCollections.push(song);
-        }
+    console.log('songs Ref', songRefs);
+    console.log('response', songRefs.data.allSongs);
+    if (songRefs.data.allSongs) {
+      const songsSortedByGenre = songsGenre.map((songGenre) => {
+        let sortCollection = [];
+        console.log('songs ref', songRefs);
+        songRefs.data.allSongs.map((songRef) => {
+          songs.map((song) => {
+            if (
+              song.genre === songGenre &&
+              song.id === songRef.songId
+            ) {
+              const { likes, streamHours, streamNumber } = songRef;
+              const songData = {
+                ...song,
+                likes,
+                streamHours,
+                streamNumber,
+              };
+              sortCollection.push(songData);
+            }
+          });
+        });
+        return {
+          genre: songGenre,
+          songs: sortCollection,
+        };
       });
-      return {
-        genre: songGenre,
-        songs: songsCollections,
-      };
-    });
-    setSongByGenre(sortedSongByGenre);
+      console.log('songs sorted', songsSortedByGenre);
+      setSongByGenre(songsSortedByGenre);
+    }
   };
 
   useEffect(() => {
