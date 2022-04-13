@@ -7,9 +7,8 @@ export default async function handler(req, res) {
         .collection('songs')
         .find({})
         .toArray();
-      res.json({
-        status: 200,
-        data: allSongs,
+      res.status(200).json({
+        allSongs,
       });
     } catch (e) {
       console.log(e);
