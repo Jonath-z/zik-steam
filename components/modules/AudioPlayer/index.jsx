@@ -120,18 +120,24 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
             <h3 className="artist">{artist}</h3>
           </div>
         </Col>
-        <input
-          type="range"
-          value={trackProgress}
-          step="1"
-          min="0"
-          max={duration ? duration : `${duration}`}
-          className="progress bg-[#ffa503] w-96"
-          onChange={(e) => onScrub(e.target.value)}
-          onMouseUp={onScrubEnd}
-          onKeyUp={onScrubEnd}
-          style={{ background: trackStyling }}
-        />
+        <div className="flex items-center">
+          <p className="text-xs">
+            {(currentTime / 60).toFixed(0)}/
+            {(duration / 60).toFixed(0)} min
+          </p>
+          <input
+            type="range"
+            value={trackProgress}
+            step="1"
+            min="0"
+            max={duration ? duration : `${duration}`}
+            className="progress bg-[#ffa503] w-96"
+            onChange={(e) => onScrub(e.target.value)}
+            onMouseUp={onScrubEnd}
+            onKeyUp={onScrubEnd}
+            style={{ background: trackStyling }}
+          />
+        </div>
         <AudioControls
           isPlaying={isPlaying}
           onPrevClick={toPrevTrack}
