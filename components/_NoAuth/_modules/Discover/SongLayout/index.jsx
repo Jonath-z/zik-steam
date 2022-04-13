@@ -3,42 +3,58 @@ import SongCard from '../../../../modules/SongCard';
 import icons from '../../../../icons';
 import PropTypes from 'prop-types';
 import timeCoverter from '../../../../utils/helpers/streamsConverter';
+import axios from 'axios';
+import { useStream } from '../../../../contexts/StreamContext';
+import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
 
-const SongLayout = ({
-  setTracks,
-  song,
-  isPlaying,
-  setIsPlaying,
-  songIndex,
-  isLoading,
-  isReadyToBeStreamed,
-  stream,
-}) => {
+const SongLayout = ({ setTracks, song, isLoading }) => {
   const { Pause, Play, OutLineLike, FullLike, Ethereum } = icons;
   const [isFavorite, setIsFavorite] = useState(false);
   const [songPlayed, setSongPlayed] = useState({
-    index: 0,
+    id: 0,
     genre: '',
   });
-  const [songToStream, setSongTostream] = useState({
+  const [songToStream, setSongToStream] = useState({
     genre: '',
-    index: 0,
+    id: 0,
   });
+  const { setSongId, payStream, readyToBeStreamed } = useStream();
+  const { isPlaying, setIsPlaying } = useAudioPlayer();
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+  /////////////// add to favirite event here //////////////
+  const addToFavorites = (song) => {
+    axios.put('/api/update/addToFavorite', {});
+  };
+
+  const toggleFavorite = (state) => {
+    setIsFavorite(state);
   };
 
   useEffect(() => {
-    console.log('is ready to be streamed', isReadyToBeStreamed);
-  }, [isReadyToBeStreamed]);
+    console.log('is ready to be streamed', readyToBeStreamed);
+  }, [readyToBeStreamed]);
 
-  const toggleSongPlay = (song, index) => {
+  useEffect(() => {
+    console.log('song is playing ...', isPlaying);
+  }, [isPlaying]);
+
+  const toggleSongPlay = (song, id) => {
+    console.log('song for playing', song);
     setIsPlaying(!isPlaying);
     setSongPlayed({
-      index: index,
+      id: id,
       genre: song.genre,
     });
+  };
+
+  const OnClickStream = async (song) => {
+    setIsPlaying(false);
+    setSongToStream({
+      genre: song.genre,
+      id: song.id,
+    });
+    setSongId(song.id);
+    await payStream(song.streamingPrice);
   };
 
   return (
@@ -51,30 +67,28 @@ const SongLayout = ({
         }
       >
         <div
-          style={{
-            backgroundImage: `url(${song.coverUrl})`,
-          }}
+          style={{ backgroundImage: `url(${song.coverUrl})` }}
           className="w-56 h-56 bg-cover relative rounded-lg"
         >
           <div className="bg-[#00C3FF] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center">
-            {isReadyToBeStreamed &&
+            {readyToBeStreamed &&
             songToStream.genre === song.genre &&
-            songToStream.index === songIndex ? (
+            songToStream.id === song.id ? (
               <div>
                 {isPlaying &&
-                songPlayed.index === songIndex &&
+                songPlayed.id === song.id &&
                 songPlayed.genre === song.genre ? (
                   <Pause
                     className="text-3xl"
                     onClick={() => {
-                      toggleSongPlay(song, songIndex);
+                      toggleSongPlay(song, song.id);
                     }}
                   />
                 ) : (
                   <Play
                     className="text-3xl"
                     onClick={() => {
-                      toggleSongPlay(song, songIndex);
+                      toggleSongPlay(song, song.id);
                       setTracks([
                         {
                           title: song.songTitle,
@@ -90,11 +104,7 @@ const SongLayout = ({
             ) : (
               <button
                 onClick={() => {
-                  stream(song);
-                  setSongTostream({
-                    genre: song.genre,
-                    index: songIndex,
-                  });
+                  OnClickStream(song);
                 }}
               >
                 Stream Now
@@ -118,12 +128,12 @@ const SongLayout = ({
         {!isFavorite ? (
           <OutLineLike
             className="text-2xl cursor-pointer"
-            onClick={toggleFavorite}
+            onClick={() => toggleFavorite(true)}
           />
         ) : (
           <FullLike
             className="text-2xl cursor-pointer"
-            onClick={toggleFavorite}
+            onClick={() => toggleFavorite(false)}
           />
         )}
       </div>
@@ -133,13 +143,8 @@ const SongLayout = ({
 
 SongLayout.propTypes = {
   setTracks: PropTypes.func.isRequired,
-  setIsPlaying: PropTypes.func.isRequired,
   song: PropTypes.object.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
-  songIndex: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  isReadyToBeStreamed: PropTypes.bool.isRequired,
-  stream: PropTypes.func.isRequired,
 };
 
 export default SongLayout;
