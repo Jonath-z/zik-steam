@@ -8,7 +8,7 @@ import { useAudioPlayer } from '../../contexts/AudioPlayerContext';
 const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
-  const { isPlaying, setIsPlaying } = useAudioPlayer();
+  const { isPlaying, setIsPlaying } = useAudioPlayer(false);
 
   const { title, artist, image, audioSrc } = tracks[trackIndex];
 
@@ -42,7 +42,6 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
 
   useEffect(() => {
     audioRef.current.pause();
-
     audioRef.current = new Audio(audioSrc);
     setTrackProgress(audioRef.current.currentTime);
 
@@ -53,7 +52,7 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
     } else {
       isReady.current = true;
     }
-  }, [audioSrc]);
+  }, [audioSrc, setIsPlaying, startTimer]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const startTimer = () => {

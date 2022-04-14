@@ -19,6 +19,7 @@ const Discover = () => {
   const route = useRouter();
   const { id } = route.query;
   const [tracks, setTracks] = useState([]);
+  const [songToStream, setSongToStream] = useState({});
 
   useEffect(() => {
     setUserId(id);
@@ -57,6 +58,8 @@ const Discover = () => {
                       setTracks={setTracks}
                       song={song}
                       isLoading={isLoading}
+                      setSongToStream={setSongToStream}
+                      songToStream={songToStream}
                     />
                   </div>
                 );
@@ -68,7 +71,6 @@ const Discover = () => {
       {tracks.length !== 0 && readyToBeStreamed && (
         <AudioPlayer
           tracks={tracks}
-          extarnalIsPlaying={isPlaying.isPlaying}
           setSongCurrentTime={setSongCurrentTime}
           setDuration={setDuration}
         />

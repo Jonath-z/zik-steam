@@ -58,7 +58,7 @@ const LoginProvider = ({ children }) => {
     console.log(response);
     if (response.data.status === 302) {
       if (checkPassword(response.data.user.password, password)) {
-        routes.push(`/discover/${response.data.user.id}`);
+        routes.push(`/home/${response.data.user.id}`);
         setIsGettingError(false);
         setEmail('');
         setPassword('');

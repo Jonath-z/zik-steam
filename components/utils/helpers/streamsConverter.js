@@ -6,7 +6,7 @@ const timeCoverter = (time) => {
       timeUnit: 'min',
     };
   } else {
-    const timeInHours = time / 120;
+    const timeInHours = time / 3600;
     return {
       time: timeInHours.toFixed(0),
       timeUnit: 'hours',

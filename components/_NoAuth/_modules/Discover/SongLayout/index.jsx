@@ -6,55 +6,64 @@ import timeCoverter from '../../../../utils/helpers/streamsConverter';
 import axios from 'axios';
 import { useStream } from '../../../../contexts/StreamContext';
 import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
+import PlayPauseButton from '../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import { useRouter } from 'next/router';
 
-const SongLayout = ({ setTracks, song, isLoading }) => {
-  const { Pause, Play, OutLineLike, FullLike, Ethereum } = icons;
+const SongLayout = ({
+  setTracks,
+  song,
+  isLoading,
+  setSongToStream,
+  songToStream,
+}) => {
+  const {
+    setSongId,
+    payStream,
+    readyToBeStreamed,
+    setReadyToBeStreamed,
+  } = useStream();
+  const { OutLineLike, FullLike, Ethereum } = icons;
   const [isFavorite, setIsFavorite] = useState(false);
-  const [songPlayed, setSongPlayed] = useState({
-    id: 0,
-    genre: '',
-  });
-  const [songToStream, setSongToStream] = useState({
-    genre: '',
-    id: 0,
-  });
-  const { setSongId, payStream, readyToBeStreamed } = useStream();
   const { isPlaying, setIsPlaying } = useAudioPlayer();
+  const route = useRouter();
+  const { id } = route.query;
 
-  /////////////// add to favirite event here //////////////
-  const addToFavorites = (song) => {
-    axios.put('/api/update/addToFavorite', {});
+  const addToFavorites = async (song) => {
+    await axios.put('/api/update/addToFavorite', { id, song });
   };
 
-  const toggleFavorite = (state) => {
-    setIsFavorite(state);
-  };
-
-  useEffect(() => {
-    console.log('is ready to be streamed', readyToBeStreamed);
-  }, [readyToBeStreamed]);
-
-  useEffect(() => {
-    console.log('song is playing ...', isPlaying);
-  }, [isPlaying]);
-
-  const toggleSongPlay = (song, id) => {
-    console.log('song for playing', song);
-    setIsPlaying(!isPlaying);
-    setSongPlayed({
-      id: id,
-      genre: song.genre,
+  const deleteFromFavorite = async (song) => {
+    await axios.post('/api/update/deleteFromFavorite', {
+      id,
+      song,
     });
+  };
+
+  const toggleFavorite = (isAdding, song) => {
+    if (!isAdding) deleteFromFavorite(song);
+    addToFavorites(song);
+    setIsFavorite(!isFavorite);
+  };
+
+  const cleanUp = () => {
+    setSongToStream({});
+    setIsPlaying(!isPlaying);
   };
 
   const OnClickStream = async (song) => {
-    setIsPlaying(false);
-    setSongToStream({
-      genre: song.genre,
-      id: song.id,
-    });
-    setSongId(song.id);
+    cleanUp();
     await payStream(song.streamingPrice);
+    setSongId(song.id);
+    setSongToStream(song);
+    setTracks([
+      {
+        title: song.songTitle,
+        image: song.coverUrl,
+        artist: song.artistName,
+        audioSrc: song.songUrl,
+      },
+    ]);
+    console.log('song to stream', songToStream);
   };
 
   return (
@@ -75,31 +84,20 @@ const SongLayout = ({ setTracks, song, isLoading }) => {
             songToStream.genre === song.genre &&
             songToStream.id === song.id ? (
               <div>
-                {isPlaying &&
-                songPlayed.id === song.id &&
-                songPlayed.genre === song.genre ? (
-                  <Pause
-                    className="text-3xl"
-                    onClick={() => {
-                      toggleSongPlay(song, song.id);
-                    }}
-                  />
-                ) : (
-                  <Play
-                    className="text-3xl"
-                    onClick={() => {
-                      toggleSongPlay(song, song.id);
-                      setTracks([
-                        {
-                          title: song.songTitle,
-                          image: song.coverUrl,
-                          artist: song.artistName,
-                          audioSrc: song.songUrl,
-                        },
-                      ]);
-                    }}
-                  />
-                )}
+                <PlayPauseButton
+                  isPlaying={isPlaying}
+                  onPlayPauseClick={() => setIsPlaying(!isPlaying)}
+                  setTracks={() =>
+                    setTracks([
+                      {
+                        title: song.songTitle,
+                        image: song.coverUrl,
+                        artist: song.artistName,
+                        audioSrc: song.songUrl,
+                      },
+                    ])
+                  }
+                />
               </div>
             ) : (
               <button
@@ -123,17 +121,20 @@ const SongLayout = ({ setTracks, song, isLoading }) => {
           <span className="text-gray-500 text-xs">
             {song.songTitle}
           </span>
-          <span className="text-[#00C3FF] text-xs">streams:</span>
+          <span className="text-[#00C3FF] text-xs">
+            streams: {timeCoverter(song.streamHours).time}{' '}
+            {timeCoverter(song.streamHours).timeUnit}
+          </span>
         </p>
         {!isFavorite ? (
           <OutLineLike
             className="text-2xl cursor-pointer"
-            onClick={() => toggleFavorite(true)}
+            onClick={() => toggleFavorite(true, song)}
           />
         ) : (
           <FullLike
             className="text-2xl cursor-pointer"
-            onClick={() => toggleFavorite(false)}
+            onClick={() => toggleFavorite(false, song)}
           />
         )}
       </div>
@@ -145,6 +146,8 @@ SongLayout.propTypes = {
   setTracks: PropTypes.func.isRequired,
   song: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  setSongToStream: PropTypes.func,
+  songToStream: PropTypes.object,
 };
 
 export default SongLayout;

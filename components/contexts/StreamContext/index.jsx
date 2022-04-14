@@ -47,25 +47,21 @@ const StreamProvider = ({ children }) => {
       });
   }, [isPlayed, duration, songId, userId]);
 
-  const handleStreaming = useCallback(async () => {
-    if (readyToBeStreamed)
-      if (songCurrentTime < duration) {
-        setIsOnStreaming(true);
-      } else if (songCurrentTime === duration) {
-        updateStreamingTime();
-        setIsOnStreaming(false);
-        setReadyToBeStreamed(false);
-      }
-  }, [
-    songCurrentTime,
-    duration,
-    readyToBeStreamed,
-    updateStreamingTime,
-  ]);
+  //   const handleStreaming = useCallback(async () => {
+  //     if (readyToBeStreamed)
+  //       if (songCurrentTime < duration) {
+  //         setIsOnStreaming(true);
+  //       } else if (songCurrentTime === duration) {
+  //         console.log('handle error');
+  //         updateStreamingTime();
+  //         setIsOnStreaming(false);
+  //         setReadyToBeStreamed(false);
+  //       }
+  //   }, [duration, updateStreamingTime]);
 
-  useEffect(() => {
-    handleStreaming();
-  }, [handleStreaming]);
+  //   useEffect(() => {
+  //     handleStreaming();
+  //   }, [handleStreaming]);
 
   useEffect(() => {
     updateStreamingTime();
@@ -95,7 +91,7 @@ const StreamProvider = ({ children }) => {
       });
       await transaction.wait();
       setReadyToBeStreamed(true);
-      handleStreaming();
+      //   handleStreaming();
       setGetPayementError(false);
     } catch (error) {
       console.log('error', error);

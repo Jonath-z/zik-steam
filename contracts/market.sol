@@ -59,7 +59,7 @@ contract Market is ReentrancyGuard {
             _supportPrice,
             payable(msg.sender)
         );
-
+    
         marketOwner.transfer(msg.value);
         console.log(newId);
         emit songUploaded(

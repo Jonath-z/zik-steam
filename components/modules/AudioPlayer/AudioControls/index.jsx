@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  AiOutlinePlayCircle as Play,
-  AiOutlinePauseCircle as Pause,
-} from 'react-icons/ai';
-import {
   MdOutlineSkipPrevious as Prev,
   MdOutlineSkipNext as Next,
 } from 'react-icons/md';
+import PlayPauseButton from './PlayPauseButton';
 
 const AudioControls = ({
   isPlaying,
@@ -25,25 +22,12 @@ const AudioControls = ({
       >
         <Prev className="text-4xl" />
       </button>
-      {isPlaying ? (
-        <button
-          type="button"
-          className="pause"
-          onClick={() => onPlayPauseClick(false)}
-          aria-label="Pause"
-        >
-          <Pause className="text-4xl" />
-        </button>
-      ) : (
-        <button
-          type="button"
-          className="play"
-          onClick={() => onPlayPauseClick(true)}
-          aria-label="Play"
-        >
-          <Play className="text-4xl" />
-        </button>
-      )}
+      <PlayPauseButton
+        isPlaying={isPlaying}
+        onPlayPauseClick={onPlayPauseClick}
+        setTracks={() => null}
+        // track={null}
+      />
       <button
         type="button"
         className="next"
