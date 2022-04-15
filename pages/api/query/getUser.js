@@ -8,21 +8,28 @@ export default async function handler(req, res) {
       .find({ id: id })
       .toArray();
     console.log('user', user);
-    if (user.length === 0) return false;
-    return true;
+    if (user.length === 0)
+      return {
+        isExist: false,
+        user: [],
+      };
+    return {
+      isExist: true,
+      user: user,
+    };
   };
 
   if (req.method === 'POST') {
-    console.log('is exists:', await isUserExits(req.body.id));
-    if (await isUserExits(req.body.id)) {
-      res.json({
-        status: 302,
+    const isExist = await isUserExits(req.body.id);
+    if (isExist.isExist) {
+      res.status(200).json({
         message: 'user found',
+        user: isExist.user,
       });
     } else {
-      res.json({
-        status: 404,
+      res.status(404).json({
         message: 'user not found',
+        user: isExist.user,
       });
     }
   }
