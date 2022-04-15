@@ -47,22 +47,6 @@ const StreamProvider = ({ children }) => {
       });
   }, [isPlayed, duration, songId, userId]);
 
-  //   const handleStreaming = useCallback(async () => {
-  //     if (readyToBeStreamed)
-  //       if (songCurrentTime < duration) {
-  //         setIsOnStreaming(true);
-  //       } else if (songCurrentTime === duration) {
-  //         console.log('handle error');
-  //         updateStreamingTime();
-  //         setIsOnStreaming(false);
-  //         setReadyToBeStreamed(false);
-  //       }
-  //   }, [duration, updateStreamingTime]);
-
-  //   useEffect(() => {
-  //     handleStreaming();
-  //   }, [handleStreaming]);
-
   useEffect(() => {
     updateStreamingTime();
   }, [updateStreamingTime]);
@@ -86,12 +70,11 @@ const StreamProvider = ({ children }) => {
     );
 
     try {
-      const transaction = await contract.streamSong(songId, {
+      const transaction = await contract.payStreaming(songId, {
         value: formatedSongPrice,
       });
       await transaction.wait();
       setReadyToBeStreamed(true);
-      //   handleStreaming();
       setGetPayementError(false);
     } catch (error) {
       console.log('error', error);
