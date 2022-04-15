@@ -1,0 +1,12 @@
+.loginBg {
+  background-image: url('../components/vectors/login-bg.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgb(4, 15, 80);
+}
+
+.authInput {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: white;
+}
