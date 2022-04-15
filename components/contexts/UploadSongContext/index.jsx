@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import previewImage from '../../assets/images/stream-vector.png';
 import axios from 'axios';
 import checkImageSize from '../../utils/helpers/checkImageSize';
-import { useRouter } from 'next/router';
 
 const defaultContext = {
   onCoverfileChange: () => null,
@@ -23,6 +22,7 @@ const defaultContext = {
   onSongPriceChange: () => null,
   onSongSupportPriceChange: () => null,
   onTrackfileChange: () => null,
+  onSongOwnerChange: () => null,
   createSong: () => null,
   songUploasProgress: 0,
   coverUploadProgress: 0,
@@ -42,7 +42,7 @@ const defaultContext = {
 const UploadSongContext = createContext(defaultContext);
 export const useUploadSong = () => useContext(UploadSongContext);
 
-const UploadSongProvider = ({ children, id }) => {
+const UploadSongProvider = ({ children }) => {
   const [coverUrl, setCoverUrl] = useState('');
   const [trackUrl, setTrackUrl] = useState('');
   const [songTitle, setSongTitle] = useState('');
@@ -50,6 +50,7 @@ const UploadSongProvider = ({ children, id }) => {
   const [songGenre, setSongGenre] = useState('');
   const [artistLabel, setArtistLabel] = useState('');
   const [songPrice, setSongPrice] = useState(0);
+  const [songOwer, setSongOwner] = useState('');
   const [songSupportPrice, setSongSupportPrice] = useState(0);
   const [songUploadProgress, setSongUploadProgress] = useState(0);
   const [coverUploadProgress, setCoverUploadProgress] = useState(0);
@@ -116,12 +117,16 @@ const UploadSongProvider = ({ children, id }) => {
     setArtistLabel(event.target.value);
   }, []);
 
-  const onSongPriceChange = useCallback(async (event) => {
+  const onSongPriceChange = useCallback((event) => {
     setSongPrice(event.target.value);
   }, []);
 
-  const onSongSupportPriceChange = useCallback(async (event) => {
+  const onSongSupportPriceChange = useCallback((event) => {
     setSongSupportPrice(event.target.value);
+  }, []);
+
+  const onSongOwnerChange = useCallback((event) => {
+    setSongOwner(event.target.value);
   }, []);
 
   const createSong = async () => {
@@ -137,7 +142,8 @@ const UploadSongProvider = ({ children, id }) => {
       !songArtist ||
       !songTitle ||
       !songPrice ||
-      !songSupportPrice
+      !songSupportPrice ||
+      !songOwer
     )
       return;
     const songMetadata = JSON.stringify({
@@ -155,14 +161,11 @@ const UploadSongProvider = ({ children, id }) => {
 
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
     const songId = await uploadSongOnBlockchain(url);
-
-    const userId = id;
-    updateUserSongOnMongodb(songId, userId);
+    updateUserSongOnMongodb(songId);
   };
 
-  const updateUserSongOnMongodb = async (songId, userId) => {
+  const updateUserSongOnMongodb = async (songId) => {
     const song = {
-      id: userId,
       songId: songId,
       likes: 0,
       streamNumber: 0,
@@ -195,10 +198,14 @@ const UploadSongProvider = ({ children, id }) => {
       'ether',
     );
 
+    console.log('contract', contract);
+    console.log('this url', url);
+
     const uploading = await contract.uploadSong(
       url,
       formatedSongPrice,
       formatedSupportPrice,
+      songOwer,
       {
         value: formatedListingFee,
       },
@@ -214,6 +221,7 @@ const UploadSongProvider = ({ children, id }) => {
     setSongPrice('');
     setSongSupportPrice('');
     setSongTitle('');
+    setSongOwner('');
     setIsReadyForUploading(false);
     setIsSuccessFullyUploaded(true);
 
@@ -231,6 +239,7 @@ const UploadSongProvider = ({ children, id }) => {
         onSongGenreChange,
         onSongPriceChange,
         onSongSupportPriceChange,
+        onSongOwnerChange,
         songUploadProgress,
         coverUploadProgress,
         createSong,
@@ -249,6 +258,5 @@ const UploadSongProvider = ({ children, id }) => {
 
 UploadSongProvider.propTypes = {
   children: PropTypes.node.isRequired,
-  id: PropTypes.string,
 };
 export default UploadSongProvider;
