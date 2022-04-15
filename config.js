@@ -1,5 +1,5 @@
 export const marketAddress =
-  '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+  '0xB377a2EeD7566Ac9fCb0BA673604F9BF875e2Bab';
 
 export const market_ABI = [
   {
@@ -78,7 +78,7 @@ export const market_ABI = [
         type: 'uint256',
       },
     ],
-    name: 'getOneSong',
+    name: 'getSongById',
     outputs: [
       {
         components: [
@@ -173,6 +173,32 @@ export const market_ABI = [
     inputs: [
       {
         internalType: 'uint256',
+        name: '_songId',
+        type: 'uint256',
+      },
+    ],
+    name: 'payStreaming',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_songId',
+        type: 'uint256',
+      },
+    ],
+    name: 'paySupportStreaming',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
         name: '',
         type: 'uint256',
       },
@@ -211,32 +237,6 @@ export const market_ABI = [
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_songId',
-        type: 'uint256',
-      },
-    ],
-    name: 'streamSong',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_songId',
-        type: 'uint256',
-      },
-    ],
-    name: 'streamSongAsSupport',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'string',
         name: '_metadata',
         type: 'string',
@@ -250,6 +250,11 @@ export const market_ABI = [
         internalType: 'uint256',
         name: '_supportPrice',
         type: 'uint256',
+      },
+      {
+        internalType: 'address',
+        name: '_owner',
+        type: 'address',
       },
     ],
     name: 'uploadSong',
