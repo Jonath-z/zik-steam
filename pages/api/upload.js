@@ -14,15 +14,8 @@ export default async function handler(req, res) {
         isBestStreamed: body.isBestStreamed,
       };
 
-      await db.collection('users').updateOne(
-        { id: body.id },
-        {
-          $push: { songs: song },
-        },
-      );
-
       await db.collection('songs').insertOne(song);
-      res.status(200).json({ successFullyUploaded: true });
+      res.status(200).json({ message: true });
 
       break;
     case 'GET':
