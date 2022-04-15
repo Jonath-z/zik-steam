@@ -3,7 +3,6 @@ import { Layout } from 'antd';
 import LayoutSider from './LayoutSider';
 import LayoutHeader from './LayoutHeader';
 import LayoutContent from './LayoutContent';
-import UploadSong from '../../_secured/UploadSong';
 import Discover from '../_modules/Discover';
 
 const HomePage = () => {
@@ -11,9 +10,6 @@ const HomePage = () => {
 
   const setMenuContent = (menu) => {
     switch (menu) {
-      case 'upload':
-        setContent(<UploadSong />);
-        break;
       case 'discover':
         setContent(<Discover />);
         break;
