@@ -44,7 +44,8 @@ contract Market is ReentrancyGuard {
     function uploadSong(
         string memory _metadata,
         uint256 _price,
-        uint256 _supportPrice
+        uint256 _supportPrice,
+        address _owner
     ) public payable {
         require(_price > 0, "price may not be 0");
         require(msg.value == listingFee, "pay the required listing fee");
@@ -57,34 +58,44 @@ contract Market is ReentrancyGuard {
             _metadata,
             _price,
             _supportPrice,
-            payable(msg.sender)
+            payable(_owner)
         );
-    
-        marketOwner.transfer(msg.value);
-        console.log(newId);
+        console.log("song", _metadata);
         emit songUploaded(
              newId,
             _metadata,
             _price,
             _supportPrice,
-            payable(msg.sender)
+            payable(_owner)
         );
     }
 
-    function streamSong(uint256 _songId) public payable {
+    function payStreaming(uint256 _songId) public payable {
         require(
             msg.value == songs[_songId].price,
             "stream with the correct price"
         );
-        songs[_songId].owner.transfer(msg.value);
+
+        uint256 streamingFee = msg.value;
+        uint256 tax = (streamingFee * 5) / 100;
+        uint256 final_payement = streamingFee - tax;
+
+        songs[_songId].owner.transfer(final_payement);
+        marketOwner.transfer(tax);
     }
 
-    function streamSongAsSupport(uint256 _songId) public payable {
+    function paySupportStreaming(uint256 _songId) public payable {
         require(
             msg.value == songs[_songId].supportPrice,
             "stream with the correct price"
         );
-        songs[_songId].owner.transfer(msg.value);
+
+       uint256 streamingFee = msg.value;
+       uint256 tax = (streamingFee * 10) / 100;
+       uint256 final_payement = streamingFee - tax;
+
+        songs[_songId].owner.transfer(final_payement);
+        marketOwner.transfer(tax);
     }
 
     function getSongs() public view returns (Song[] memory) {
@@ -97,7 +108,7 @@ contract Market is ReentrancyGuard {
         return allSongs;
     }
 
-    function getOneSong(uint256 _songId) public view returns (Song memory) {
+    function getSongById(uint256 _songId) public view returns (Song memory) {
         Song memory foundSong = songs[_songId];
         return foundSong;
     }
