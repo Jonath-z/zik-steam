@@ -18,7 +18,7 @@ const SignupProvider = ({ children }) => {
   const [password, setPassword] = useState('');
   const [isCreationProcess, setIsCreationProcess] = useState(false);
   const [isGettingError, setIsGettingError] = useState(false);
-  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(false);
 
   const routes = useRouter();
 
