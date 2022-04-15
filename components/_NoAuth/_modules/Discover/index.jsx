@@ -30,10 +30,10 @@ const Discover = () => {
     if (songByGenre.length > 0)
       setTracks([
         {
-          title: songByGenre[1].songs[0].songTitle,
-          image: songByGenre[1].songs[0].coverUrl,
-          artist: songByGenre[1].songs[0].artistName,
-          audioSrc: songByGenre[1].songs[0].songUrl,
+          title: songByGenre[0].songs[0].songTitle,
+          image: songByGenre[0].songs[0].coverUrl,
+          artist: songByGenre[0].songs[0].artistName,
+          audioSrc: songByGenre[0].songs[0].songUrl,
         },
       ]);
   }, [songByGenre]);
