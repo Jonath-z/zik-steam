@@ -4,6 +4,7 @@ import AudioControls from './AudioControls';
 import { Col } from 'antd';
 import PropTypes from 'prop-types';
 import { useAudioPlayer } from '../../contexts/AudioPlayerContext';
+import styles from '../../../styles/audioPlayer.module.css';
 
 const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
   const [trackIndex, setTrackIndex] = useState(0);
@@ -105,7 +106,9 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-90 py-1">
+      <div
+        className={`fixed bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-90 py-1 ${styles.AudioPlayer}`}
+      >
         <Col className="flex items-center">
           <img
             className="artwork rounded-full"
@@ -115,8 +118,12 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
             alt={`track artwork for ${title} by ${artist}`}
           />
           <div className="px-2">
-            <h2 className="title">{title}</h2>
-            <h3 className="artist">{artist}</h3>
+            <h2 className="title flex flex-col">
+              <b>{title}</b>
+              <span className="artist text-xs m-0 text-gray-600">
+                {artist}
+              </span>
+            </h2>
           </div>
         </Col>
         <div className="flex items-center">

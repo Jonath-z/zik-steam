@@ -10,7 +10,7 @@ const PlayPauseButton = ({
 }) => {
   const { Pause, Play } = icons;
   return (
-    <div>
+    <div className="flex justify-center items-center">
       {isPlaying ? (
         <button
           type="button"

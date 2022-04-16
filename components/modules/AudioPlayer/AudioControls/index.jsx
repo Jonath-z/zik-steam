@@ -13,14 +13,14 @@ const AudioControls = ({
   onNextClick,
 }) => {
   return (
-    <div className="audio-controls">
+    <div className="flex justify-around items-center">
       <button
         type="button"
-        className="prev"
+        className="text-xl"
         aria-label="Previous"
         onClick={onPrevClick}
       >
-        <Prev className="text-4xl" />
+        <Prev className="text-2xl" />
       </button>
       <PlayPauseButton
         isPlaying={isPlaying}
@@ -30,11 +30,11 @@ const AudioControls = ({
       />
       <button
         type="button"
-        className="next"
+        className="text-xl"
         aria-label="Next"
         onClick={onNextClick}
       >
-        <Next className="text-4xl" />
+        <Next className="text-2xl" />
       </button>
     </div>
   );

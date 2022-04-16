@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const isUserExits = async (email) => {
     const user = await db
       .collection('users')
-      .find({ email })
+      .find({ email: email })
       .toArray();
     if (user.length === 0) {
       console.log('not found');

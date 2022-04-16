@@ -28,13 +28,6 @@ const LayoutSider = ({ setMenuContent }) => {
             <span>Discover</span>
           </Item>
           <Item
-            key="2"
-            style={{ paddingLeft: '48px' }}
-            onClick={() => setMenuContent('most streamed')}
-          >
-            <span>Most Streamed</span>
-          </Item>
-          <Item
             key="3"
             style={{ paddingLeft: '48px' }}
             onClick={() => setMenuContent('artists')}
