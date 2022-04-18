@@ -166,13 +166,14 @@ const UploadSongProvider = ({ children }) => {
 
   const updateUserSongOnMongodb = async (songId) => {
     const song = {
+      artistName: songArtist,
       songId: songId,
       likes: 0,
       streamNumber: 0,
       streamHours: 0,
       isBestStreamed: false,
     };
-    await axios.post('/api/upload', { song });
+    await axios.post('/api/upload/uploadSong', { song });
   };
 
   const uploadSongOnBlockchain = async (url) => {

@@ -22,6 +22,7 @@ const CreateArtist = () => {
       progress: (prog) => setProgress(calulProgress(file.size, prog)),
     });
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+    console.log('profile', url);
     setArtistIds({ ...artistIds, artistProfileUrl: url });
   };
 
@@ -52,9 +53,15 @@ const CreateArtist = () => {
             name="profile-photo"
             placeholder="Upload Song"
             onChange={onProfilePhotoChange}
-            className={`bg-[#00C3FF] bg-opacity-[${coverUploadProgress}]`}
+            className={`bg-[#00C3FF]`}
           />
-          {progress && <progress max={100} value={progress} />}
+          {progress && (
+            <progress
+              max={100}
+              value={progress}
+              className="bg-blue-500 w-full"
+            />
+          )}
           <label htmlFor="artist-name">Artist name</label>
           <Input
             type="text"

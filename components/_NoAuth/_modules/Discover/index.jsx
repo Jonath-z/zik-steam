@@ -22,18 +22,14 @@ const Discover = () => {
   const [songToStream, setSongToStream] = useState({});
 
   useEffect(() => {
-    setUserId(id);
-  }, [id, setUserId]);
-
-  useEffect(() => {
     console.log('song by genre in discover ', songByGenre);
     if (songByGenre.length > 0)
       setTracks([
         {
-          title: songByGenre[0].songs[0].songTitle,
-          image: songByGenre[0].songs[0].coverUrl,
-          artist: songByGenre[0].songs[0].artistName,
-          audioSrc: songByGenre[0].songs[0].songUrl,
+          title: '',
+          image: '',
+          artist: '',
+          audioSrc: '',
         },
       ]);
   }, [songByGenre]);

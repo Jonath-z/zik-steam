@@ -40,7 +40,7 @@ const LoginPage = () => {
               }}
             />
             {isGettingError && (
-              <p styles={{ color: 'red' }}>
+              <p className="text-red-400 text-center">
                 Email or password incorrect
               </p>
             )}

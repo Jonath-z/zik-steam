@@ -126,7 +126,7 @@ const SongLayout = ({
             {timeCoverter(song.streamHours).timeUnit}
           </span>
         </p>
-        {!isFavorite ? (
+        {!isFavorite && !song.isLiked ? (
           <OutLineLike
             className="text-2xl cursor-pointer"
             onClick={() => toggleFavorite(true, song)}

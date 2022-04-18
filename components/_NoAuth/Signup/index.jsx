@@ -44,7 +44,7 @@ const SignupPage = () => {
               className={`w-full py-2 px-3 bg-transparent border-white border outline-none rounded-md text-white placeholder:text-gray-500`}
             />
             {isGettingError && (
-              <p styles={{ color: 'red' }}>
+              <p className="text-red-400">
                 <b>{email}</b> exists already, please change this
                 email
               </p>

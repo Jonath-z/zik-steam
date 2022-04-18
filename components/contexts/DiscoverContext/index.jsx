@@ -8,7 +8,9 @@ import React, {
 import { ethers } from 'ethers';
 import { marketAddress, market_ABI } from '../../../config';
 import axios from 'axios';
+import { useUser } from '../UserContext';
 import PropTypes from 'prop-types';
+import LocalStorage from '../../utils/helpers/localStorage';
 
 const defaultContext = {
   artists: [],
@@ -23,6 +25,62 @@ const DiscoverProvider = ({ children }) => {
   const [artists, setArtits] = useState([]);
   const [songByGenre, setSongByGenre] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const filterArtistsByName = useCallback((songs) => {
+    const allArtistNames = songs.map((song) => {
+      return song.artistName;
+    });
+    const artistNames = [...new Set(allArtistNames)];
+    console.log('artistNames', artistNames);
+    setArtits(artistNames);
+  }, []);
+
+  const filterSongByGenre = useCallback(async (songs) => {
+    const userId = LocalStorage.get('zik-stream-user-uuid');
+    setIsLoading(true);
+    const songRefs = await axios.post('/api/song/getAllSongs', {
+      userId: userId,
+    });
+    console.log('refs', songRefs);
+    setIsLoading(false);
+
+    const allSongsGenre = songs.map((song) => {
+      return song.genre;
+    });
+
+    const songsGenre = [...new Set(allSongsGenre)];
+    if (songRefs && songRefs.data.allSongs) {
+      const songsSortedByGenre = songsGenre.map((songGenre) => {
+        let sortCollection = [];
+        console.log('songs ref', songRefs);
+        songRefs.data.allSongs.map((songRef) => {
+          songs.map((song) => {
+            if (
+              song.genre === songGenre &&
+              song.id === songRef.songId
+            ) {
+              const { likes, streamHours, streamNumber, isLiked } =
+                songRef;
+              const songData = {
+                ...song,
+                likes,
+                streamHours,
+                streamNumber,
+                isLiked,
+              };
+              sortCollection.push(songData);
+            }
+          });
+        });
+        return {
+          genre: songGenre,
+          songs: sortCollection,
+        };
+      });
+      console.log('songs sorted', songsSortedByGenre);
+      setSongByGenre(songsSortedByGenre);
+    }
+  }, []);
 
   const getAllSongs = useCallback(async () => {
     const url =
@@ -71,60 +129,21 @@ const DiscoverProvider = ({ children }) => {
     filterArtistsByName(songs);
     filterSongByGenre(songs);
     setIsLoading(false);
-  }, []);
-
-  const filterArtistsByName = (songs) => {
-    const allArtistNames = songs.map((song) => {
-      return song.artistName;
-    });
-    const artistNames = [...new Set(allArtistNames)];
-    console.log('artistNames', artistNames);
-    setArtits(artistNames);
-  };
-
-  const filterSongByGenre = async (songs) => {
-    const songRefs = await axios.get('/api/song/getAllSongs');
-
-    const allSongsGenre = songs.map((song) => {
-      return song.genre;
-    });
-    const songsGenre = [...new Set(allSongsGenre)];
-    console.log('songs Ref', songRefs);
-    console.log('response', songRefs.data.allSongs);
-    if (songRefs.data.allSongs) {
-      const songsSortedByGenre = songsGenre.map((songGenre) => {
-        let sortCollection = [];
-        console.log('songs ref', songRefs);
-        songRefs.data.allSongs.map((songRef) => {
-          songs.map((song) => {
-            if (
-              song.genre === songGenre &&
-              song.id === songRef.songId
-            ) {
-              const { likes, streamHours, streamNumber } = songRef;
-              const songData = {
-                ...song,
-                likes,
-                streamHours,
-                streamNumber,
-              };
-              sortCollection.push(songData);
-            }
-          });
-        });
-        return {
-          genre: songGenre,
-          songs: sortCollection,
-        };
-      });
-      console.log('songs sorted', songsSortedByGenre);
-      setSongByGenre(songsSortedByGenre);
-    }
-  };
+  }, [filterArtistsByName, filterSongByGenre]);
 
   useEffect(() => {
     getAllSongs();
   }, [getAllSongs]);
+
+  // const updateFavoriteSong = (songId, songGenre, status) => {
+  //   const updatedSong = songByGenre.map(songByGenre => {
+  //     if (songByGenre.genre === songByGenre) {
+  //       songByGenre.songs.map((song) => {
+  //         song.isLiked = status;
+  //       })
+  //     }
+  //   })
+  // }
 
   return (
     <DiscoverContext.Provider

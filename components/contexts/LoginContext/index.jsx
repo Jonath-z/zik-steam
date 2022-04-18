@@ -8,6 +8,7 @@ import React, {
 import cryptoJs from '../../utils/helpers/cryptoJs';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import LocalStorage from '../../utils/helpers/localStorage';
 
 const LoginContext = createContext();
 export const useLogin = () => useContext(LoginContext);
@@ -42,6 +43,21 @@ const LoginProvider = ({ children }) => {
     return false;
   };
 
+  const getUserByCredentials = async (userCredentials) => {
+    const response = await axios.post(
+      '/api/auth/login',
+      userCredentials,
+    );
+
+    if (response.data.status === 302) {
+      LocalStorage.set('zik-stream-user-uuid', response.data.user.id);
+      return response;
+    } else if (response.data.status === 404) {
+      setIsGettingError(true);
+      setIsCreationProcess(false);
+    }
+  };
+
   const login = async () => {
     if (!password || !email || !isValidPassword) return;
     const cryptedPassword = cryptoJs.encrypt(password);
@@ -51,24 +67,16 @@ const LoginProvider = ({ children }) => {
     };
 
     setIsCreationProcess(true);
-    const response = await axios.post(
-      '/api/auth/login',
-      userCredentials,
-    );
-    console.log(response);
-    if (response.data.status === 302) {
-      if (checkPassword(response.data.user.password, password)) {
-        routes.push(`/home/${response.data.user.id}`);
-        setIsGettingError(false);
-        setEmail('');
-        setPassword('');
-        setIsCreationProcess(false);
-        setIsGettingError(false);
-      } else {
-        setIsGettingError(true);
-        setIsCreationProcess(false);
-      }
-    } else if (response.data.status === 404) {
+    const response = await getUserByCredentials(userCredentials);
+    console.log('response', response);
+    if (checkPassword(response.data.user.password, password)) {
+      routes.push(`/home/${response.data.user.id}`);
+      setIsGettingError(false);
+      setEmail('');
+      setPassword('');
+      setIsCreationProcess(false);
+      setIsGettingError(false);
+    } else {
       setIsGettingError(true);
       setIsCreationProcess(false);
     }

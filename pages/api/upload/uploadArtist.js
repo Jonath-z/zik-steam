@@ -2,8 +2,9 @@ import { db } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const artist_name = req.body.artistName;
-    const artist_profile = req.body.artistProfile;
+    console.log('upload Artist', req.body);
+    const artist_name = req.body.artistIds.artistName;
+    const artist_profile = req.body.artistIds.artistProfileUrl;
 
     const isArtistExist = async () => {
       const artist = await db

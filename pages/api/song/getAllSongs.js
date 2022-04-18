@@ -1,15 +1,49 @@
 import { db } from '../database/mongodb';
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
+  if (req.method === 'POST' && req.body.userId) {
+    console.log('get All song req', req.body);
     try {
       const allSongs = await db
         .collection('songs')
         .find({})
         .toArray();
-      res.status(200).json({
-        allSongs,
-      });
+
+      console.log('get all song <all songs>', allSongs);
+
+      const user = await db
+        .collection('users')
+        .find({ id: req.body.userId })
+        .toArray();
+      console.log('user id in get all ', user);
+
+      const userFavoriteSongs = user[0].favorites;
+
+      console.log('get all favorites', userFavoriteSongs);
+
+      if (!userFavoriteSongs || userFavoriteSongs.length === 0) {
+        res.status(200).json({
+          allSongs,
+        });
+      } else {
+        let songCollections = [];
+        for (let j = 0; j < userFavoriteSongs.length; j++) {
+          for (let i = 0; i < allSongs.length; i++) {
+            if (allSongs[i].songId === userFavoriteSongs[j].id) {
+              allSongs[i].isLiked = true;
+              console.log('song matched', allSongs[i]);
+              if (songCollections.indexOf(allSongs[i]) === -1)
+                songCollections.push(allSongs[i]);
+            }
+          }
+        }
+
+        console.log('song with favorites', songCollections);
+        res.status(200).json({
+          allSongs: songCollections,
+        });
+        songCollections = [];
+      }
     } catch (e) {
       console.log(e);
     }

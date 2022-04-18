@@ -7,7 +7,6 @@ export default async function handler(req, res) {
       .collection('users')
       .find({ id: id })
       .toArray();
-    console.log('user', user);
     if (user.length === 0)
       return {
         isExist: false,
