@@ -21,11 +21,7 @@ export default async function handler(req, res) {
 
       console.log('get all favorites', userFavoriteSongs);
 
-      if (!userFavoriteSongs || userFavoriteSongs.length === 0) {
-        res.status(200).json({
-          allSongs,
-        });
-      } else {
+      if (userFavoriteSongs.length !== 0) {
         let songCollections = [];
         for (let j = 0; j < userFavoriteSongs.length; j++) {
           for (let i = 0; i < allSongs.length; i++) {
@@ -34,15 +30,23 @@ export default async function handler(req, res) {
               console.log('song matched', allSongs[i]);
               if (songCollections.indexOf(allSongs[i]) === -1)
                 songCollections.push(allSongs[i]);
+            } else {
+              console.log('unmatched songs', allSongs[i]);
+              if (songCollections.indexOf(allSongs[i]) == -1)
+                songCollections.push(allSongs[i]);
             }
           }
         }
-
         console.log('song with favorites', songCollections);
         res.status(200).json({
           allSongs: songCollections,
         });
         songCollections = [];
+      } else if (userFavoriteSongs.length === 0) {
+        console.log('allSongs are'.allSongs);
+        res.status(200).json({
+          allSongs,
+        });
       }
     } catch (e) {
       console.log(e);

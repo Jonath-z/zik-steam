@@ -1,5 +1,5 @@
 import React from 'react';
-import HomePage from '../../components/_NoAuth/Home';
+import HomePage from '../../components/secured/Home';
 import DiscoverProvider from '../../components/contexts/DiscoverContext';
 import AudioPlayerProvider from '../../components/contexts/AudioPlayerContext';
 import StreamProvider from '../../components/contexts/StreamContext';

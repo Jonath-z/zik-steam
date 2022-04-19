@@ -12,6 +12,7 @@ export default async function handler(req, res) {
       streamNumber: body.streamNumber,
       streamHours: body.streamHours,
       isBestStreamed: body.isBestStreamed,
+      artistName: body.artistName,
       isLiked: false,
     };
 

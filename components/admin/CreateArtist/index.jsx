@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Row, Col, Input, Button, Space } from 'antd';
 import client from '../../utils/helpers/ipfs-client';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 const CreateArtist = () => {
   const [artistIds, setArtistIds] = useState({
@@ -30,6 +31,7 @@ const CreateArtist = () => {
     if (!artistIds.artistName || !artistIds.artistProfileUrl) return;
     const response = await axios.post('/api/upload/uploadArtist', {
       artistIds,
+      id: uuid(),
     });
     if (response.status === 200) {
       window.alert('Artist uploaded');

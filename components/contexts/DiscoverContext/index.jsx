@@ -16,6 +16,7 @@ const defaultContext = {
   artists: [],
   songByGenre: [],
   isLoading: true,
+  updateSongs: () => null,
 };
 
 const DiscoverContext = createContext(defaultContext);
@@ -135,19 +136,13 @@ const DiscoverProvider = ({ children }) => {
     getAllSongs();
   }, [getAllSongs]);
 
-  // const updateFavoriteSong = (songId, songGenre, status) => {
-  //   const updatedSong = songByGenre.map(songByGenre => {
-  //     if (songByGenre.genre === songByGenre) {
-  //       songByGenre.songs.map((song) => {
-  //         song.isLiked = status;
-  //       })
-  //     }
-  //   })
-  // }
+  const updateSongs = () => {
+    getAllSongs();
+  };
 
   return (
     <DiscoverContext.Provider
-      value={{ artists, songByGenre, isLoading }}
+      value={{ artists, songByGenre, isLoading, updateSongs }}
     >
       {children}
     </DiscoverContext.Provider>

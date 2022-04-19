@@ -18,6 +18,7 @@ export default async function handler(req, res) {
 
     if (!(await isArtistExist())) {
       await db.collection('artists').insertOne({
+        id: req.body.id,
         artist_name: artist_name,
         artist_profile: artist_profile,
       });
