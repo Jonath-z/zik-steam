@@ -107,7 +107,7 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
   return (
     <>
       <div
-        className={`fixed bottom-0 left-0 right-0 flex justify-around items-center bg-[#00C3FF] bg-opacity-90 py-1 ${styles.AudioPlayer}`}
+        className={`fixed bottom-0 left-0 right-0 flex justify-around items-center bg-blue-500 bg-opacity-90 py-1 ${styles.AudioPlayer}`}
       >
         <Col className="flex items-center">
           <img
@@ -137,7 +137,7 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
             step="1"
             min="0"
             max={duration ? duration : `${duration}`}
-            className="progress bg-[#ffa503] w-96"
+            className="progress bg-[#ffa503] in-range:bg-[#00C3FF] w-96"
             onChange={(e) => onScrub(e.target.value)}
             onMouseUp={onScrubEnd}
             onKeyUp={onScrubEnd}

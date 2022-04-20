@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import icons from '../../../../../../icons';
 import LocalStorage from '../../../../../../utils/helpers/localStorage';
+import LoadingFallback from '../../../../../../modules/LoadingFallback';
 
 const AllArtists = () => {
   const { Loading } = icons;
@@ -38,12 +39,7 @@ const AllArtists = () => {
     if (response.status === 200) loadAllArtists();
   };
 
-  if (isLoading)
-    return (
-      <div className="w-full flex justify-center mt-5">
-        <Loading className="animate-spin text-4xl text-blue-500 text-center" />
-      </div>
-    );
+  if (isLoading) return <LoadingFallback />;
 
   if (!isLoading && allArtists.length === 0)
     return (

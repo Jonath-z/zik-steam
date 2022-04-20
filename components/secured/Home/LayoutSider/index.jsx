@@ -10,7 +10,9 @@ const LayoutSider = ({ setMenuContent }) => {
   return (
     <Sider theme="light" className={`${styles.siteLayoutSider}`}>
       <div className="logo">
-        <h1 className="text-black">Zik-Stream</h1>
+        <h1 className="text-black text-3xl font-semibold text-center pt-4">
+          Zik-Stream
+        </h1>
       </div>
       <Menu
         theme="light"
@@ -33,14 +35,6 @@ const LayoutSider = ({ setMenuContent }) => {
             onClick={() => setMenuContent('artists')}
           >
             <span>Artists</span>
-          </Item>
-        </SubMenu>
-        <SubMenu key="sub2" title="Library">
-          <Item
-            key="6"
-            onClick={() => setMenuContent('recently played')}
-          >
-            <span>Recently Played</span>
           </Item>
           <Item
             key="7"

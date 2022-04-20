@@ -3,15 +3,19 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import LocalStorage from '../../../../../../utils/helpers/localStorage';
 import icons from '../../../../../../icons';
+import FollowedArtistView from '../FollowedArtistView.js';
+import LoadingFallback from '../../../../../../modules/LoadingFallback';
 
 const FavoriteArtists = () => {
   const { Loading } = icons;
   const [favoritesArtists, setFavoritesArtists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFollowedArtistView, setIsFollowedArtistView] =
+    useState(false);
+  const id = LocalStorage.get('zik-stream-user-uuid');
 
-  const loadFavoritesSongs = useCallback(async () => {
+  const loadFavoriteArtists = useCallback(async () => {
     setIsLoading(true);
-    const id = LocalStorage.get('zik-stream-user-uuid');
     const response = await axios.post(
       '/api/artist/getFavoriteArtists',
       {
@@ -25,18 +29,31 @@ const FavoriteArtists = () => {
       setFavoritesArtists(response.data.favoriteArtists);
       setIsLoading(false);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    loadFavoritesSongs();
-  }, [loadFavoritesSongs]);
+    loadFavoriteArtists();
+  }, [loadFavoriteArtists]);
 
-  if (isLoading)
-    return (
-      <div className="w-full flex justify-center mt-5">
-        <Loading className="animate-spin text-4xl text-blue-500 text-center" />
-      </div>
+  const unfollowArtist = async (artist) => {
+    const response = await axios.delete(
+      '/api/update/removeFavoriteArtist',
+      {
+        data: {
+          userId: id,
+          artist,
+        },
+      },
     );
+
+    if (response.status === 200) loadFavoriteArtists();
+  };
+
+  const toogleFolloweArtistView = () => {
+    setIsFollowedArtistView(!isFollowedArtistView);
+  };
+
+  if (isLoading) return <LoadingFallback />;
 
   if (!isLoading && favoritesArtists.length === 0)
     return (
@@ -64,17 +81,25 @@ const FavoriteArtists = () => {
                             eft-0 right-0 bottom-0 flex justify-center
                             items-center bg-black transition ease-in-out delay-150 bg-opacity-0 opacity-0
                             hover:bg-opacity-50 hover:opacity-100 cursor-pointer"
+                onClick={toogleFolloweArtistView}
               >
                 <button
                   className="bg-blue-500 flex 
                              items-center text-white px-3 py-2
                              bg-opacity-100 rounded-md"
+                  onClick={() => unfollowArtist(artist)}
                 >
-                  Get Songs
+                  Unfollow
                 </button>
               </div>
             </div>
             <p className="py-3 text-center">{artist.artist_name}</p>
+            {isFollowedArtistView && (
+              <FollowedArtistView
+                artist={artist}
+                toggleArtistView={toogleFolloweArtistView}
+              />
+            )}
           </div>
         );
       })}

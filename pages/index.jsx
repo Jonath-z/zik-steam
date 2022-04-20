@@ -1,5 +1,5 @@
 import React from 'react';
-import LandingPage from '../components/_NoAuth/LandingPage';
+import LandingPage from '../components/unsecured/LandingPage';
 
 const Landing = () => {
   return (

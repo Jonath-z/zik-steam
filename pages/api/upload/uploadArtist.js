@@ -21,6 +21,7 @@ export default async function handler(req, res) {
         id: req.body.id,
         artist_name: artist_name,
         artist_profile: artist_profile,
+        likes: 0,
       });
 
       res.status(200).json('succefully added');

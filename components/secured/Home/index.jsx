@@ -5,6 +5,7 @@ import LayoutHeader from './LayoutHeader';
 import LayoutContent from './LayoutContent';
 import Discover from './LayoutContent/content/Discover';
 import Artist from './LayoutContent/content/Artists';
+import FavoriteTracks from './LayoutContent/content/FavoroiteTracks';
 
 const HomePage = () => {
   const [content, setContent] = useState(<div />);
@@ -16,6 +17,9 @@ const HomePage = () => {
         break;
       case 'artists':
         setContent(<Artist />);
+        break;
+      case 'favorite tracks':
+        setContent(<FavoriteTracks />);
         break;
       default:
         setContent(<div />);

@@ -52,7 +52,6 @@ const StreamProvider = ({ children }) => {
   }, [updateStreamingTime]);
 
   const payStream = async (price) => {
-    console.log('streamin price', price);
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);

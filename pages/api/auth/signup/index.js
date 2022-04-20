@@ -19,7 +19,8 @@ export default async function handler(req, res) {
         email: body.email,
         password: body.password,
         id: req.body.id,
-        songs: [],
+        favorites: [],
+        favoriteArtists: [],
       };
       await db.collection('users').insertOne(user);
       res.json({

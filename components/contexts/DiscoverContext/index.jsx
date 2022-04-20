@@ -15,6 +15,7 @@ import LocalStorage from '../../utils/helpers/localStorage';
 const defaultContext = {
   artists: [],
   songByGenre: [],
+  allSong: [],
   isLoading: true,
   updateSongs: () => null,
 };
@@ -25,6 +26,7 @@ export const useDiscover = () => useContext(DiscoverContext);
 const DiscoverProvider = ({ children }) => {
   const [artists, setArtits] = useState([]);
   const [songByGenre, setSongByGenre] = useState([]);
+  const [allSong, setAllSong] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const filterArtistsByName = useCallback((songs) => {
@@ -129,6 +131,7 @@ const DiscoverProvider = ({ children }) => {
     );
     filterArtistsByName(songs);
     filterSongByGenre(songs);
+    setAllSong(songs);
     setIsLoading(false);
   }, [filterArtistsByName, filterSongByGenre]);
 
@@ -142,7 +145,13 @@ const DiscoverProvider = ({ children }) => {
 
   return (
     <DiscoverContext.Provider
-      value={{ artists, songByGenre, isLoading, updateSongs }}
+      value={{
+        artists,
+        songByGenre,
+        isLoading,
+        updateSongs,
+        allSong,
+      }}
     >
       {children}
     </DiscoverContext.Provider>
