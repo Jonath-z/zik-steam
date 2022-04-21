@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import SongCard from '../../../../../../modules/SongCard';
-import icons from '../../../../../../icons';
+import SongCard from '../../../../modules/SongCard';
+import icons from '../../../../icons';
 import PropTypes from 'prop-types';
-import timeCoverter from '../../../../../../utils/helpers/streamsConverter';
+import timeCoverter from '../../../../utils/helpers/streamsConverter';
 import axios from 'axios';
-import { useStream } from '../../../../../../contexts/StreamContext';
-import { useAudioPlayer } from '../../../../../../contexts/AudioPlayerContext';
-import PlayPauseButton from '../../../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import { useStream } from '../../../../contexts/StreamContext';
+import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
+import PlayPauseButton from '../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
 import { useRouter } from 'next/router';
-import { useDiscover } from '../../../../../../contexts/DiscoverContext';
+import { useDiscover } from '../../../../contexts/DiscoverContext';
 
 const SongLayout = ({
   setTracks,

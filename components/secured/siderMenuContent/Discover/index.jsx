@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useDiscover } from '../../../../../contexts/DiscoverContext';
-import AudioPlayer from '../../../../../modules/AudioPlayer';
-import { useAudioPlayer } from '../../../../../contexts/AudioPlayerContext';
+import { useDiscover } from '../../../contexts/DiscoverContext';
+import AudioPlayer from '../../../modules/AudioPlayer';
+import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
 import SongLayout from './SongLayout';
-import { useStream } from '../../../../../contexts/StreamContext';
+import { useStream } from '../../../contexts/StreamContext';
 import { useRouter } from 'next/router';
 
 const Discover = () => {
