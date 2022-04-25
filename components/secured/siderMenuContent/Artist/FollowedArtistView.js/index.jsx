@@ -2,13 +2,13 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useDiscover } from '../../../../../../contexts/DiscoverContext';
-import PlayPauseButton from '../../../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
-import { useAudioPlayer } from '../../../../../../contexts/AudioPlayerContext';
-import { useStream } from '../../../../../../contexts/StreamContext';
-import AudioPlayer from '../../../../../../modules/AudioPlayer';
-import icons from '../../../../../../icons';
-import LoadingFallback from '../../../../../../modules/LoadingFallback';
+import { useDiscover } from '../../../../contexts/DiscoverContext';
+import PlayPauseButton from '../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
+import { useStream } from '../../../../contexts/StreamContext';
+import AudioPlayer from '../../../../modules/AudioPlayer';
+import icons from '../../../../icons';
+import LoadingFallback from '../../../../modules/LoadingFallback';
 
 const FollowedArtistView = ({ artist, toggleArtistView }) => {
   const { Plus, Ethereum } = icons;

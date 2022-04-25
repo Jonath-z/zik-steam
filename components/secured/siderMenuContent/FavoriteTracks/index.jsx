@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { useStream } from '../../../../../contexts/StreamContext';
-import AudioPlayer from '../../../../../modules/AudioPlayer';
-import { useAudioPlayer } from '../../../../../contexts/AudioPlayerContext';
-import LocalStorage from '../../../../../utils/helpers/localStorage';
-import PlayPauseButton from '../../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
-import icons from '../../../../../icons';
-import LoadingFallback from '../../../../../modules/LoadingFallback';
+import { useStream } from '../../../contexts/StreamContext';
+import AudioPlayer from '../../../modules/AudioPlayer';
+import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
+import LocalStorage from '../../../utils/helpers/localStorage';
+import PlayPauseButton from '../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import icons from '../../../icons';
+import LoadingFallback from '../../../modules/LoadingFallback';
 
 const FavoriteTracks = () => {
   const { Plus, Ethereum } = icons;

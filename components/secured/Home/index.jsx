@@ -3,9 +3,13 @@ import { Layout } from 'antd';
 import LayoutSider from './LayoutSider';
 import LayoutHeader from './LayoutHeader';
 import LayoutContent from './LayoutContent';
-import Discover from './LayoutContent/content/Discover';
-import Artist from './LayoutContent/content/Artists';
-import FavoriteTracks from './LayoutContent/content/FavoroiteTracks';
+import Discover from '../siderMenuContent/Discover';
+// import LayoutSider from '../Home/LayoutSider';
+// import LayoutContent from '../Home/LayoutContent';
+// import LayoutHeader from '../Home/LayoutHeader';
+// import Discover from '../siderMenuContent/Discover';
+import Artist from '../siderMenuContent/Artist';
+import FavoriteTracks from '../siderMenuContent/FavoriteTracks';
 
 const HomePage = () => {
   const [content, setContent] = useState(<div />);

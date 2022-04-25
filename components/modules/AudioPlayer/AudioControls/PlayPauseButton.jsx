@@ -41,7 +41,7 @@ const PlayPauseButton = ({
 
 PlayPauseButton.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
-  onPlayPauseClick: PropTypes.func.isRequired,
+  onPlayPauseClick: PropTypes.func,
   setTracks: PropTypes.func,
   track: PropTypes.object,
 };

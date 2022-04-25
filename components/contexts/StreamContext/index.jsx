@@ -10,12 +10,9 @@ import { ethers } from 'ethers';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { marketAddress, market_ABI } from '../../../config';
+import LocalStorage from '../../utils/helpers/localStorage';
 
 const defaultContext = {
-  setUserId: '',
-  setSongId: 0,
-  setSongPrice: 0,
-  setDuration: 0,
   getPayementError: false,
   readyToBeStreamed: false,
   setSongCurrentTime: () => null,
@@ -29,29 +26,28 @@ const StreamContext = createContext(defaultContext);
 export const useStream = () => useContext(StreamContext);
 
 const StreamProvider = ({ children }) => {
-  const [userId, setUserId] = useState('');
-  const [songId, setSongId] = useState();
-  const [duration, setDuration] = useState(0);
-  const [songCurrentTime, setSongCurrentTime] = useState(0);
   const [readyToBeStreamed, setReadyToBeStreamed] = useState(false);
   const [isPlayed, setIsPlayed] = useState(false);
   const [getPayementError, setGetPayementError] = useState(false);
-  const [isOnStreaming, setIsOnStreaming] = useState(false);
+  const userId = LocalStorage.get('zik-stream-user-uuid');
 
-  const updateStreamingTime = useCallback(async () => {
-    if (!isPlayed && songCurrentTime > 0)
-      await axios.put('/api/update/streamTime', {
-        userId: userId,
-        songId: songId,
-        streamedTime: songCurrentTime,
-      });
-  }, [isPlayed, duration, songId, userId]);
+  const updateStreamingTime = useCallback(
+    async (songId, currentTime) => {
+      if (!isPlayed && currentTime > 0)
+        await axios.put('/api/update/streamTime', {
+          userId: userId,
+          songId: songId,
+          streamedTime: currentTime,
+        });
+    },
+    [isPlayed, userId],
+  );
 
   useEffect(() => {
     updateStreamingTime();
   }, [updateStreamingTime]);
 
-  const payStream = async (price) => {
+  const payStream = async (price, songId) => {
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -85,11 +81,6 @@ const StreamProvider = ({ children }) => {
   return (
     <StreamContext.Provider
       value={{
-        setUserId,
-        setSongId,
-        setDuration,
-        setSongCurrentTime,
-        setReadyToBeStreamed,
         setIsPlayed,
         getPayementError,
         payStream,

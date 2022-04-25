@@ -5,6 +5,16 @@ import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
 import SongLayout from './SongLayout';
 import { useStream } from '../../../contexts/StreamContext';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+// import Player from '../../../modules/Player';
+
+const Player = dynamic(() => import('../../../modules/Player'), {
+  ssr: false,
+});
+
+// const MusicBar = dynamic(() => import('components/MusicBar'), {
+//   ssr: false,
+// })
 
 const Discover = () => {
   const { artists, songByGenre, isLoading } = useDiscover();
@@ -62,11 +72,12 @@ const Discover = () => {
         );
       })}
       {tracks.length !== 0 && readyToBeStreamed && (
-        <AudioPlayer
-          tracks={tracks}
-          setSongCurrentTime={setSongCurrentTime}
-          setDuration={setDuration}
-        />
+        <Player tracks={tracks} />
+        // <AudioPlayer
+        //   tracks={tracks}
+        //   setSongCurrentTime={setSongCurrentTime}
+        //   setDuration={setDuration}
+        // />
       )}
     </div>
   );

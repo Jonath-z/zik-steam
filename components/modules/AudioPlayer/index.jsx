@@ -100,7 +100,7 @@ const AudioPlayer = ({ tracks, setDuration, setSongCurrentTime }) => {
     : '0%';
   const trackStyling = `
     -webkit-gradient(linear, 0% 0%, 100% 0%,
-        color-stop(${currentPercentage}, #fff), 
+        color-stop(${currentPercentage}, #fff),
         color-stop(${currentPercentage}, #ffa503))
   `;
 
