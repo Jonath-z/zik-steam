@@ -2,23 +2,20 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useStream } from '../../../contexts/StreamContext';
-import AudioPlayer from '../../../modules/AudioPlayer';
 import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
 import LocalStorage from '../../../utils/helpers/localStorage';
-import PlayPauseButton from '../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import PlayPauseButton from '../../../modules/AudioControls/PlayPauseButton';
 import icons from '../../../icons';
 import LoadingFallback from '../../../modules/LoadingFallback';
+import dynamic from 'next/dynamic';
+const Player = dynamic(() => import('../../../modules/Player'), {
+  ssr: false,
+});
 
 const FavoriteTracks = () => {
-  const { Plus, Ethereum } = icons;
+  const { Ethereum } = icons;
   const { isPlaying, setIsPlaying } = useAudioPlayer();
-  const {
-    // setSongId,
-    readyToBeStreamed,
-    setDuration,
-    setSongCurrentTime,
-    payStream,
-  } = useStream();
+  const { readyToBeStreamed, payStream } = useStream();
   const [favoriteTracks, setFavoriteTracks] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [isFavoriteTracksLoading, setIsFavoriteTracksLoading] =
@@ -41,7 +38,6 @@ const FavoriteTracks = () => {
   }, [loadFavoriteTracks]);
 
   const onClickStream = async (track) => {
-    // setSongId(track.id);
     setSongToStreamId(track.id);
     setTracks([
       {
@@ -119,7 +115,7 @@ const FavoriteTracks = () => {
               <button
                 onClick={async () => {
                   onClickStream(track);
-                  await payStream(track.streamingPrice);
+                  await payStream(track.streamingPrice, track.id);
                 }}
               >
                 Stream Now
@@ -129,11 +125,7 @@ const FavoriteTracks = () => {
         );
       })}
       {tracks.length !== 0 && readyToBeStreamed && (
-        <AudioPlayer
-          tracks={tracks}
-          setSongCurrentTime={setSongCurrentTime}
-          setDuration={setDuration}
-        />
+        <Player tracks={tracks} />
       )}
     </div>
   );
