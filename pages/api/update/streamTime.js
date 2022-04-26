@@ -4,6 +4,8 @@ export default async function handler(req, res) {
   if (req.method === 'PUT') {
     const body = req.body;
 
+    console.log('update stream', body);
+
     const songs = await db
       .collection('songs')
       .find({ songId: body.songId })
