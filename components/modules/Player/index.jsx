@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { useAudioPlayer } from '../../contexts/AudioPlayerContext';
 import { useStream } from '../../contexts/StreamContext';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
-// import 'react-jinke-music-player/assets/index.css';
-// import '../../../styles/custom.module.css';
 
 const Player = ({ tracks }) => {
   const { setIsPlaying } = useAudioPlayer();
@@ -29,9 +27,13 @@ const Player = ({ tracks }) => {
     theme: 'dark',
     showDownload: false,
     responsive: true,
+    spaceBar: true,
     onAudioPlay: () => setIsPlaying(true),
     onAudioPause: () => setIsPlaying(false),
-    className: 'text-blue-500',
+    onAudioEnded: (currentPlayId, audioLists, audioInfo) => {
+      setIsPlaying(false);
+      updateStreamingTime(tracks[0].id, audioInfo.currentTime);
+    },
   };
 
   return (
