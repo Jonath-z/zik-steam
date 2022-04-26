@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDiscover } from '../../../contexts/DiscoverContext';
-import AudioPlayer from '../../../modules/AudioPlayer';
 import { useAudioPlayer } from '../../../contexts/AudioPlayerContext';
 import SongLayout from './SongLayout';
 import { useStream } from '../../../contexts/StreamContext';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-// import Player from '../../../modules/Player';
-
 const Player = dynamic(() => import('../../../modules/Player'), {
   ssr: false,
 });
