@@ -6,7 +6,7 @@ import timeCoverter from '../../../../utils/helpers/streamsConverter';
 import axios from 'axios';
 import { useStream } from '../../../../contexts/StreamContext';
 import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
-import PlayPauseButton from '../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import PlayPauseButton from '../../../../modules/AudioControls/PlayPauseButton';
 import { useRouter } from 'next/router';
 import { useDiscover } from '../../../../contexts/DiscoverContext';
 
@@ -17,7 +17,7 @@ const SongLayout = ({
   setSongToStream,
   songToStream,
 }) => {
-  const { setSongId, payStream, readyToBeStreamed } = useStream();
+  const { payStream, readyToBeStreamed } = useStream();
   const { OutLineLike, FullLike, Ethereum } = icons;
   const [isFavorite, setIsFavorite] = useState(false);
   const { isPlaying, setIsPlaying } = useAudioPlayer();
@@ -50,7 +50,6 @@ const SongLayout = ({
   const OnClickStream = async (song) => {
     cleanUp();
     await payStream(song.streamingPrice, song.id);
-    // setSongId(song.id);
     setSongToStream(song);
     setTracks([
       {
@@ -119,8 +118,8 @@ const SongLayout = ({
             {song.songTitle}
           </span>
           <span className="text-blue-500 text-xs">
-            streams: {timeCoverter(song.streamHours).time}{' '}
-            {timeCoverter(song.streamHours).timeUnit}
+            {timeCoverter(song.streamHours).time}{' '}
+            {timeCoverter(song.streamHours).timeUnit} of streaming
           </span>
         </p>
         {!isFavorite && !song.isLiked ? (
