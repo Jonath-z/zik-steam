@@ -13,7 +13,7 @@ const FavoriteTracks = () => {
   const { Plus, Ethereum } = icons;
   const { isPlaying, setIsPlaying } = useAudioPlayer();
   const {
-    setSongId,
+    // setSongId,
     readyToBeStreamed,
     setDuration,
     setSongCurrentTime,
@@ -41,7 +41,7 @@ const FavoriteTracks = () => {
   }, [loadFavoriteTracks]);
 
   const onClickStream = async (track) => {
-    setSongId(track.id);
+    // setSongId(track.id);
     setSongToStreamId(track.id);
     setTracks([
       {

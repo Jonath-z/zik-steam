@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 const PlayPauseButton = ({
   isPlaying,
-  onPlayPauseClick,
   setTracks,
   //   track,
 }) => {
@@ -15,9 +14,7 @@ const PlayPauseButton = ({
         <button
           type="button"
           className="pause"
-          onClick={() => {
-            onPlayPauseClick(false);
-          }}
+          onClick={() => {}}
           aria-label="Pause"
         >
           <Pause className="text-4xl" />
@@ -27,7 +24,6 @@ const PlayPauseButton = ({
           type="button"
           className="play"
           onClick={() => {
-            onPlayPauseClick(true);
             setTracks();
           }}
           aria-label="Play"
@@ -41,7 +37,6 @@ const PlayPauseButton = ({
 
 PlayPauseButton.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
-  onPlayPauseClick: PropTypes.func,
   setTracks: PropTypes.func,
   track: PropTypes.object,
 };

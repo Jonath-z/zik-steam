@@ -12,10 +12,6 @@ const Player = dynamic(() => import('../../../modules/Player'), {
   ssr: false,
 });
 
-// const MusicBar = dynamic(() => import('components/MusicBar'), {
-//   ssr: false,
-// })
-
 const Discover = () => {
   const { artists, songByGenre, isLoading } = useDiscover();
   const { isPlaying, setIsPlaying } = useAudioPlayer();

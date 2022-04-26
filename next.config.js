@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   env: {
     CRYPTO_JS_KEY: process.env.CRYPTO_JS_KEY,
   },

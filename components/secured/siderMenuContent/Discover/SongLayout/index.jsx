@@ -77,7 +77,7 @@ const SongLayout = ({
           style={{ backgroundImage: `url(${song.coverUrl})` }}
           className="w-56 h-56 bg-cover relative rounded-lg"
         >
-          <div className="bg-[#00C3FF] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center">
+          <div className="bg-blue-500 bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center">
             {readyToBeStreamed &&
             songToStream.genre === song.genre &&
             songToStream.id === song.id ? (
@@ -118,7 +118,7 @@ const SongLayout = ({
           <span className="text-gray-500 text-xs">
             {song.songTitle}
           </span>
-          <span className="text-[#00C3FF] text-xs">
+          <span className="text-blue-500 text-xs">
             streams: {timeCoverter(song.streamHours).time}{' '}
             {timeCoverter(song.streamHours).timeUnit}
           </span>
