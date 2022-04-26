@@ -31,21 +31,13 @@ const StreamProvider = ({ children }) => {
   const [getPayementError, setGetPayementError] = useState(false);
   const userId = LocalStorage.get('zik-stream-user-uuid');
 
-  const updateStreamingTime = useCallback(
-    async (songId, currentTime) => {
-      if (!isPlayed && currentTime > 0)
-        await axios.put('/api/update/streamTime', {
-          userId: userId,
-          songId: songId,
-          streamedTime: currentTime,
-        });
-    },
-    [isPlayed, userId],
-  );
-
-  useEffect(() => {
-    updateStreamingTime();
-  }, [updateStreamingTime]);
+  const updateStreamingTime = async (songId, currentTime) => {
+    await axios.put('/api/update/streamTime', {
+      userId: userId,
+      songId: songId,
+      streamedTime: currentTime,
+    });
+  };
 
   const payStream = async (price, songId) => {
     const web3modal = new Web3Modal();
