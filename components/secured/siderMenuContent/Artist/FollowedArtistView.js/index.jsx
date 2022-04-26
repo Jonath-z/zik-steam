@@ -3,24 +3,21 @@ import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useDiscover } from '../../../../contexts/DiscoverContext';
-import PlayPauseButton from '../../../../modules/AudioPlayer/AudioControls/PlayPauseButton';
+import PlayPauseButton from '../../../../modules/AudioControls/PlayPauseButton';
 import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
 import { useStream } from '../../../../contexts/StreamContext';
-import AudioPlayer from '../../../../modules/AudioPlayer';
 import icons from '../../../../icons';
 import LoadingFallback from '../../../../modules/LoadingFallback';
+import dynamic from 'next/dynamic';
+const Player = dynamic(() => import('../../../../modules/Player'), {
+  ssr: false,
+});
 
 const FollowedArtistView = ({ artist, toggleArtistView }) => {
   const { Plus, Ethereum } = icons;
   const { isLoading, allSong } = useDiscover();
   const { isPlaying, setIsPlaying } = useAudioPlayer();
-  const {
-    setSongId,
-    readyToBeStreamed,
-    setDuration,
-    setSongCurrentTime,
-    payStream,
-  } = useStream();
+  const { readyToBeStreamed, payStream } = useStream();
   const [artistSongs, setArtistSong] = useState([]);
   const [artistSongsDetails, setArtistsSongsDetails] = useState({
     streams: '0 minutes',
@@ -60,7 +57,6 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
   }, [loadArtistSong]);
 
   const onClickStream = async (song) => {
-    setSongId(song.id);
     setSongToStreamId(song.id);
     setTracks([
       {
@@ -68,6 +64,7 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
         image: song.coverUrl,
         artist: song.artistName,
         audioSrc: song.songUrl,
+        id: song.id,
       },
     ]);
   };
@@ -160,7 +157,7 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
                 <button
                   onClick={async () => {
                     onClickStream(song);
-                    await payStream(song.streamingPrice);
+                    await payStream(song.streamingPrice, song.id);
                   }}
                 >
                   Stream Now
@@ -171,11 +168,7 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
         })}
       </div>
       {tracks.length !== 0 && readyToBeStreamed && (
-        <AudioPlayer
-          tracks={tracks}
-          setSongCurrentTime={setSongCurrentTime}
-          setDuration={setDuration}
-        />
+        <Player tracks={tracks} />
       )}
     </div>
   );
