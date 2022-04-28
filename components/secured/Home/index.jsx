@@ -4,15 +4,17 @@ import LayoutSider from './LayoutSider';
 import LayoutHeader from './LayoutHeader';
 import LayoutContent from './LayoutContent';
 import Discover from '../siderMenuContent/Discover';
-// import LayoutSider from '../Home/LayoutSider';
-// import LayoutContent from '../Home/LayoutContent';
-// import LayoutHeader from '../Home/LayoutHeader';
-// import Discover from '../siderMenuContent/Discover';
 import Artist from '../siderMenuContent/Artist';
 import FavoriteTracks from '../siderMenuContent/FavoriteTracks';
+import { useTheme } from '../../contexts/Themecontext';
+import {
+  DARK_MODE_PRIMARY,
+  LAYOUT_CONTENT_LIGHT_MODE,
+} from '../../constants';
 
 const HomePage = () => {
   const [content, setContent] = useState(<div />);
+  const { currentTheme } = useTheme();
 
   const setMenuContent = (menu) => {
     switch (menu) {
@@ -33,7 +35,15 @@ const HomePage = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <LayoutSider setMenuContent={setMenuContent} />
-      <Layout>
+      <Layout
+        style={{
+          background: `${
+            currentTheme.status
+              ? LAYOUT_CONTENT_LIGHT_MODE
+              : DARK_MODE_PRIMARY
+          }`,
+        }}
+      >
         <LayoutHeader />
         <LayoutContent>{content}</LayoutContent>
       </Layout>

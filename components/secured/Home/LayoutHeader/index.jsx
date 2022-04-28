@@ -1,20 +1,39 @@
 import React from 'react';
 import { Layout, Row, Col, Space, Input } from 'antd';
-import SignupButton from '../../../modules/SignupButton';
 import ThemeButton from '../../../modules/ThemeButton';
+import { useSearch } from '../../../contexts/SearchContext';
+import { useTheme } from '../../../contexts/Themecontext';
+import { DARK_MODE_PRIMARY } from '../../../constants';
 
 const { Header } = Layout;
 
 const LayoutHeader = () => {
+  const { onInputChange } = useSearch();
+  const { currentTheme } = useTheme();
   return (
-    <Header style={{ background: 'white' }}>
+    <Header
+      style={{
+        background: `${
+          currentTheme.status ? 'white' : DARK_MODE_PRIMARY
+        }`,
+      }}
+    >
       <Row>
         <Col span={12}>
-          <Input placeholder="search" type="search" />
+          <Input
+            placeholder="search"
+            type="search"
+            onChange={onInputChange}
+            style={{
+              background: 'transparent',
+              color: `${
+                currentTheme.status ? DARK_MODE_PRIMARY : 'white'
+              }`,
+            }}
+          />
         </Col>
         <Col span={12} className="text-right">
           <Space>
-            <SignupButton />
             <ThemeButton />
           </Space>
         </Col>

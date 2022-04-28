@@ -9,6 +9,11 @@ import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
 import PlayPauseButton from '../../../../modules/AudioControls/PlayPauseButton';
 import { useRouter } from 'next/router';
 import { useDiscover } from '../../../../contexts/DiscoverContext';
+import { useTheme } from '../../../../contexts/Themecontext';
+import {
+  BLUE_PRIMARY,
+  DARK_MODE_PRIMARY,
+} from '../../../../constants';
 
 const SongLayout = ({
   setTracks,
@@ -16,6 +21,9 @@ const SongLayout = ({
   isLoading,
   setSongToStream,
   songToStream,
+  containerClass,
+  songNameClass,
+  artistNameClass,
 }) => {
   const { payStream, readyToBeStreamed } = useStream();
   const { OutLineLike, FullLike, Ethereum } = icons;
@@ -24,6 +32,7 @@ const SongLayout = ({
   const route = useRouter();
   const { id } = route.query;
   const { updateSongs } = useDiscover();
+  const { currentTheme } = useTheme();
 
   const addToFavorites = async (song) => {
     await axios.put('/api/update/addToFavorite', { id, song });
@@ -64,7 +73,7 @@ const SongLayout = ({
   };
 
   return (
-    <>
+    <div className={`${containerClass}`}>
       <SongCard
         isLoading={isLoading}
         song={song}
@@ -76,7 +85,9 @@ const SongLayout = ({
           style={{ backgroundImage: `url(${song.coverUrl})` }}
           className="w-56 h-56 bg-cover relative rounded-lg"
         >
-          <div className="bg-blue-500 bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center">
+          <div
+            className={`bg-[#1890ff] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center`}
+          >
             {readyToBeStreamed &&
             songToStream.genre === song.genre &&
             songToStream.id === song.id ? (
@@ -111,10 +122,12 @@ const SongLayout = ({
           </div>
         </div>
       </SongCard>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-2">
         <p className="flex flex-col">
-          <span>{song.artistName}</span>
-          <span className="text-gray-500 text-xs">
+          <span className={`${artistNameClass} text-gray-500`}>
+            {song.artistName}
+          </span>
+          <span className={`text-gray-500 text-xs ${songNameClass}`}>
             {song.songTitle}
           </span>
           <span className="text-blue-500 text-xs">
@@ -124,17 +137,21 @@ const SongLayout = ({
         </p>
         {!isFavorite && !song.isLiked ? (
           <OutLineLike
-            className="text-2xl cursor-pointer"
+            className={`text-2xl cursor-pointer text-[${
+              currentTheme.status ? 'black' : '#1890ff'
+            }]`}
             onClick={() => toggleFavorite(true, song)}
           />
         ) : (
           <FullLike
-            className="text-2xl cursor-pointer"
+            className={`text-2xl cursor-pointer text-[${
+              currentTheme.status ? 'black' : '#1890ff'
+            }]`}
             onClick={() => toggleFavorite(false, song)}
           />
         )}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -144,6 +161,9 @@ SongLayout.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   setSongToStream: PropTypes.func,
   songToStream: PropTypes.object,
+  containerClass: PropTypes.string,
+  songNameClass: PropTypes.string,
+  artistNameClass: PropTypes.string,
 };
 
 export default SongLayout;

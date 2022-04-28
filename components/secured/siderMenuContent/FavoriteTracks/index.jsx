@@ -7,6 +7,7 @@ import LocalStorage from '../../../utils/helpers/localStorage';
 import PlayPauseButton from '../../../modules/AudioControls/PlayPauseButton';
 import icons from '../../../icons';
 import LoadingFallback from '../../../modules/LoadingFallback';
+import { useTheme } from '../../../contexts/Themecontext';
 import dynamic from 'next/dynamic';
 const Player = dynamic(() => import('../../../modules/Player'), {
   ssr: false,
@@ -21,6 +22,7 @@ const FavoriteTracks = () => {
   const [isFavoriteTracksLoading, setIsFavoriteTracksLoading] =
     useState(true);
   const [songToStreamId, setSongToStreamId] = useState('');
+  const { currentTheme } = useTheme();
   const id = LocalStorage.get('zik-stream-user-uuid');
 
   const loadFavoriteTracks = useCallback(async () => {
@@ -56,7 +58,13 @@ const FavoriteTracks = () => {
       <div className="w-full flex justify-center mt-5">
         <p className="text-3xl flex flex-col justify-center">
           <span className="text-center text-5xl py-4">🙁</span>
-          <span>No Favorite Tracks found</span>
+          <span
+            className={`${
+              currentTheme.status ? 'text-black' : 'text-white'
+            }`}
+          >
+            No Favorite Tracks found
+          </span>
         </p>
       </div>
     );
@@ -85,11 +93,33 @@ const FavoriteTracks = () => {
                 alt={track.songTitle}
                 className="w-16 rounded-lg"
               />
-              <p className="px-4">{track.songTitle}</p>
+              <p
+                className={`px-4 ${
+                  currentTheme.status ? 'text-black' : 'text-white'
+                }`}
+              >
+                {track.songTitle}
+              </p>
             </div>
-            <p>{track.genre}</p>
-            <p>{track.label}</p>
-            <p className="m-0 flex items-center">
+            <p
+              className={`${
+                currentTheme.status ? 'text-black' : 'text-gray-500'
+              }`}
+            >
+              {track.genre}
+            </p>
+            <p
+              className={`${
+                currentTheme.status ? 'text-black' : 'text-gray-500'
+              }`}
+            >
+              {track.label}
+            </p>
+            <p
+              className={`flex items-center ${
+                currentTheme.status ? 'text-black' : 'text-gray-500'
+              }`}
+            >
               {track.streamingPrice} ETH
               <Ethereum className="mx-2 bg-blue-500 px-2 py-2 text-3xl text-black rounded-full" />
             </p>
@@ -117,6 +147,9 @@ const FavoriteTracks = () => {
                   onClickStream(track);
                   await payStream(track.streamingPrice, track.id);
                 }}
+                className={`${
+                  currentTheme.status ? 'text-black' : 'text-white'
+                }`}
               >
                 Stream Now
               </button>

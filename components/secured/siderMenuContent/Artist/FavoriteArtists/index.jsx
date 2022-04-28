@@ -2,16 +2,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import LocalStorage from '../../../../utils/helpers/localStorage';
-import icons from '../../../../icons';
 import FollowedArtistView from '../FollowedArtistView.js';
 import LoadingFallback from '../../../../modules/LoadingFallback';
+import { useTheme } from '../../../../contexts/Themecontext';
 
 const FavoriteArtists = () => {
-  const { Loading } = icons;
   const [favoritesArtists, setFavoritesArtists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFollowedArtistView, setIsFollowedArtistView] =
     useState(false);
+  const { currentTheme } = useTheme();
   const id = LocalStorage.get('zik-stream-user-uuid');
 
   const loadFavoriteArtists = useCallback(async () => {
@@ -60,7 +60,13 @@ const FavoriteArtists = () => {
       <div className="w-full flex justify-center mt-5">
         <p className="text-3xl flex flex-col justify-center">
           <span className="text-center text-5xl py-4">🙁</span>
-          <span>No Followed Artist found</span>
+          <span
+            className={`${
+              currentTheme.status ? 'text-black' : 'text-white'
+            }`}
+          >
+            No Followed Artist found
+          </span>
         </p>
       </div>
     );
@@ -93,7 +99,9 @@ const FavoriteArtists = () => {
                 </button>
               </div>
             </div>
-            <p className="py-3 text-center">{artist.artist_name}</p>
+            <p className="py-3 text-center text-gray-500">
+              {artist.artist_name}
+            </p>
             {isFollowedArtistView && (
               <FollowedArtistView
                 artist={artist}

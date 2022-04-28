@@ -8,6 +8,8 @@ import { useAudioPlayer } from '../../../../contexts/AudioPlayerContext';
 import { useStream } from '../../../../contexts/StreamContext';
 import icons from '../../../../icons';
 import LoadingFallback from '../../../../modules/LoadingFallback';
+import { useTheme } from '../../../../contexts/Themecontext';
+import { DARK_MODE_SECONDARY } from '../../../../constants';
 import dynamic from 'next/dynamic';
 const Player = dynamic(() => import('../../../../modules/Player'), {
   ssr: false,
@@ -23,8 +25,8 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
     streams: '0 minutes',
   });
   const [songToStreamId, setSongToStreamId] = useState('');
-
   const [tracks, setTracks] = useState([]);
+  const { currentTheme } = useTheme();
 
   const loadArtistSong = useCallback(async () => {
     const songsByArtistName = allSong.filter(
@@ -72,14 +74,26 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
   if (isLoading) return <LoadingFallback />;
 
   return (
-    <div className="bg-[#f0f2f5] absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-y-auto px-32">
+    <div
+      className={`bg-[#f0f2f5] ${
+        currentTheme.status ? 'bg-[#f0f2f5]' : `bg-[#001529]`
+      }  absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-y-auto px-32 pb-10`}
+    >
       <div className="w-[50%] flex justify-end ml-[50%]">
         <Plus
           onClick={toggleArtistView}
-          className="rotate-45 text-2xl right-0 m-5 my-5 cursor-pointer"
+          className={`rotate-45 text-2xl right-0 m-5 my-5 cursor-pointer ${
+            currentTheme.status ? 'text-black' : `text-white`
+          }`}
         />
       </div>
-      <p className="text-left pt-5 font-extrabold text-3xl">Artist</p>
+      <p
+        className={`text-left font-extrabold text-3xl ${
+          currentTheme.status ? 'text-black' : `text-white`
+        }`}
+      >
+        Artist
+      </p>
       <div className="flex pt-0 items-center">
         <div>
           <img
@@ -89,7 +103,11 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
           />
         </div>
         <div className="pl-5 text-left">
-          <p className="m-0 text-3xl font-semibold">
+          <p
+            className={`m-0 text-3xl font-semibold ${
+              currentTheme.status ? 'text-black' : `text-white`
+            }`}
+          >
             {artist.artist_name}
           </p>
           <p className="m-0 text-xs text-gray-500">
@@ -106,7 +124,13 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
           </div>
         </div>
       </div>
-      <p className="text-left pt-5 font-extrabold text-3xl">Songs</p>
+      <p
+        className={`text-left pt-5 font-extrabold text-3xl ${
+          currentTheme.status ? 'text-black' : `text-white`
+        }`}
+      >
+        Songs
+      </p>
       <ul className="flex justify-between items-center bg-blue-500 py-2 px-1 rounded-sm">
         <li className="m-0">Cover</li>
         <li className="m-0">Type</li>
@@ -127,11 +151,33 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
                   alt={song.songTitle}
                   className="w-16 rounded-lg"
                 />
-                <p className="px-4">{song.songTitle}</p>
+                <p
+                  className={`px-4 ${
+                    currentTheme.status ? 'text-black' : `text-white`
+                  }`}
+                >
+                  {song.songTitle}
+                </p>
               </div>
-              <p>{song.genre}</p>
-              <p>{song.label}</p>
-              <p className="m-0 flex items-center">
+              <p
+                className={`${
+                  currentTheme.status ? 'text-black' : `text-gray-500`
+                }`}
+              >
+                {song.genre}
+              </p>
+              <p
+                className={`${
+                  currentTheme.status ? 'text-black' : `text-gray-500`
+                }`}
+              >
+                {song.label}
+              </p>
+              <p
+                className={`m-0 flex items-center ${
+                  currentTheme.status ? 'text-black' : `text-gray-500`
+                }`}
+              >
                 {song.streamingPrice} ETH
                 <Ethereum className="mx-2 bg-blue-500 px-2 py-2 text-3xl text-black rounded-full" />
               </p>
@@ -159,6 +205,9 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
                     onClickStream(song);
                     await payStream(song.streamingPrice, song.id);
                   }}
+                  className={`px-4 ${
+                    currentTheme.status ? 'text-black' : `text-white`
+                  }`}
                 >
                   Stream Now
                 </button>

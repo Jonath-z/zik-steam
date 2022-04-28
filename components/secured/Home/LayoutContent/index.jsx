@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
 import PropTypes from 'prop-types';
-
 const { Content } = Layout;
 
 const LayoutContent = ({ children }) => {

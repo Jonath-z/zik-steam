@@ -4,11 +4,12 @@ import axios from 'axios';
 import icons from '../../../../icons';
 import LocalStorage from '../../../../utils/helpers/localStorage';
 import LoadingFallback from '../../../../modules/LoadingFallback';
+import { useTheme } from '../../../../contexts/Themecontext';
 
 const AllArtists = () => {
-  const { Loading } = icons;
   const [isLoading, setIsLoading] = useState(true);
   const [allArtists, setAllArtists] = useState([]);
+  const { currentTheme } = useTheme();
   const id = LocalStorage.get('zik-stream-user-uuid');
 
   const loadAllArtists = useCallback(async () => {
@@ -46,7 +47,13 @@ const AllArtists = () => {
       <div className="w-full flex justify-center mt-5">
         <p className="text-3xl flex flex-col justify-center">
           <span className="text-center text-5xl py-4">🙁</span>
-          <span>No Artist you may need to discover found</span>
+          <span
+            className={`${
+              currentTheme.status ? 'text-black' : 'text-white'
+            }`}
+          >
+            No Artist you may need to discover found
+          </span>
         </p>
       </div>
     );

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import AllArtists from './AllArtists';
-import { Input, Col } from 'antd';
 import FavoriteArtists from './FavoriteArtists';
+import { useTheme } from '../../../contexts/Themecontext';
 
 const Artist = () => {
   const [isDiscoverArtist, setIsDiscoverArtist] = useState(true);
+  const { currentTheme } = useTheme();
 
   return (
     <div>
-      <div className="flex border-b w-full border-gray-300 mr-10 fixed bg-[#f0f2f5]">
+      <div
+        className={`flex border-b w-full ${
+          currentTheme.status ? 'border-gray-300' : 'border-gray-800'
+        } mr-10 fixed bg-transparent ${
+          currentTheme.status ? 'text-black' : 'text-white'
+        }`}
+      >
         <p
           className={`${
             isDiscoverArtist &&
