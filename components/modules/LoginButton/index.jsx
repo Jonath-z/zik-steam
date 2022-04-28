@@ -2,19 +2,19 @@ import React from 'react';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
 
-const SignupButton = () => {
+const LoginButton = () => {
   const routes = useRouter();
   return (
     <div>
       <Button
         type="primary"
-        style={{ background: '#00C3FF', color: '#000' }}
-        onClick={() => routes.push('/signup')}
+        style={{ background: '#000c17', color: '#fff' }}
+        onClick={() => routes.push('/login')}
       >
-        SIGN UP
+        LOG IN
       </Button>
     </div>
   );
 };
 
-export default SignupButton;
+export default LoginButton;

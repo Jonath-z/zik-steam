@@ -1,5 +1,5 @@
 import React from 'react';
-import SignupPage from '../components/_NoAuth/Signup';
+import SignupPage from '../components/unsecured/Signup';
 import SignupProvider from '../components/contexts/SingnupContext';
 
 const Signup = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Space } from 'antd';
 import ThemeButton from '../ThemeButton';
-import SignupButton from '../SignupButton';
+import LoginButton from '../LoginButton';
 
 const Header = () => {
   return (
@@ -10,7 +10,7 @@ const Header = () => {
         <h1>Zik-Streamek</h1>
         <Col span={12} style={{ textAlign: 'center' }}>
           <Space>
-            <SignupButton />
+            <LoginButton />
             <ThemeButton />
           </Space>
         </Col>

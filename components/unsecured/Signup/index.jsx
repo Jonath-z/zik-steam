@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Row, Col, Space, Button } from 'antd';
+import { Row, Col, Space } from 'antd';
 import { useSignup } from '../../contexts/SingnupContext';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useRouter } from 'next/router';

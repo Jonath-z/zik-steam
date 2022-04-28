@@ -2,8 +2,17 @@
   background-image: url('../components/vectors/login-bg.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: rgb(4, 15, 80);
+  background-color: #000c17;
 }
+
+.landingBg {
+  background-image: url('../components/assets/images/Vector.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-color: #000c17; */
+}
+
+/* rgb(4, 15, 80) */
 
 .authInput {
   background-color: transparent;
