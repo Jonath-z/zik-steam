@@ -78,12 +78,12 @@ const SongLayout = ({
         isLoading={isLoading}
         song={song}
         fallback={
-          <div className="w-56 rounded-lg h-56 animate-pulse bg-gray-500" />
+          <div className="w-56 rounded-lg h-56 animate-pulse bg-gray-500 isMobileOrTablet:w-44 isMobileOrTablet:h-44" />
         }
       >
         <div
           style={{ backgroundImage: `url(${song.coverUrl})` }}
-          className="w-56 h-56 bg-cover relative rounded-lg"
+          className="w-56 h-56 bg-cover relative rounded-lg isMobileOrTablet:w-44 isMobileOrTablet:h-44"
         >
           <div
             className={`bg-[#1890ff] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center`}

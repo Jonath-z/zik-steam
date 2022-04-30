@@ -11,10 +11,13 @@ import {
   DARK_MODE_PRIMARY,
   LAYOUT_CONTENT_LIGHT_MODE,
 } from '../../constants';
+import useResponsive from '../../hooks/useResponsive';
 
 const HomePage = () => {
   const [content, setContent] = useState(<div />);
+  const [isMenuDisplayed, setIsMenuDisplayed] = useState(false);
   const { currentTheme } = useTheme();
+  const isTabletOrMobile = useResponsive('(max-width: 1224px)');
 
   const setMenuContent = (menu) => {
     switch (menu) {
@@ -32,9 +35,16 @@ const HomePage = () => {
     }
   };
 
+  const toggleMenu = () => {
+    setIsMenuDisplayed(!isMenuDisplayed);
+  };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <LayoutSider setMenuContent={setMenuContent} />
+      {!isTabletOrMobile ||
+        (isMenuDisplayed && (
+          <LayoutSider setMenuContent={setMenuContent} />
+        ))}
       <Layout
         style={{
           background: `${
@@ -44,7 +54,10 @@ const HomePage = () => {
           }`,
         }}
       >
-        <LayoutHeader />
+        <LayoutHeader
+          toggleMenu={toggleMenu}
+          isMenuDisplayed={isMenuDisplayed}
+        />
         <LayoutContent>{content}</LayoutContent>
       </Layout>
     </Layout>

@@ -2,4 +2,32 @@
   min-width: 200px !important;
   max-width: 200px !important;
   width: 200px !important;
+  animation: toggle_sider ease-in-out 100ms linear;
+}
+
+@keyframes toggle_sider {
+  0% {
+    min-width: 40px !important;
+    max-width: 40px !important;
+  }
+  20% {
+    min-width: 80px !important;
+    max-width: 80px !important;
+  }
+  40% {
+    min-width: 60px !important;
+    max-width: 60px !important;
+  }
+  60% {
+    min-width: 100px !important;
+    max-width: 100px !important;
+  }
+  80% {
+    min-width: 160px !important;
+    max-width: 160px !important;
+  }
+  100% {
+    min-width: 200px !important;
+    max-width: 200px !important;
+  }
 }

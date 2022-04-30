@@ -55,7 +55,7 @@ const Discover = () => {
             >
               {song.songs.length !== 0 && song.genre}
             </h1>
-            <div className="flex">
+            <div className="flex w-full overflow-x-auto">
               {song.songs.map((song, index) => {
                 return (
                   <div key={index} className="my-4 mx-2">

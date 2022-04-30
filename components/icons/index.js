@@ -5,6 +5,7 @@ import {
   AiTwotoneLike,
   AiOutlineLoading3Quarters,
   AiOutlinePlus,
+  AiOutlineMenu,
 } from 'react-icons/ai';
 import { FaEthereum } from 'react-icons/fa';
 
@@ -16,6 +17,7 @@ const icons = {
   Loading: AiOutlineLoading3Quarters,
   Ethereum: FaEthereum,
   Plus: AiOutlinePlus,
+  Menu: AiOutlineMenu,
 };
 
 export default icons;

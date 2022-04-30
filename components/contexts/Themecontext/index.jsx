@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import LocalStorage from '../../utils/helpers/localStorage';
-import { use } from 'chai';
 
 const defaultContext = {
   currentTheme: {

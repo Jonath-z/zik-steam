@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { MdDarkMode, MdOutlineDarkMode } from 'react-icons/md';
 import { Switch } from 'antd';
 import { useTheme } from '../../contexts/Themecontext';
 
 const ThemeButton = () => {
   const [theme, setTheme] = useState('light');
-  const { setCurrentTheme } = useTheme();
+  const { setCurrentTheme, currentTheme } = useTheme();
   const changeTheme = (isDarkTheme) => {
     console.log(isDarkTheme);
     setCurrentTheme(
-      isDarkTheme
+      !isDarkTheme
         ? { theme: 'dark', status: false }
         : { theme: 'light', status: true },
     );
@@ -18,10 +17,10 @@ const ThemeButton = () => {
 
   return (
     <Switch
-      checked={theme === 'dark'}
+      checked={currentTheme.status}
       onChange={changeTheme}
-      checkedChildren="Dark"
-      unCheckedChildren="Light"
+      checkedChildren="Light"
+      unCheckedChildren="Dark"
       style={{
         background: theme === 'dark' ? '#1890ff' : 'gray',
       }}
