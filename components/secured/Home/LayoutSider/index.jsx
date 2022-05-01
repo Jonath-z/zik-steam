@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+/* eslint-disable @next/next/no-img-element */
+import React from 'react';
 import { Layout, Menu } from 'antd';
 import styles from '../../../../styles/Discover.module.css';
 import PropTypes from 'prop-types';
 import { useTheme } from '../../../contexts/Themecontext';
 import ThemeButton from '../../../modules/ThemeButton';
 import useResponsive from '../../../hooks/useResponsive';
+import ZikStreamLogo from '../../../vectors/zikStreamLogo';
 
 const { Sider } = Layout;
 const { Item, SubMenu } = Menu;
@@ -16,25 +18,17 @@ const LayoutSider = ({ setMenuContent }) => {
   return (
     <Sider
       theme={currentTheme.theme}
-      className={`${styles.siteLayoutSider} z-10 transition-none duration-500`}
+      className={`${styles.siteLayoutSider} z-20 transition-none duration-500`}
     >
       <div className="logo">
-        {isTabletOrMobile ? (
-          <h1 className="text-black text-3xl font-semibold text-center pt-4">
-            Menu
-          </h1>
-        ) : (
-          <h1 className="text-black text-3xl font-semibold text-center pt-4">
-            Zik-Stream
-          </h1>
-        )}
+        <ZikStreamLogo />
       </div>
       <Menu
         theme={currentTheme.theme}
         mode="inline"
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
-        style={{ margin: '40px 0' }}
+        style={{ margin: '20px 0' }}
       >
         <SubMenu key="sub1" title="Browse Music">
           <Item

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, Row, Col, Space, Input } from 'antd';
 import ThemeButton from '../../../modules/ThemeButton';
 import { useSearch } from '../../../contexts/SearchContext';
 import { useTheme } from '../../../contexts/Themecontext';
-import { DARK_MODE_PRIMARY } from '../../../constants';
+import {
+  DARK_MODE_PRIMARY,
+  DARK_MODE_SECONDARY,
+} from '../../../constants';
 import useResponsive from '../../../hooks/useResponsive';
 import PropTypes from 'prop-types';
-import MenuIcon from './__module/MenuIcon';
+import MobileHeaderIcons from './__module/MobileHeaderIcons';
+import ZikStreamLogo from '../../../vectors/zikStreamLogo';
 
 const { Header } = Layout;
 
@@ -14,46 +18,55 @@ const LayoutHeader = ({ toggleMenu, isMenuDisplayed }) => {
   const { onInputChange } = useSearch();
   const { currentTheme } = useTheme();
   const isTabletOrMobile = useResponsive('(max-width: 1224px)');
+  const [isSearchBarDisplayed, setIsSearchBarDisplayed] =
+    useState(false);
+
+  const toggleSearchBar = () => {
+    setIsSearchBarDisplayed(!isSearchBarDisplayed);
+    return !isSearchBarDisplayed;
+  };
+
+  console.log(isMenuDisplayed, isTabletOrMobile, 'compare');
 
   return (
     <Header
       className="px-1"
       style={{
         background: `${
-          currentTheme.status ? 'white' : DARK_MODE_PRIMARY
+          currentTheme.status ? 'white' : DARK_MODE_SECONDARY
         }`,
       }}
     >
       <Row wrap={false}>
-        {isTabletOrMobile && (
-          <Col span={8}>
-            <p>Zik-stream</p>
-          </Col>
-        )}
-        <Col span={isTabletOrMobile ? 8 : 12}>
-          {!isMenuDisplayed && (
-            <Input
-              placeholder="search"
-              type="search"
-              onChange={onInputChange}
-              style={{
-                background: 'transparent',
-                color: `${
-                  currentTheme.status ? DARK_MODE_PRIMARY : 'white'
-                }`,
-              }}
-            />
-          )}
+        <Col span={12}>
+          {isTabletOrMobile &&
+            !isSearchBarDisplayed &&
+            !isMenuDisplayed && <ZikStreamLogo />}
+          {!isTabletOrMobile ||
+            (isSearchBarDisplayed && !isMenuDisplayed && (
+              <Input
+                placeholder="search"
+                type="search"
+                onChange={onInputChange}
+                style={{
+                  background: 'transparent',
+                  color: `${
+                    currentTheme.status ? DARK_MODE_PRIMARY : 'white'
+                  }`,
+                }}
+              />
+            ))}
         </Col>
-        <Col span={isTabletOrMobile ? 8 : 12} className="text-right">
+        <Col span={12} className="text-right">
           <Space>
-            {!isTabletOrMobile ? (
-              <ThemeButton />
-            ) : (
-              <MenuIcon
+            {isTabletOrMobile ? (
+              <MobileHeaderIcons
                 toggleMenu={toggleMenu}
                 isMenuDisplayed={isMenuDisplayed}
+                toggleSearchBar={toggleSearchBar}
               />
+            ) : (
+              <ThemeButton />
             )}
           </Space>
         </Col>

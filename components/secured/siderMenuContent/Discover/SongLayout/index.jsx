@@ -10,10 +10,7 @@ import PlayPauseButton from '../../../../modules/AudioControls/PlayPauseButton';
 import { useRouter } from 'next/router';
 import { useDiscover } from '../../../../contexts/DiscoverContext';
 import { useTheme } from '../../../../contexts/Themecontext';
-import {
-  BLUE_PRIMARY,
-  DARK_MODE_PRIMARY,
-} from '../../../../constants';
+import firstLetterCapitalizer from '../../../../utils/helpers/firstLetterCapitalizer';
 
 const SongLayout = ({
   setTracks,
@@ -24,6 +21,7 @@ const SongLayout = ({
   containerClass,
   songNameClass,
   artistNameClass,
+  isColomnDisplayed,
 }) => {
   const { payStream, readyToBeStreamed } = useStream();
   const { OutLineLike, FullLike, Ethereum } = icons;
@@ -83,7 +81,11 @@ const SongLayout = ({
       >
         <div
           style={{ backgroundImage: `url(${song.coverUrl})` }}
-          className="w-56 h-56 bg-cover relative rounded-lg isMobileOrTablet:w-44 isMobileOrTablet:h-44"
+          className={`w-56 h-56 bg-cover relative rounded-lg ${
+            isColomnDisplayed
+              ? 'isMobileOrTablet:w-full isMobileOrTablet:h-44'
+              : 'isMobileOrTablet:w-44 isMobileOrTablet:h-44'
+          } `}
         >
           <div
             className={`bg-[#1890ff] bg-opacity-90 absolute bottom-0 w-full py-2 rounded-b-lg px-1 cursor-pointer flex justify-between items-center`}
@@ -125,10 +127,10 @@ const SongLayout = ({
       <div className="flex justify-between items-center mt-2">
         <p className="flex flex-col">
           <span className={`${artistNameClass} text-gray-500`}>
-            {song.artistName}
+            {firstLetterCapitalizer(song.artistName)}
           </span>
           <span className={`text-gray-500 text-xs ${songNameClass}`}>
-            {song.songTitle}
+            {firstLetterCapitalizer(song.songTitle)}
           </span>
           <span className="text-blue-500 text-xs">
             {timeCoverter(song.streamHours).time}{' '}
@@ -164,6 +166,7 @@ SongLayout.propTypes = {
   containerClass: PropTypes.string,
   songNameClass: PropTypes.string,
   artistNameClass: PropTypes.string,
+  isColomnDisplayed: PropTypes.bool,
 };
 
 export default SongLayout;

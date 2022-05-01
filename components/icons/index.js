@@ -6,7 +6,13 @@ import {
   AiOutlineLoading3Quarters,
   AiOutlinePlus,
   AiOutlineMenu,
+  AiOutlineSearch,
 } from 'react-icons/ai';
+import {
+  MdOutlineSearchOff,
+  MdKeyboardArrowRight,
+  MdKeyboardArrowDown,
+} from 'react-icons/md';
 import { FaEthereum } from 'react-icons/fa';
 
 const icons = {
@@ -18,6 +24,10 @@ const icons = {
   Ethereum: FaEthereum,
   Plus: AiOutlinePlus,
   Menu: AiOutlineMenu,
+  Search: AiOutlineSearch,
+  SearchOff: MdOutlineSearchOff,
+  ArrowRight: MdKeyboardArrowRight,
+  ArrowDown: MdKeyboardArrowDown,
 };
 
 export default icons;

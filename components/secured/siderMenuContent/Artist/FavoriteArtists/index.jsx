@@ -61,7 +61,7 @@ const FavoriteArtists = () => {
         <p className="text-3xl flex flex-col justify-center">
           <span className="text-center text-5xl py-4">🙁</span>
           <span
-            className={`${
+            className={`isMobileOrTablet:text-sm ${
               currentTheme.status ? 'text-black' : 'text-white'
             }`}
           >
@@ -76,11 +76,11 @@ const FavoriteArtists = () => {
       {favoritesArtists.map((artist, index) => {
         return (
           <div key={index} className="text-center">
-            <div className="w-80 h-80 relative">
+            <div className="w-80 h-80 relative isMobileOrTablet:w-44 isMobileOrTablet:h-44 isMobileOrTablet:mx-2">
               <img
                 src={artist.artist_profile}
                 alt={artist.artist_name}
-                className="object-cover rounded-full w-80 h-80"
+                className="object-cover rounded-full w-80 h-80 isMobileOrTablet:w-44 isMobileOrTablet:h-44"
               />
               <div
                 className="absolute w-full rounded-full h-full top-0 l
@@ -98,10 +98,10 @@ const FavoriteArtists = () => {
                   Unfollow
                 </button>
               </div>
+              <p className="py-3 text-center text-gray-500">
+                {artist.artist_name}
+              </p>
             </div>
-            <p className="py-3 text-center text-gray-500">
-              {artist.artist_name}
-            </p>
             {isFollowedArtistView && (
               <FollowedArtistView
                 artist={artist}

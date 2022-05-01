@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import icons from '../../../../icons';
 import LocalStorage from '../../../../utils/helpers/localStorage';
 import LoadingFallback from '../../../../modules/LoadingFallback';
 import { useTheme } from '../../../../contexts/Themecontext';
@@ -50,7 +49,7 @@ const AllArtists = () => {
           <span
             className={`${
               currentTheme.status ? 'text-black' : 'text-white'
-            }`}
+            } isMobileOrTablet:text-sm`}
           >
             No Artist you may need to discover found
           </span>
@@ -63,11 +62,11 @@ const AllArtists = () => {
       {allArtists.map((artist, index) => {
         return (
           <div key={index} className="text-center">
-            <div className="w-80 h-80 relative">
+            <div className="w-80 h-80 relative isMobileOrTablet:w-44 isMobileOrTablet:h-44 isMobileOrTablet:mx-2">
               <img
                 src={artist.artist_profile}
                 alt={artist.artist_name}
-                className="object-cover rounded-full w-80 h-80"
+                className="object-cover rounded-full w-80 h-80 isMobileOrTablet:w-44 isMobileOrTablet:h-44"
               />
               <div
                 className="absolute w-full rounded-full h-full top-0 l
@@ -84,10 +83,10 @@ const AllArtists = () => {
                   Follow
                 </button>
               </div>
+              <p className="py-3 text-center text-gray-500">
+                {artist.artist_name}
+              </p>
             </div>
-            <p className="py-3 text-center text-gray-500">
-              {artist.artist_name}
-            </p>
           </div>
         );
       })}

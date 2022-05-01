@@ -19,6 +19,8 @@ const HomePage = () => {
   const { currentTheme } = useTheme();
   const isTabletOrMobile = useResponsive('(max-width: 1224px)');
 
+  console.log('is tablet or mobile', isTabletOrMobile);
+
   const setMenuContent = (menu) => {
     switch (menu) {
       case 'discover':
@@ -35,16 +37,21 @@ const HomePage = () => {
     }
   };
 
+  useEffect(() => {
+    if (!isTabletOrMobile) {
+      setIsMenuDisplayed(true);
+    }
+  }, [isTabletOrMobile]);
+
   const toggleMenu = () => {
     setIsMenuDisplayed(!isMenuDisplayed);
   };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      {!isTabletOrMobile ||
-        (isMenuDisplayed && (
-          <LayoutSider setMenuContent={setMenuContent} />
-        ))}
+      {isMenuDisplayed && (
+        <LayoutSider setMenuContent={setMenuContent} />
+      )}
       <Layout
         style={{
           background: `${

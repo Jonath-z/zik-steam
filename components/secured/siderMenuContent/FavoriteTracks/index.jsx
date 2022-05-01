@@ -8,6 +8,7 @@ import PlayPauseButton from '../../../modules/AudioControls/PlayPauseButton';
 import icons from '../../../icons';
 import LoadingFallback from '../../../modules/LoadingFallback';
 import { useTheme } from '../../../contexts/Themecontext';
+import useResponsive from '../../../hooks/useResponsive';
 import dynamic from 'next/dynamic';
 const Player = dynamic(() => import('../../../modules/Player'), {
   ssr: false,
@@ -23,6 +24,7 @@ const FavoriteTracks = () => {
     useState(true);
   const [songToStreamId, setSongToStreamId] = useState('');
   const { currentTheme } = useTheme();
+  const isMobile = useResponsive('(max-width: 600px)');
   const id = LocalStorage.get('zik-stream-user-uuid');
 
   const loadFavoriteTracks = useCallback(async () => {
@@ -71,21 +73,27 @@ const FavoriteTracks = () => {
 
   return (
     <div>
-      <p className="text-left pt-5 font-extrabold text-3xl">
+      <p
+        className={`text-left pt-5 font-extrabold text-3xl ${
+          currentTheme.status ? 'text-black' : 'text-white'
+        } isMobileOrTablet:mx-3`}
+      >
         Favorite Tracks
       </p>
-      <ul className="flex justify-between items-center bg-blue-500 py-2 px-1 rounded-sm">
-        <li className="m-0">Cover</li>
-        <li className="m-0">Type</li>
-        <li className="m-0">Label</li>
-        <li className="m-0">Streaming Price</li>
-        <li className="m-0">Stream</li>
-      </ul>
+      {!isMobile && (
+        <ul className="flex justify-between items-center bg-blue-500 py-2 px-1 rounded-sm">
+          <li className="m-0">Cover</li>
+          <li className="m-0">Type</li>
+          <li className="m-0">Label</li>
+          <li className="m-0">Streaming Price</li>
+          <li className="m-0">Stream</li>
+        </ul>
+      )}
       {favoriteTracks.map((track) => {
         return (
           <div
             key={track.id}
-            className="flex justify-between items-center py-2 border-b border-l-blue-500"
+            className="flex justify-between items-center py-2 border-b border-b-gray-500 isMobileOrTablet:mx-3"
           >
             <div className="flex items-center">
               <img
@@ -94,29 +102,33 @@ const FavoriteTracks = () => {
                 className="w-16 rounded-lg"
               />
               <p
-                className={`px-4 ${
+                className={`px-4 m-0 ${
                   currentTheme.status ? 'text-black' : 'text-white'
                 }`}
               >
                 {track.songTitle}
               </p>
             </div>
+            {!isMobile && (
+              <p
+                className={` m-0 ${
+                  currentTheme.status ? 'text-black' : 'text-gray-500'
+                }`}
+              >
+                {track.genre}
+              </p>
+            )}
+            {!isMobile && (
+              <p
+                className={` m-0 ${
+                  currentTheme.status ? 'text-black' : 'text-gray-500'
+                }`}
+              >
+                {track.label}
+              </p>
+            )}
             <p
-              className={`${
-                currentTheme.status ? 'text-black' : 'text-gray-500'
-              }`}
-            >
-              {track.genre}
-            </p>
-            <p
-              className={`${
-                currentTheme.status ? 'text-black' : 'text-gray-500'
-              }`}
-            >
-              {track.label}
-            </p>
-            <p
-              className={`flex items-center ${
+              className={`flex items-center  m-0  ${
                 currentTheme.status ? 'text-black' : 'text-gray-500'
               }`}
             >

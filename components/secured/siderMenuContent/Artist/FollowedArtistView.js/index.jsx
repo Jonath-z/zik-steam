@@ -9,7 +9,7 @@ import { useStream } from '../../../../contexts/StreamContext';
 import icons from '../../../../icons';
 import LoadingFallback from '../../../../modules/LoadingFallback';
 import { useTheme } from '../../../../contexts/Themecontext';
-import { DARK_MODE_SECONDARY } from '../../../../constants';
+import useResponsive from '../../../../hooks/useResponsive';
 import dynamic from 'next/dynamic';
 const Player = dynamic(() => import('../../../../modules/Player'), {
   ssr: false,
@@ -27,6 +27,7 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
   const [songToStreamId, setSongToStreamId] = useState('');
   const [tracks, setTracks] = useState([]);
   const { currentTheme } = useTheme();
+  const isMobile = useResponsive('(max-width: 600px)');
 
   const loadArtistSong = useCallback(async () => {
     const songsByArtistName = allSong.filter(
@@ -77,12 +78,12 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
     <div
       className={`bg-[#f0f2f5] ${
         currentTheme.status ? 'bg-[#f0f2f5]' : `bg-[#001529]`
-      }  absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-y-auto px-32 pb-10`}
+      }  absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-y-auto px-32 isMobileOrTablet:px-5 pb-10`}
     >
       <div className="w-[50%] flex justify-end ml-[50%]">
         <Plus
           onClick={toggleArtistView}
-          className={`rotate-45 text-2xl right-0 m-5 my-5 cursor-pointer ${
+          className={`rotate-45 text-2xl right-0 m-5 my-5 isMobileOrTablet:m-0 isMobileOrTablet:my-1 cursor-pointer ${
             currentTheme.status ? 'text-black' : `text-white`
           }`}
         />
@@ -99,12 +100,12 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
           <img
             src={artist.artist_profile}
             alt={artist.artist_name}
-            className="object-cover rounded-lg w-40 h-40"
+            className="object-cover rounded-lg w-40 h-40 isMobileOrTablet:w-[8rem] isMobileOrTablet:h-[8rem]"
           />
         </div>
         <div className="pl-5 text-left">
           <p
-            className={`m-0 text-3xl font-semibold ${
+            className={`m-0 text-3xl isMobileOrTablet:text-2xl font-semibold ${
               currentTheme.status ? 'text-black' : `text-white`
             }`}
           >
@@ -113,11 +114,21 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
           <p className="m-0 text-xs text-gray-500">
             {artistSongs.length} songs
           </p>
-          <div className="flex justify-between items-center mt-2">
-            <p className="m-0 bg-blue-500 w-fit px-3 py-1 rounded-full">
+          <div
+            className={`flex  mt-2 ${
+              isMobile
+                ? 'flex-col items-start'
+                : 'ustify-between items-center'
+            }`}
+          >
+            <p className="m-0 bg-blue-500 w-fit px-3 py-1 rounded-full isMobileOrTablet:text-xs">
               {artist.likes} funs
             </p>
-            <p className="m-0 bg-blue-500 w-fit px-3 py-1 ml-2 rounded-full">
+            <p
+              className={`m-0 bg-blue-500 w-fit px-3 py-1 rounded-full isMobileOrTablet:text-xs ${
+                isMobile ? 'ml-0 mt-2' : 'ml-2'
+              }`}
+            >
               {artistSongsDetails.streams.time}{' '}
               {artistSongsDetails.streams.units} of streaming
             </p>
@@ -131,19 +142,21 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
       >
         Songs
       </p>
-      <ul className="flex justify-between items-center bg-blue-500 py-2 px-1 rounded-sm">
-        <li className="m-0">Cover</li>
-        <li className="m-0">Type</li>
-        <li className="m-0">Label</li>
-        <li className="m-0">Streaming Price</li>
-        <li className="m-0">Stream</li>
-      </ul>
+      {!isMobile && (
+        <ul className="flex justify-between items-center bg-blue-500 py-2 px-1 rounded-sm">
+          <li className="m-0">Cover</li>
+          <li className="m-0">Type</li>
+          <li className="m-0">Label</li>
+          <li className="m-0">Streaming Price</li>
+          <li className="m-0">Stream</li>
+        </ul>
+      )}
       <div>
         {artistSongs.map((song) => {
           return (
             <div
               key={song.id}
-              className="flex justify-between items-center py-2 border-b border-l-blue-500"
+              className="flex justify-between items-center py-2 border-b border-l-blue-500 isMobileOrTablet:text-xs"
             >
               <div className="flex items-center">
                 <img
@@ -159,20 +172,28 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
                   {song.songTitle}
                 </p>
               </div>
-              <p
-                className={`${
-                  currentTheme.status ? 'text-black' : `text-gray-500`
-                }`}
-              >
-                {song.genre}
-              </p>
-              <p
-                className={`${
-                  currentTheme.status ? 'text-black' : `text-gray-500`
-                }`}
-              >
-                {song.label}
-              </p>
+              {!isMobile && (
+                <p
+                  className={`${
+                    currentTheme.status
+                      ? 'text-black'
+                      : `text-gray-500`
+                  }`}
+                >
+                  {song.genre}
+                </p>
+              )}
+              {!isMobile && (
+                <p
+                  className={`${
+                    currentTheme.status
+                      ? 'text-black'
+                      : `text-gray-500`
+                  }`}
+                >
+                  {song.label}
+                </p>
+              )}
               <p
                 className={`m-0 flex items-center ${
                   currentTheme.status ? 'text-black' : `text-gray-500`

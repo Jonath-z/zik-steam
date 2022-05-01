@@ -14,7 +14,7 @@ const Artist = () => {
           currentTheme.status ? 'border-gray-300' : 'border-gray-800'
         } mr-10 fixed bg-transparent ${
           currentTheme.status ? 'text-black' : 'text-white'
-        }`}
+        } isMobileOrTablet:mt-5 mx-4`}
       >
         <p
           className={`${
