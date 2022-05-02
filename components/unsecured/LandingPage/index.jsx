@@ -20,11 +20,11 @@ const LandingPage = () => {
         <div className="absolute top-0 left-0 right-0">
           <Header />
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center">
           <div className="flex flex-col">
             <p
-              className={`text-${
-                currentTheme.status ? 'black' : 'white'
+              className={` mt-44 ml-44 isMobileOrTablet:text-5xl isMobileOrTablet:mt-10 isMobileOrTablet:ml-3 ${
+                currentTheme.status ? 'text-black' : 'text-white'
               } text-6xl px-10`}
             >
               Upload your song <br />

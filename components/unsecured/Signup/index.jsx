@@ -4,6 +4,7 @@ import { useSignup } from '../../contexts/SingnupContext';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import styles from '../../../styles/auth.module.css';
+import ZikStreamLogo from '../../vectors/zikStreamLogo';
 
 const SignupPage = () => {
   const {
@@ -21,7 +22,9 @@ const SignupPage = () => {
     <div
       className={`flex flex-col justify-center items-center h-screen w-full ${styles.loginBg}`}
     >
-      <p className="text-4xl m-0 text-white">Zik-stream</p>
+      <div className="w-44">
+        <ZikStreamLogo />
+      </div>
       <p className="text-xl m-0 text-white">
         Let&apos;s create your account
       </p>
@@ -29,7 +32,7 @@ const SignupPage = () => {
         <Col>
           <Space
             direction="vertical"
-            className="w-96 my-10 text-center"
+            className="w-80 my-10 text-center"
           >
             <input
               type="email"

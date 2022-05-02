@@ -4,6 +4,7 @@ coverage
 coverage.json
 typechain
 .secret
+yarn.lock
 
 #Hardhat files
 cache

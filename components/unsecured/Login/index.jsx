@@ -20,10 +20,10 @@ const LoginPage = () => {
     <div
       className={`flex flex-col justify-center items-center h-screen w-full ${styles.loginBg}`}
     >
-      <p className="text-4xl text-white">👋🏽 Hey! Welcome Back.</p>
+      <p className="text-3xl text-white">👋🏽 Hey! Welcome Back.</p>
       <Row>
         <Col>
-          <Space direction="vertical" className="w-96">
+          <Space direction="vertical" className="w-80">
             <input
               type="email"
               placeholder="Enter your email"
