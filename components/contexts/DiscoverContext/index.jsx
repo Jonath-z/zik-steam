@@ -34,7 +34,6 @@ const DiscoverProvider = ({ children }) => {
       return song.artistName;
     });
     const artistNames = [...new Set(allArtistNames)];
-    console.log('artistNames', artistNames);
     setArtits(artistNames);
   }, []);
 
@@ -44,7 +43,6 @@ const DiscoverProvider = ({ children }) => {
     const songRefs = await axios.post('/api/song/getAllSongs', {
       userId: userId,
     });
-    console.log('refs', songRefs);
     setIsLoading(false);
 
     const allSongsGenre = songs.map((song) => {
@@ -55,7 +53,6 @@ const DiscoverProvider = ({ children }) => {
     if (songRefs && songRefs.data.allSongs) {
       const songsSortedByGenre = songsGenre.map((songGenre) => {
         let sortCollection = [];
-        console.log('songs ref', songRefs);
         songRefs.data.allSongs.map((songRef) => {
           songs.map((song) => {
             if (
@@ -80,7 +77,6 @@ const DiscoverProvider = ({ children }) => {
           songs: sortCollection,
         };
       });
-      console.log('songs sorted', songsSortedByGenre);
       setSongByGenre(songsSortedByGenre);
     }
   }, []);
@@ -91,7 +87,6 @@ const DiscoverProvider = ({ children }) => {
         ? 'https://rinkeby.infura.io/v3/860ca51e15d0418f9e49cc4a75f393f0'
         : 'http://127.0.0.1:8545/';
     const provider = new ethers.providers.JsonRpcProvider(url);
-    console.log('provider', provider);
 
     const contract = new ethers.Contract(
       marketAddress,

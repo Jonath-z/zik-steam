@@ -23,8 +23,6 @@ const FavoriteArtists = () => {
       },
     );
 
-    console.log('my artist ', response);
-
     if (response.status === 200) {
       setFavoritesArtists(response.data.favoriteArtists);
       setIsLoading(false);

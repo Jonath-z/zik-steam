@@ -10,8 +10,6 @@ export default async function handler(req, res) {
 
     const favoriteArtists = user[0].favoriteArtists;
 
-    console.log('favorites', favoriteArtists);
-
     if (favoriteArtists) {
       res.status(200).json({
         favoriteArtists: favoriteArtists,

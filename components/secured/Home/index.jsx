@@ -25,8 +25,6 @@ const HomePage = () => {
   const { tracks } = useStream();
   const isTabletOrMobile = useResponsive('(max-width: 1224px)');
 
-  console.log('is tablet or mobile', isTabletOrMobile);
-
   const setMenuContent = (menu) => {
     switch (menu) {
       case 'discover':

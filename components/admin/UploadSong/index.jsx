@@ -34,9 +34,6 @@ const UploadSong = () => {
     return true;
   };
 
-  console.log('cover progress', coverUploadProgress);
-  console.log('song progress', songUploadProgress);
-
   return (
     <>
       {isSuccessfullyUploaded && <div>SuccessFully Uploaded </div>}

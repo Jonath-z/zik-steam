@@ -6,7 +6,6 @@ const ThemeButton = () => {
   const [theme, setTheme] = useState('light');
   const { setCurrentTheme, currentTheme } = useTheme();
   const changeTheme = (isDarkTheme) => {
-    console.log(isDarkTheme);
     setCurrentTheme(
       !isDarkTheme
         ? { theme: 'dark', status: false }

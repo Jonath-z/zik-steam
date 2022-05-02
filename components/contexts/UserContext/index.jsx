@@ -25,12 +25,12 @@ const UserProvider = ({ children }) => {
 
   const getuser = useCallback(async () => {
     const id = LocalStorage.get('zik-stream-user-uuid');
-    console.log('userid', id);
+
     setIsProcessing(true);
     const response = await axios.post('/api/query/getUser', {
       id: id,
     });
-    console.log(response);
+
     if (response.status === 200) {
       setIsGettingError(false);
       setUser(response.data.user);

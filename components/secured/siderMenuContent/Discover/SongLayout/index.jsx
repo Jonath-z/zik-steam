@@ -67,7 +67,6 @@ const SongLayout = ({
         id: song.id,
       },
     ]);
-    console.log('song to stream', songToStream);
   };
 
   return (

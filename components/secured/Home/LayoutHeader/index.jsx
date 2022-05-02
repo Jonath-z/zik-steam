@@ -26,8 +26,6 @@ const LayoutHeader = ({ toggleMenu, isMenuDisplayed }) => {
     return !isSearchBarDisplayed;
   };
 
-  console.log(isMenuDisplayed, isTabletOrMobile, 'compare');
-
   return (
     <Header
       className="px-1"

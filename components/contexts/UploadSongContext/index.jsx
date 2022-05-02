@@ -74,7 +74,7 @@ const UploadSongProvider = ({ children }) => {
 
   const onTrackfileChange = useCallback(async (event) => {
     const file = event.target.files[0];
-    console.log(file);
+
     const added = await client.add(file, {
       progress: (prog) =>
         setSongUploadProgress(calulProgress(file.size, prog)),
@@ -130,13 +130,6 @@ const UploadSongProvider = ({ children }) => {
   }, []);
 
   const createSong = async () => {
-    console.log(
-      coverUrl,
-      songArtist,
-      songTitle,
-      songPrice,
-      songSupportPrice,
-    );
     if (
       !coverUrl ||
       !songArtist ||
@@ -198,9 +191,6 @@ const UploadSongProvider = ({ children }) => {
       songSupportPrice.trim(),
       'ether',
     );
-
-    console.log('contract', contract);
-    console.log('this url', url);
 
     const uploading = await contract.uploadSong(
       url,

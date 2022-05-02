@@ -18,12 +18,10 @@ const CreateArtist = () => {
 
   const onProfilePhotoChange = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
     const added = await client.add(file, {
       progress: (prog) => setProgress(calulProgress(file.size, prog)),
     });
     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    console.log('profile', url);
     setArtistIds({ ...artistIds, artistProfileUrl: url });
   };
 

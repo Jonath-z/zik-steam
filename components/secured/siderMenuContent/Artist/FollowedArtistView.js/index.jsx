@@ -44,7 +44,7 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
         artistName: artist.artist_name,
       },
     );
-    console.log('my response', response);
+
     setArtistsSongsDetails({
       streams: response.data.streams,
     });

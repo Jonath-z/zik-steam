@@ -32,7 +32,6 @@ const Discover = () => {
     document.getElementsByClassName('song-container');
 
   useEffect(() => {
-    console.log('song by genre in discover ', songByGenre);
     if (songByGenre.length > 0)
       setTracks([
         {

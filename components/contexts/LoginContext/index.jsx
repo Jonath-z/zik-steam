@@ -68,7 +68,7 @@ const LoginProvider = ({ children }) => {
 
     setIsCreationProcess(true);
     const response = await getUserByCredentials(userCredentials);
-    console.log('response', response);
+
     if (checkPassword(response.data.user.password, password)) {
       routes.push(`/home/${response.data.user.id}`);
       setIsGettingError(false);

@@ -10,8 +10,6 @@ const Player = ({ tracks }) => {
   const { updateStreamingTime } = useStream();
   const { setCurrentTheme } = useTheme();
 
-  console.log('song tracks', tracks);
-
   const options = {
     audioLists: [
       {
