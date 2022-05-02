@@ -10,7 +10,7 @@ const MobileHeaderIcons = ({
   const { Plus, Menu, Search, SearchOff } = icons;
   const [isSeachOff, setIsSearchOff] = useState();
   return (
-    <div className="my-[0rem] flex justify-center items-center">
+    <div className="my-[1rem] flex">
       {isSeachOff ? (
         <SearchOff
           className="text-blue-500 text-3xl mx-1"
