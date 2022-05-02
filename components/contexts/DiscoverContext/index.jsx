@@ -8,7 +8,6 @@ import React, {
 import { ethers } from 'ethers';
 import { marketAddress, market_ABI } from '../../../config';
 import axios from 'axios';
-import { useUser } from '../UserContext';
 import PropTypes from 'prop-types';
 import LocalStorage from '../../utils/helpers/localStorage';
 

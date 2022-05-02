@@ -19,7 +19,7 @@ import useResponsive from '../../hooks/useResponsive';
 import { useStream } from '../../contexts/StreamContext';
 
 const HomePage = () => {
-  const [content, setContent] = useState(<div />);
+  const [content, setContent] = useState(<Discover />);
   const [isMenuDisplayed, setIsMenuDisplayed] = useState(false);
   const { currentTheme } = useTheme();
   const { tracks } = useStream();
