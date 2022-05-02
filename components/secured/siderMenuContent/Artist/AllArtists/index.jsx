@@ -21,7 +21,7 @@ const AllArtists = () => {
       setAllArtists(response.data.allArtists);
       setIsLoading(false);
     }
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     loadAllArtists();
