@@ -19,13 +19,12 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
   const { Plus, Ethereum } = icons;
   const { isLoading, allSong } = useDiscover();
   const { isPlaying, setIsPlaying } = useAudioPlayer();
-  const { readyToBeStreamed, payStream } = useStream();
+  const { readyToBeStreamed, payStream, setTracks } = useStream();
   const [artistSongs, setArtistSong] = useState([]);
   const [artistSongsDetails, setArtistsSongsDetails] = useState({
     streams: '0 minutes',
   });
   const [songToStreamId, setSongToStreamId] = useState('');
-  const [tracks, setTracks] = useState([]);
   const { currentTheme } = useTheme();
   const isMobile = useResponsive('(max-width: 600px)');
 
@@ -223,8 +222,8 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
               ) : (
                 <button
                   onClick={async () => {
-                    onClickStream(song);
                     await payStream(song.streamingPrice, song.id);
+                    onClickStream(song);
                   }}
                   className={`px-4 ${
                     currentTheme.status ? 'text-black' : `text-white`
@@ -237,9 +236,6 @@ const FollowedArtistView = ({ artist, toggleArtistView }) => {
           );
         })}
       </div>
-      {tracks.length !== 0 && readyToBeStreamed && (
-        <Player tracks={tracks} />
-      )}
     </div>
   );
 };

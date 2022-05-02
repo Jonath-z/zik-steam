@@ -9,17 +9,12 @@ import icons from '../../../icons';
 import LoadingFallback from '../../../modules/LoadingFallback';
 import { useTheme } from '../../../contexts/Themecontext';
 import useResponsive from '../../../hooks/useResponsive';
-import dynamic from 'next/dynamic';
-const Player = dynamic(() => import('../../../modules/Player'), {
-  ssr: false,
-});
 
 const FavoriteTracks = () => {
   const { Ethereum } = icons;
   const { isPlaying, setIsPlaying } = useAudioPlayer();
-  const { readyToBeStreamed, payStream } = useStream();
+  const { readyToBeStreamed, payStream, setTracks } = useStream();
   const [favoriteTracks, setFavoriteTracks] = useState([]);
-  const [tracks, setTracks] = useState([]);
   const [isFavoriteTracksLoading, setIsFavoriteTracksLoading] =
     useState(true);
   const [songToStreamId, setSongToStreamId] = useState('');
@@ -156,8 +151,8 @@ const FavoriteTracks = () => {
             ) : (
               <button
                 onClick={async () => {
-                  onClickStream(track);
                   await payStream(track.streamingPrice, track.id);
+                  onClickStream(track);
                 }}
                 className={`${
                   currentTheme.status ? 'text-black' : 'text-white'
@@ -169,9 +164,6 @@ const FavoriteTracks = () => {
           </div>
         );
       })}
-      {tracks.length !== 0 && readyToBeStreamed && (
-        <Player tracks={tracks} />
-      )}
     </div>
   );
 };

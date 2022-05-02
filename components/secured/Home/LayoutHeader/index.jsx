@@ -56,7 +56,8 @@ const LayoutHeader = ({ toggleMenu, isMenuDisplayed }) => {
                 onChange={onInputChange}
                 style={{
                   background: 'transparent',
-                  width: '95%',
+                  width: '90%',
+                  margin: '0 0.5rem',
                   color: `${
                     currentTheme.status ? DARK_MODE_PRIMARY : 'white'
                   }`,
@@ -87,7 +88,9 @@ const LayoutHeader = ({ toggleMenu, isMenuDisplayed }) => {
                 toggleSearchBar={toggleSearchBar}
               />
             ) : (
-              <ThemeButton />
+              <div className="mx-2">
+                <ThemeButton />
+              </div>
             )}
           </Space>
         </Col>

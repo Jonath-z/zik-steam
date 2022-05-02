@@ -15,6 +15,15 @@ import LocalStorage from '../../utils/helpers/localStorage';
 const defaultContext = {
   getPayementError: false,
   readyToBeStreamed: false,
+  tracks: [
+    {
+      title: '',
+      image: '',
+      artist: '',
+      audioSrc: '',
+    },
+  ],
+  setTracks: () => null,
   setSongCurrentTime: () => null,
   setReadyToBeStreamed: () => null,
   setIsPlayed: () => null,
@@ -28,6 +37,14 @@ export const useStream = () => useContext(StreamContext);
 const StreamProvider = ({ children }) => {
   const [readyToBeStreamed, setReadyToBeStreamed] = useState(false);
   const [isPlayed, setIsPlayed] = useState(false);
+  const [tracks, setTracks] = useState([
+    {
+      title: '',
+      image: '',
+      artist: '',
+      audioSrc: '',
+    },
+  ]);
   const [getPayementError, setGetPayementError] = useState(false);
   const userId = LocalStorage.get('zik-stream-user-uuid');
 
@@ -78,6 +95,8 @@ const StreamProvider = ({ children }) => {
         payStream,
         updateStreamingTime,
         readyToBeStreamed,
+        tracks,
+        setTracks,
       }}
     >
       {children}

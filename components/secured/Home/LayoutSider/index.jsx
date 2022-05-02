@@ -53,7 +53,7 @@ const LayoutSider = ({ setMenuContent }) => {
           </Item>
         </SubMenu>
         {isTabletOrMobile && (
-          <Item>
+          <Item key="4">
             <span className="pr-2">Theme</span>
             <ThemeButton />
           </Item>

@@ -17,17 +17,16 @@ const Discover = () => {
   const { songByGenre, isLoading } = useDiscover();
   const { isPlaying } = useAudioPlayer();
   const { currentTheme } = useTheme();
-  const { setIsPlayed, readyToBeStreamed } = useStream();
+  const { setIsPlayed } = useStream();
   const { setSongList } = useSearch();
-  const [tracks, setTracks] = useState([]);
+  const { setTracks } = useStream();
   const [songToStream, setSongToStream] = useState({});
   const [isColomnDisplayed, setIsColomnDisplayed] = useState({
-    genre: '',
+    genre: 'rap',
     status: true,
   });
   const isTabletOrMobile = useResponsive('(max-width: 1224px)');
   const isMobilePhone = useResponsive('(max-width: 600px)');
-  const { ArrowRight, ArrowDown } = icons;
   const songList =
     songByGenre.length > 0 &&
     document.getElementsByClassName('song-container');
@@ -43,7 +42,7 @@ const Discover = () => {
           audioSrc: '',
         },
       ]);
-  }, [songByGenre]);
+  }, [setTracks, songByGenre]);
 
   useEffect(() => {
     setIsPlayed(isPlaying);
@@ -52,14 +51,6 @@ const Discover = () => {
   useEffect(() => {
     setSongList(songList);
   }, [setSongList, songList]);
-
-  const toggleSongDisplay = (songGenre) => {
-    console.log('this genre', songGenre);
-    setIsColomnDisplayed({
-      genre: songGenre,
-      status: !isColomnDisplayed.status,
-    });
-  };
 
   return (
     <div>
@@ -73,18 +64,6 @@ const Discover = () => {
             >
               {song.songs.length !== 0 &&
                 firstLetterCapitalizer(song.genre)}
-              <span>
-                {isColomnDisplayed.status &&
-                isColomnDisplayed.genre === song.genre ? (
-                  <ArrowRight
-                    onClick={() => toggleSongDisplay(song.genre)}
-                  />
-                ) : (
-                  <ArrowDown
-                    onClick={() => toggleSongDisplay(song.genre)}
-                  />
-                )}
-              </span>
             </h1>
             <div
               className={`w-full flex ${
@@ -118,9 +97,6 @@ const Discover = () => {
           </div>
         );
       })}
-      {tracks.length !== 0 && readyToBeStreamed && (
-        <Player tracks={tracks} />
-      )}
     </div>
   );
 };

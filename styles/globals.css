@@ -30,10 +30,12 @@
   color: #1890ff !important;
 }
 .react-jinke-music-player-main .translate {
-  animation: translate 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: translate 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
 }
 .react-jinke-music-player-main .scale {
-  animation: scaleTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: scaleTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
 }
 @keyframes playing {
   to {
@@ -142,7 +144,8 @@
   animation-play-state: paused !important;
 }
 .react-jinke-music-player-main .img-rotate-reset {
-  animation: coverReset 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards !important;
+  animation: coverReset 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards !important;
 }
 .react-jinke-music-player-mobile {
   width: 100%;
@@ -164,10 +167,12 @@
   flex: 1 1 auto;
 }
 .react-jinke-music-player-mobile .show {
-  animation: mobile-bg-show 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: mobile-bg-show 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
 }
 .react-jinke-music-player-mobile .hide {
-  animation: mobile-bg-hide 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: mobile-bg-hide 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
 }
 .react-jinke-music-player-mobile-play-model-tip {
   position: fixed;
@@ -215,7 +220,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fromDown 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: fromDown 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
   position: relative;
 }
 .react-jinke-music-player-mobile-header-title {
@@ -241,7 +247,8 @@
   font-size: 25px;
 }
 .react-jinke-music-player-mobile-singer {
-  animation: fromDown 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: fromDown 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
   padding: 12px 0;
 }
 @media screen and (max-width: 320px) {
@@ -263,7 +270,8 @@
   top: 9px;
   border-radius: 2px;
   background-color: rgba(255, 255, 255, 0.6);
-  transition: background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: background-color 350ms
+    cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
 .react-jinke-music-player-mobile-singer-name::after {
   left: -25px;
@@ -280,7 +288,8 @@
   margin: 15px auto;
   animation: fromTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
   overflow: hidden;
-  transition: box-shadow, border 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: box-shadow,
+    border 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
 @media screen and (max-width: 320px) {
   .react-jinke-music-player-mobile-cover {
@@ -340,13 +349,15 @@
   width: 0%;
   height: 4px;
   background-color: rgba(0, 0, 0, 0.06);
-  transition: width, background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: width,
+    background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
   left: 0;
   top: 5px;
   z-index: 77;
 }
 .react-jinke-music-player-mobile-switch {
-  animation: fromDown 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: fromDown 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
 }
 .react-jinke-music-player-mobile-toggle {
   padding: 17px 0;
@@ -380,6 +391,9 @@
 .react-jinke-music-player-mobile-toggle,
 .react-jinke-music-player-mobile-progress {
   animation: fromTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .react-jinke-music-player-mobile-operation {
   animation: fromTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
@@ -391,8 +405,6 @@
 }
 .react-jinke-music-player-mobile-operation .items .item {
   cursor: pointer;
-  flex: 1;
-  text-align: center;
 }
 .react-jinke-music-player-mobile-operation .items .item svg {
   color: rgba(255, 255, 255, 0.6);
@@ -429,18 +441,21 @@
   background-color: rgba(0, 0, 0, 0.7);
   transform: scale(0);
   display: none\9;
-  transition: background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: background-color 350ms
+    cubic-bezier(0.43, -0.1, 0.16, 1.1);
   border-radius: 4px 4px 0 0;
 }
 .audio-lists-panel svg {
   font-size: 24px;
 }
 .audio-lists-panel.show {
-  animation: scaleTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: scaleTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
   display: block\9;
 }
 .audio-lists-panel.hide {
-  animation: scaleFrom 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: scaleFrom 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
   display: none\9;
 }
 .audio-lists-panel-mobile {
@@ -459,13 +474,16 @@
   display: block\9;
 }
 .audio-lists-panel-mobile.hide {
-  animation: fromOut 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1) forwards;
+  animation: fromOut 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1)
+    forwards;
   display: none\9;
 }
-.audio-lists-panel-mobile .audio-item:not(.audio-lists-panel-sortable-highlight-bg) {
+.audio-lists-panel-mobile
+  .audio-item:not(.audio-lists-panel-sortable-highlight-bg) {
   background-color: rgba(0, 0, 0, 0.15) !important;
 }
-.audio-lists-panel-mobile .audio-item:not(.audio-lists-panel-sortable-highlight-bg).playing {
+.audio-lists-panel-mobile
+  .audio-item:not(.audio-lists-panel-sortable-highlight-bg).playing {
   background-color: rgba(0, 0, 0, 0.75) !important;
 }
 .audio-lists-panel-mobile .audio-lists-panel-content {
@@ -478,7 +496,8 @@
   border-bottom: 1px solid rgba(3, 3, 3, 0.7);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  transition: background-color, border-bottom 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: background-color,
+    border-bottom 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
 .audio-lists-panel-header-close-btn,
 .audio-lists-panel-header-delete-btn {
@@ -549,7 +568,8 @@
   align-items: center;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: background-color 350ms
+    cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
 .audio-lists-panel-content .audio-item:nth-child(2n + 1) {
   background-color: #40444b;
@@ -575,8 +595,14 @@
 .audio-lists-panel-content .audio-item:active {
   background-color: rgba(0, 0, 0, 0.35);
 }
-.audio-lists-panel-content .audio-item:hover .group:not([class='.player-delete']) svg,
-.audio-lists-panel-content .audio-item:active .group:not([class='.player-delete']) svg {
+.audio-lists-panel-content
+  .audio-item:hover
+  .group:not([class='.player-delete'])
+  svg,
+.audio-lists-panel-content
+  .audio-item:active
+  .group:not([class='.player-delete'])
+  svg {
   color: #1890ff !important;
 }
 .audio-lists-panel-content .audio-item .group {
@@ -669,7 +695,8 @@
   pointer-events: none;
   transition: all 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
-.react-jinke-music-player-main .play-mode-title.play-mode-title-visible {
+.react-jinke-music-player-main
+  .play-mode-title.play-mode-title-visible {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
@@ -716,7 +743,8 @@
   height: 80px;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 99;
-  transition: background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: background-color 350ms
+    cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
 .react-jinke-music-player-main .music-player-panel .panel-content {
   height: 100%;
@@ -727,20 +755,38 @@
   justify-content: center;
   align-items: center;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-rail {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-rail {
   background-color: rgba(255, 255, 255, 0.6);
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle,
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-track {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-handle,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-track {
   background-color: #1890ff !important;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-handle {
   border: 2px solid #fff;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle:active {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-handle:active {
   box-shadow: 0 0 2px #1890ff !important;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .img-content {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .img-content {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -751,34 +797,60 @@
   cursor: pointer;
 }
 @media screen and (max-width: 767px) {
-  .react-jinke-music-player-main .music-player-panel .panel-content .img-content {
+  .react-jinke-music-player-main
+    .music-player-panel
+    .panel-content
+    .img-content {
     width: 40px;
     height: 40px;
   }
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .img-content img {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .img-content
+  img {
   width: 100%;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .img-rotate {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .img-rotate {
   animation: imgRotate 15s linear infinite;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .hide-panel,
-.react-jinke-music-player-main .music-player-panel .panel-content .upload-music {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .hide-panel,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .upload-music {
   flex-basis: 10%;
   cursor: pointer;
   margin-left: 15px;
 }
 @media screen and (max-width: 767px) {
-  .react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content {
+  .react-jinke-music-player-main
+    .music-player-panel
+    .panel-content
+    .progress-bar-content {
     display: none !important;
   }
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content {
   flex: 1;
   padding: 0 20px;
   overflow: hidden;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-title {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .audio-title {
   transition: color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -786,35 +858,71 @@
   display: inline-block;
   width: 100%;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .audio-main {
   width: 100%;
   display: inline-flex;
   justify-content: center;
   margin-top: 6px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .current-time,
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .audio-main .duration {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .audio-main
+  .current-time,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .audio-main
+  .duration {
   font-size: 12px;
   flex-basis: 5%;
   transition: color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .progress-bar {
   flex: 1 1 auto;
   width: 100%;
   margin: 2px 20px 0 20px;
   position: relative;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .progress {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .progress-bar
+  .progress {
   position: absolute;
   display: inline-block;
   height: 5px;
   left: 0;
   top: 0;
   transition: width 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 31%, rgba(0, 0, 0, 0.05) 33%, rgba(0, 0, 0, 0.05) 67%, rgba(0, 0, 0, 0) 69%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 31%,
+    rgba(0, 0, 0, 0.05) 33%,
+    rgba(0, 0, 0, 0.05) 67%,
+    rgba(0, 0, 0, 0) 69%
+  );
   background-color: #1890ff !important;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .progress .progress-change {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .progress-bar
+  .progress
+  .progress-change {
   position: absolute;
   width: 10px;
   height: 10px;
@@ -825,31 +933,54 @@
   background-color: #fff;
   cursor: pointer;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .progress-load-bar {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .progress-bar
+  .progress-load-bar {
   position: absolute;
   width: 0%;
   height: 4px;
   background-color: rgba(0, 0, 0, 0.11);
-  transition: width, background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: width,
+    background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
   left: 0;
   top: 5px;
   z-index: 77;
   border-radius: 6px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .rc-slider-track {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .progress-bar
+  .rc-slider-track {
   z-index: 78;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .progress-bar-content .progress-bar .rc-slider-handle {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .progress-bar-content
+  .progress-bar
+  .rc-slider-handle {
   z-index: 79;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content {
   padding-left: 5%;
   display: inline-flex;
   align-items: center;
   align-content: center;
   flex-basis: 15%;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  > .group {
   text-align: center;
   flex: 1;
   margin: 0 10px;
@@ -857,71 +988,162 @@
   justify-content: center;
   align-items: center;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group,
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group > svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  > .group,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  > .group
+  > svg {
   cursor: pointer;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group .group {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  > .group
+  .group {
   display: flex;
 }
 @media screen and (max-width: 767px) {
-  .react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group {
+  .react-jinke-music-player-main
+    .music-player-panel
+    .panel-content
+    .player-content
+    > .group {
     margin: 0 6px;
   }
 }
 @media screen and (max-width: 320px) {
-  .react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group {
+  .react-jinke-music-player-main
+    .music-player-panel
+    .panel-content
+    .player-content
+    > .group {
     margin: 0 4px;
   }
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content > .group > i {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  > .group
+  > i {
   cursor: pointer;
   color: #1890ff !important;
   font-size: 25px;
   vertical-align: middle;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .theme-switch .rc-switch {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .theme-switch
+  .rc-switch {
   background-color: transparent;
 }
 @media screen and (max-width: 767px) {
-  .react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-sounds {
+  .react-jinke-music-player-main
+    .music-player-panel
+    .panel-content
+    .player-content
+    .play-sounds {
     display: none !important;
   }
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .prev-audio svg,
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .next-audio svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .prev-audio
+  svg,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .next-audio
+  svg {
   font-size: 35px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .loading-icon {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .loading-icon {
   padding: 0 18px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-btn {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .play-btn {
   padding: 0 18px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-btn svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .play-btn
+  svg {
   font-size: 26px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .loop-btn.active {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .loop-btn.active {
   color: #1890ff !important;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-sounds {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .play-sounds {
   align-items: center;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-sounds svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .play-sounds
+  svg {
   font-size: 28px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-sounds .sounds-icon {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .play-sounds
+  .sounds-icon {
   display: flex;
   margin-right: 15px;
   flex: 1 1 auto;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .play-sounds .sound-operation {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .play-sounds
+  .sound-operation {
   width: 100px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .destroy-btn svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .destroy-btn
+  svg {
   font-size: 28px;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .audio-lists-btn {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .audio-lists-btn {
   user-select: none;
   min-width: 60px;
   height: 28px;
@@ -930,24 +1152,50 @@
   padding: 0 10px;
   box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.02);
   position: relative;
-  transition: color, background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: color,
+    background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .audio-lists-btn .audio-lists-icon {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .audio-lists-btn
+  .audio-lists-icon {
   display: flex;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .audio-lists-btn > .group:hover,
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .audio-lists-btn > .group:hover > svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .audio-lists-btn
+  > .group:hover,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .audio-lists-btn
+  > .group:hover
+  > svg {
   color: #1890ff !important;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .player-content .audio-lists-btn .audio-lists-num {
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .player-content
+  .audio-lists-btn
+  .audio-lists-num {
   margin-left: 8px;
 }
-.react-jinke-music-player-main .music-player-panel .rc-switch-inner svg {
+.react-jinke-music-player-main
+  .music-player-panel
+  .rc-switch-inner
+  svg {
   font-size: 13px;
 }
 .react-jinke-music-player-main .rc-slider-rail {
   background-color: #fff !important;
-  transition: background-color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: background-color 350ms
+    cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
 .react-jinke-music-player-main.light-theme svg {
   color: #1890ff !important;
@@ -968,10 +1216,14 @@
   background-color: #fff;
   color: #7d7d7d;
 }
-.react-jinke-music-player-main.light-theme .music-player-panel .img-content {
+.react-jinke-music-player-main.light-theme
+  .music-player-panel
+  .img-content {
   box-shadow: 0 0 10px #dcdcdc;
 }
-.react-jinke-music-player-main.light-theme .music-player-panel .progress-load-bar {
+.react-jinke-music-player-main.light-theme
+  .music-player-panel
+  .progress-load-bar {
   background-color: rgba(0, 0, 0, 0.06) !important;
 }
 .react-jinke-music-player-main.light-theme .rc-switch {
@@ -995,8 +1247,13 @@
   color: #444;
   background-color: #fdfdfe;
 }
-.react-jinke-music-player-main.light-theme .audio-lists-btn > .group:hover,
-.react-jinke-music-player-main.light-theme .audio-lists-btn > .group:hover > svg {
+.react-jinke-music-player-main.light-theme
+  .audio-lists-btn
+  > .group:hover,
+.react-jinke-music-player-main.light-theme
+  .audio-lists-btn
+  > .group:hover
+  > svg {
   color: #444;
 }
 .react-jinke-music-player-main.light-theme .audio-lists-panel {
@@ -1004,28 +1261,48 @@
   background-color: #fff;
   box-shadow: 0 0 2px #dcdcdc;
 }
-.react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item {
+.react-jinke-music-player-main.light-theme
+  .audio-lists-panel
+  .audio-item {
   background-color: #fff;
 }
-.react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item:nth-child(2n + 1) {
+.react-jinke-music-player-main.light-theme
+  .audio-lists-panel
+  .audio-item:nth-child(2n + 1) {
   background-color: #fafafa !important;
 }
-.react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item.playing {
+.react-jinke-music-player-main.light-theme
+  .audio-lists-panel
+  .audio-item.playing {
   background-color: #f2f2f2 !important;
 }
-.react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item.playing,
-.react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item.playing svg {
+.react-jinke-music-player-main.light-theme
+  .audio-lists-panel
+  .audio-item.playing,
+.react-jinke-music-player-main.light-theme
+  .audio-lists-panel
+  .audio-item.playing
+  svg {
   color: #1890ff !important;
 }
 @media screen and (max-width: 767px) {
-  .react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item {
+  .react-jinke-music-player-main.light-theme
+    .audio-lists-panel
+    .audio-item {
     background-color: #fff !important;
   }
-  .react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item.playing {
+  .react-jinke-music-player-main.light-theme
+    .audio-lists-panel
+    .audio-item.playing {
     background-color: #f2f2f2 !important;
   }
-  .react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item.playing,
-  .react-jinke-music-player-main.light-theme .audio-lists-panel .audio-item.playing svg {
+  .react-jinke-music-player-main.light-theme
+    .audio-lists-panel
+    .audio-item.playing,
+  .react-jinke-music-player-main.light-theme
+    .audio-lists-panel
+    .audio-item.playing
+    svg {
     color: #1890ff !important;
   }
 }
@@ -1034,7 +1311,8 @@
   background-color: #fff;
   border-bottom: 1px solid #f4f4f7;
 }
-.react-jinke-music-player-main.light-theme .audio-lists-panel-header-line {
+.react-jinke-music-player-main.light-theme
+  .audio-lists-panel-header-line {
   background-color: #f4f4f7;
 }
 .react-jinke-music-player-main.light-theme .audio-item {
@@ -1056,39 +1334,58 @@
 .react-jinke-music-player-main.light-theme .audio-item.playing svg {
   color: #1890ff !important;
 }
-.react-jinke-music-player-main.light-theme .audio-item.playing .player-singer {
+.react-jinke-music-player-main.light-theme
+  .audio-item.playing
+  .player-singer {
   color: #1890ff !important;
 }
-.react-jinke-music-player-main.light-theme .audio-item .player-singer {
+.react-jinke-music-player-main.light-theme
+  .audio-item
+  .player-singer {
   color: rgba(162, 162, 162, 0.45) !important;
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile {
   background-color: #fff;
   color: #444;
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile-cover {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile-cover {
   border: 5px solid transparent;
   box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.2);
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile .current-time,
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile .duration {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile
+  .current-time,
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile
+  .duration {
   color: #444;
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile .rc-slider-rail {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile
+  .rc-slider-rail {
   background-color: #e9e9e9;
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile-operation svg {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile-operation
+  svg {
   color: #444;
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile-tip svg {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile-tip
+  svg {
   color: #fff !important;
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile-singer-name {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile-singer-name {
   color: #444;
   transition: color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile-singer-name::before,
-.react-jinke-music-player-main.light-theme .react-jinke-music-player-mobile-singer-name::after {
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile-singer-name::before,
+.react-jinke-music-player-main.light-theme
+  .react-jinke-music-player-mobile-singer-name::after {
   background-color: #444;
 }
 .react-jinke-music-player-main.light-theme .play-mode-title {
@@ -1163,7 +1460,8 @@
 .react-jinke-music-player .music-player-controller:focus {
   outline: none;
 }
-.react-jinke-music-player .music-player-controller.music-player-playing::before {
+.react-jinke-music-player
+  .music-player-controller.music-player-playing::before {
   content: '';
   position: fixed;
   width: 80px;
@@ -1179,7 +1477,8 @@
     width: 60px;
     height: 60px;
   }
-  .react-jinke-music-player .music-player-controller.music-player-playing::before {
+  .react-jinke-music-player
+    .music-player-controller.music-player-playing::before {
     width: 60px;
     height: 60px;
   }
@@ -1193,7 +1492,9 @@
 .react-jinke-music-player .music-player-controller:hover {
   font-size: 16px;
 }
-.react-jinke-music-player .music-player-controller:hover .music-player-controller-setting {
+.react-jinke-music-player
+  .music-player-controller:hover
+  .music-player-controller-setting {
   transform: scale(1);
 }
 .react-jinke-music-player .music-player-controller .controller-title {
@@ -1207,12 +1508,18 @@
   .react-jinke-music-player .music-player-controller:active {
     font-size: 12px;
   }
-  .react-jinke-music-player .music-player-controller:hover .music-player-controller-setting,
-  .react-jinke-music-player .music-player-controller:active .music-player-controller-setting {
+  .react-jinke-music-player
+    .music-player-controller:hover
+    .music-player-controller-setting,
+  .react-jinke-music-player
+    .music-player-controller:active
+    .music-player-controller-setting {
     transform: scale(1);
   }
 }
-.react-jinke-music-player .music-player-controller .music-player-controller-setting {
+.react-jinke-music-player
+  .music-player-controller
+  .music-player-controller-setting {
   width: 100%;
   height: 100%;
   background: rgba(24, 144, 255, 0.3) !important;
@@ -1239,15 +1546,20 @@
   z-index: 100;
   animation: scaleTo 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
 }
-.react-jinke-music-player .audio-circle-process-bar circle[class='bg'] {
+.react-jinke-music-player
+  .audio-circle-process-bar
+  circle[class='bg'] {
   stroke: #fff;
 }
-.react-jinke-music-player .audio-circle-process-bar circle[class='stroke'] {
+.react-jinke-music-player
+  .audio-circle-process-bar
+  circle[class='stroke'] {
   stroke: #1890ff !important;
 }
 .react-jinke-music-player .audio-circle-process-bar,
 .react-jinke-music-player .audio-circle-process-bar circle {
-  transition: stroke-dasharray 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  transition: stroke-dasharray 350ms
+    cubic-bezier(0.43, -0.1, 0.16, 1.1);
   transform: matrix(0, -1, 1, 0, 0, 80);
 }
 @media screen and (max-width: 767px) {
