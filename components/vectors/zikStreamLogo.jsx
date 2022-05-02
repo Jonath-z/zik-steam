@@ -43,7 +43,7 @@ const ZikStreamLogo = () => {
           transform="matrix(1 0 0 1 53.1203 40.3914)"
           className="st0 st1 st2"
         >
-          Zik-stream
+          Zik-Stream
         </text>
       </g>
     </svg>
