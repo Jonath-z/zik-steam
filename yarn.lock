@@ -842,16 +842,6 @@
   "resolved" "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   "version" "1.2.1"
 
-"@iconify/icons-mdi@~1.1.0":
-  "integrity" "sha512-6AZfvWru20Rl9pXULStkVvTWnua6VG56zOIKdkCzLh25XVeTDEp6f1dL7iX9w+way5+1hI0BBuqTQd61qYaKdg=="
-  "resolved" "https://registry.npmjs.org/@iconify/icons-mdi/-/icons-mdi-1.1.47.tgz"
-  "version" "1.1.47"
-
-"@iconify/react@^3.1.3":
-  "integrity" "sha512-yKzixjC9ct9RC/aSGo1OGxkG2rpfhlr/urRz6k2YZlIBzn92PBTlqtSx8o8dFYEorr3eUFSCBZFzBy1yw5jsAA=="
-  "resolved" "https://registry.npmjs.org/@iconify/react/-/react-3.2.1.tgz"
-  "version" "3.2.1"
-
 "@ipld/dag-cbor@^6.0.3":
   "integrity" "sha512-Vm3VTSTwlmGV92a3C5aeY+r2A18zbH2amehNhsX8PBa3muXICaWrN8Uri85A5hLH7D7ElhE8PdjxD6kNqUmTZA=="
   "resolved" "https://registry.npmjs.org/@ipld/dag-cbor/-/dag-cbor-6.0.15.tgz"
@@ -4646,6 +4636,11 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
+"fs@^0.0.1-security":
+  "integrity" "sha1-invTcYa23d84E/I4WLV+yq9eQdQ="
+  "resolved" "https://registry.npmjs.org/fs/-/fs-0.0.1-security.tgz"
+  "version" "0.0.1-security"
+
 "function-bind@^1.1.1", "function-bind@~1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -7941,15 +7936,6 @@
   dependencies:
     "clsx" "^1.1.1"
     "prop-types" "^15.6.0"
-
-"react-h5-audio-player@^3.8.4":
-  "integrity" "sha512-SgJFuaQ0KAbPBORGGuGg3UtuffZYOcsgs/AYZOF4xTS63+n81ge/Prp2Ai+MDA/Yr0FJ7eeUB4uF1XcjKJ8xeA=="
-  "resolved" "https://registry.npmjs.org/react-h5-audio-player/-/react-h5-audio-player-3.8.4.tgz"
-  "version" "3.8.4"
-  dependencies:
-    "@babel/runtime" "^7.10.2"
-    "@iconify/icons-mdi" "~1.1.0"
-    "@iconify/react" "^3.1.3"
 
 "react-icons@^4.3.1":
   "integrity" "sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ=="
