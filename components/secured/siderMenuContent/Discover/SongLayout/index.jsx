@@ -139,15 +139,15 @@ const SongLayout = ({
         </p>
         {!isFavorite && !song.isLiked ? (
           <OutLineLike
-            className={`text-2xl cursor-pointer text-[${
-              currentTheme.status ? 'black' : '#1890ff'
+            className={`text-2xl cursor-pointer ${
+              currentTheme.status ? 'text-black' : 'text-[#1890ff]'
             }]`}
             onClick={() => toggleFavorite(true, song)}
           />
         ) : (
           <FullLike
-            className={`text-2xl cursor-pointer text-[${
-              currentTheme.status ? 'black' : '#1890ff'
+            className={`text-2xl cursor-pointer ${
+              currentTheme.status ? 'text-black' : 'text-[#1890ff]'
             }]`}
             onClick={() => toggleFavorite(false, song)}
           />
