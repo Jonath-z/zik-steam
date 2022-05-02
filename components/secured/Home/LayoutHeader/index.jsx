@@ -38,26 +38,47 @@ const LayoutHeader = ({ toggleMenu, isMenuDisplayed }) => {
       }}
     >
       <Row wrap={false}>
-        <Col span={12}>
+        <Col flex="auto">
           {isTabletOrMobile &&
             !isSearchBarDisplayed &&
-            !isMenuDisplayed && <ZikStreamLogo />}
-          {!isTabletOrMobile ||
-            (isSearchBarDisplayed && !isMenuDisplayed && (
+            !isMenuDisplayed && (
+              <div className="w-44">
+                {' '}
+                <ZikStreamLogo />
+              </div>
+            )}
+          {isTabletOrMobile ? (
+            isSearchBarDisplayed &&
+            !isMenuDisplayed && (
               <Input
                 placeholder="search"
                 type="search"
                 onChange={onInputChange}
                 style={{
                   background: 'transparent',
+                  width: '95%',
                   color: `${
                     currentTheme.status ? DARK_MODE_PRIMARY : 'white'
                   }`,
                 }}
               />
-            ))}
+            )
+          ) : (
+            <Input
+              placeholder="search"
+              type="search"
+              onChange={onInputChange}
+              style={{
+                background: 'transparent',
+                width: '50%',
+                color: `${
+                  currentTheme.status ? DARK_MODE_PRIMARY : 'white'
+                }`,
+              }}
+            />
+          )}
         </Col>
-        <Col span={12} className="text-right">
+        <Col span={12} flex="none" className="text-right">
           <Space>
             {isTabletOrMobile ? (
               <MobileHeaderIcons
