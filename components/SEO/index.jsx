@@ -7,7 +7,7 @@ const SEO = (props) => {
   const { title, description, image } = props;
   return (
     <Head>
-      <title>{title} | App</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
       <meta itemProp="name" content={title} />
       <meta itemProp="description" content={description} />
@@ -19,7 +19,8 @@ const SEO = (props) => {
 SEO.defaultProps = {
   title: 'Zik-Stream',
   description: 'Decentralized music streaming application',
-  image: <ZikStreamLogo />,
+  image:
+    'https://firebasestorage.googleapis.com/v0/b/gomap-55ce4.appspot.com/o/ZIK_STREAM.svg?alt=media&token=5e4558a4-d77e-43e9-9ec7-e9c419d452bc',
 };
 
 SEO.propTypes = {
