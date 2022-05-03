@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Input, Button, Space } from 'antd';
 import { useUploadSong } from '../../contexts/UploadSongContext';
-import AudioPlayer from '../../modules/AudioPlayer';
+import { useStream } from '../../contexts/StreamContext';
+import dynamic from 'next/dynamic';
+const Player = dynamic(() => import('../../modules/Player'), {
+  ssr: false,
+});
 
 const UploadSong = () => {
   const {
@@ -13,8 +17,6 @@ const UploadSong = () => {
     onSongPriceChange,
     onSongSupportPriceChange,
     onSongOwnerChange,
-    songUploadProgress,
-    coverUploadProgress,
     createSong,
     isSuccessfullyUploaded,
     isCorrectImageSize,
@@ -22,6 +24,8 @@ const UploadSong = () => {
     onTrackfileChange,
     coverUrl,
   } = useUploadSong();
+
+  const { setTracks, tracks } = useStream();
 
   const isSongPreviewReady = () => {
     if (
@@ -31,6 +35,14 @@ const UploadSong = () => {
       !songDataPreview.audioSrc
     )
       return false;
+    setTracks([
+      {
+        title: songDataPreview.title,
+        image: songDataPreview.image,
+        artist: songDataPreview.artist,
+        audioSrc: songDataPreview.audioSrc,
+      },
+    ]);
     return true;
   };
 
@@ -46,22 +58,16 @@ const UploadSong = () => {
               name="song"
               placeholder="Upload Song"
               onChange={onTrackfileChange}
-              className={`bg-[#00C3FF] bg-opacity-[${songUploadProgress}]`}
+              className={`bg-[#00C3FF]`}
             />
-            <span
-              className={`bg-[#00C3FF] w-[${songUploadProgress}%]`}
-            ></span>
             <label htmlFor="cover">Cover </label>
             <Input
               type="file"
               name="cover"
               placeholder="Upload Song"
               onChange={onCoverFileChange}
-              className={`bg-[#00C3FF] bg-opacity-[${coverUploadProgress}]`}
+              className={`bg-[#00C3FF]`}
             />
-            <span
-              className={`bg-[#030e12] w-[${songUploadProgress}%]`}
-            ></span>
             {!isCorrectImageSize && (
               <p>Song cover must have a square size</p>
             )}
@@ -131,20 +137,7 @@ const UploadSong = () => {
           </Space>
         </Col>
       </Row>
-      {isSongPreviewReady() && (
-        <AudioPlayer
-          tracks={[
-            {
-              title: songDataPreview.title,
-              image: songDataPreview.image,
-              artist: songDataPreview.artist,
-              audioSrc: songDataPreview.audioSrc,
-            },
-          ]}
-          setDuration={() => 0}
-          setSongCurrentTime={() => 0}
-        />
-      )}
+      {isSongPreviewReady() && <Player tracks={tracks} />}
     </>
   );
 };
