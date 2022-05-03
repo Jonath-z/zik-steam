@@ -1,8 +1,8 @@
-@import '~rc-slider/assets/index.css';
-@import '~rc-switch/assets/index.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~rc-slider/assets/index.css';
+@import '~rc-switch/assets/index.css';
 .react-jinke-music-player-main:focus {
   outline: none;
 }
