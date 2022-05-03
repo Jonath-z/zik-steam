@@ -6,7 +6,7 @@ import SEO from '../components/SEO';
 const Landing = () => {
   return (
     <>
-      <SEO title="Zik-Stream | Landing Page" />
+      <SEO title="Zik-Stream | Get paid as much as you are streamed" />
       <ThemeProvider>
         <LandingPage />
       </ThemeProvider>

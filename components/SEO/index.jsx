@@ -20,7 +20,7 @@ SEO.defaultProps = {
   title: 'Zik-Stream',
   description: 'Decentralized music streaming application',
   image:
-    'https://firebasestorage.googleapis.com/v0/b/gomap-55ce4.appspot.com/o/ZIK_STREAM.svg?alt=media&token=5e4558a4-d77e-43e9-9ec7-e9c419d452bc',
+    'https://firebasestorage.googleapis.com/v0/b/gomap-55ce4.appspot.com/o/zikk.jpg?alt=media&token=dc66b721-3ef0-4f16-8e5a-f47d150c584e',
 };
 
 SEO.propTypes = {
