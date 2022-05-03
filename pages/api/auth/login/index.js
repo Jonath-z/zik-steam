@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     console.log(req.body);
     const user = await db
       .collection('users')
-      .find({ email: email })
+      .find({ email: req.body.email })
       .toArray();
 
     const body = req.body;
