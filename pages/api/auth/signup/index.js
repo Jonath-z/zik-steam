@@ -2,19 +2,15 @@ import { db } from '../../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const isUserExits = async (email) => {
-      const user = await db
-        .collection('users')
-        .find({ email })
-        .toArray();
-      console.log('users', user.length);
-      if (user.length === 0) return false;
-      return true;
-    };
-
     console.log(req.body);
     const body = req.body;
-    if (!(await isUserExits(body.email))) {
+    const user = await db
+      .collection('users')
+      .find({ email: body.email })
+      .toArray();
+    console.log('users', user.length);
+
+    if (user.length === 0) {
       const user = {
         email: body.email,
         password: body.password,
