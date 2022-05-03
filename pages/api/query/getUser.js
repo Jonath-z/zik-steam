@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   const isUserExits = async (id) => {
+    await initializeDB();
     console.log('id = ', id);
     const user = await db
       .collection('users')

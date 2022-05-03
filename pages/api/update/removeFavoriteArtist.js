@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'DELETE') {
+    await initializeDB();
     const artist = req.body.artist;
 
     const artistResponse = await db

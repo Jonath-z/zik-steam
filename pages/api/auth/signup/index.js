@@ -1,14 +1,15 @@
-import { db } from '../../database/mongodb';
+import { db, initializeDB } from '../../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
+    await initializeDB();
     console.log(req.body);
     const body = req.body;
+
     const user = await db
       .collection('users')
       .find({ email: body.email })
       .toArray();
-    console.log('users', user.length);
 
     if (user.length === 0) {
       const user = {

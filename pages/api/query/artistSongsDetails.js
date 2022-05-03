@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
+    await initializeDB();
     const timeCoverter = (time) => {
       const timeInMin = time / 60;
       if (timeInMin < 60) {

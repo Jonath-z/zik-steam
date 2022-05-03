@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST' && req.body.userId) {
+    await initializeDB();
     const user = await db
       .collection('users')
       .find({ id: req.body.userId })

@@ -1,8 +1,9 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   console.log(req);
   if (req.method === 'POST') {
+    await initializeDB();
     console.log('song', req.body.song);
 
     await db.collection('users').updateOne(

@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
+    await initializeDB();
     console.log('upload Artist', req.body);
     const artist_name = req.body.artistIds.artistName;
     const artist_profile = req.body.artistIds.artistProfileUrl;

@@ -1,9 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   console.log(typeof req.body, req.body);
   if (req.method === 'POST') {
+    await initializeDB();
     const body = req.body.song;
     console.log('artist name:', req.body);
     const song = {

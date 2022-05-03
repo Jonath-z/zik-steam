@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST' && req.body.userId) {
+    await initializeDB();
     console.log('get All song req', req.body);
     try {
       const allSongs = await db

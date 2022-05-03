@@ -1,7 +1,8 @@
-import { db } from '../database/mongodb';
+import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
+    await initializeDB();
     const allArtists = await db
       .collection('artists')
       .find({})
