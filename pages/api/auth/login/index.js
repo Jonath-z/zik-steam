@@ -9,15 +9,12 @@ export default async function handler(req, res) {
       .find({ email: req.body.email })
       .toArray();
 
-    const body = req.body;
-
     if (user.length === 0) {
       res.json({
         status: 404,
         message: 'user not found',
       });
     } else {
-      const user = (await isUserExits(body.email)).user;
       res.json({
         status: 302,
         message: 'user found',
