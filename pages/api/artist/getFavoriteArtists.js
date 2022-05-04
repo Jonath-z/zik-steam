@@ -1,7 +1,6 @@
 import { db, initializeDB } from '../database/mongodb';
 
 export default async function handler(req, res) {
-  console.log('req body', req.body);
   if (req.method === 'POST') {
     await initializeDB();
     const user = await db
