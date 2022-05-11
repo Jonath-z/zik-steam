@@ -22,5 +22,5 @@ This is a decentralized music streaming application that allows artist to be pai
 
 # Note
 
-The smart contrack is deployed on Rinkeby Test Network
+The smart contract is running on Rinkeby Test Network
  
