@@ -1,15 +1,26 @@
-# Basic Sample Hardhat Project
+# Zik-Stream
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This is a decentralized music streaming application that allows artist to be paid on each artist's song streamed.
 
-Try running some of the following tasks:
+## Tecnhologies
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+### Frontend
+ 
+ - Next.js
+ - Ethers.js
+
+### Backend
+ 
+ - Next.js
+ - MongoDB Atlas
+ 
+### Smart contract
+
+- Solidity
+- HardHat
+- @openzeppelin 
+
+# Note
+
+The smart contract is running on Rinkeby Test Network
+ 
