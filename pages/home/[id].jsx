@@ -7,7 +7,6 @@ import UserProvider from '../../components/contexts/UserContext';
 import ThemeProvider from '../../components/contexts/Themecontext';
 import SearchProvider from '../../components/contexts/SearchContext';
 import SEO from '../../components/SEO';
-import Head from 'next/head';
 
 const Discover = () => {
   return (
